@@ -1,34 +1,26 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->notPath('storage/*')
-    ->in([
-        __DIR__ . '/src',
-    ])
-    ->name('*.php')
-    ->notName('*.blade.php')
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
-return PhpCsFixer\Config::create()
+$finder = Finder::create()
+    ->exclude('bootstrap')
+    ->exclude('storage')
+    ->in(__DIR__);
+
+return Config::create()
+    ->setFinder($finder)
     ->setRules([
-        '@PSR2' => true,
         'array_syntax' => ['syntax' => 'short'],
         'binary_operator_spaces' => [
-            'default' => 'single_space',
-            'operators' => [
-                '=' => null,
-            ],
+            'operators' => ['=' => null],
         ],
         'blank_line_after_opening_tag' => true,
-        'blank_line_before_return' => true,
-        'blank_line_before_statement' => [
-            'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
-        ],
-        'concat_space' => [
-            'spacing' => 'one',
-        ],
+        'blank_line_before_statement' => true,
+        'braces' => ['allow_single_line_closure' => true],
+        'concat_space' => ['spacing' => 'one'],
         'function_typehint_space' => true,
+        'lowercase_constants' => true,
         'lowercase_cast' => true,
         'lowercase_static_reference' => true,
         'native_function_casing' => true,
@@ -37,13 +29,18 @@ return PhpCsFixer\Config::create()
         'no_leading_namespace_whitespace' => true,
         'no_spaces_around_offset' => true,
         'no_unused_imports' => true,
+        'no_useless_else' => true,
         'no_whitespace_in_blank_line' => true,
         'not_operator_with_successor_space' => true,
-        'ordered_imports' => ['sortAlgorithm' => 'alpha'],
         'object_operator_without_whitespace' => true,
+        'ordered_imports' => true,
+        'short_scalar_cast' => true,
+        'single_blank_line_before_namespace' => true,
         'single_quote' => true,
+        'space_after_semicolon' => true,
+        'ternary_operator_spaces' => true,
+        'ternary_to_null_coalescing' => true,
         'trailing_comma_in_multiline_array' => true,
-        'unary_operator_spaces' => true,
         'whitespace_after_comma_in_array' => true,
-    ])
-    ->setFinder($finder);
+    ]);
+
