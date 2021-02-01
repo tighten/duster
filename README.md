@@ -1,7 +1,6 @@
 # (WIP) Duster
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/duster.svg?style=flat-square)](https://packagist.org/packages/tightenco/duster)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/tightenco/duster/run-tests?label=tests)](https://github.com/tightenco/duster/actions?query=workflow%3Arun-tests+branch%3Amaster)
 
 Automatically apply Tighten's default code style for Laravel apps:
 
