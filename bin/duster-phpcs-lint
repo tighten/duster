@@ -2,5 +2,5 @@
 
 set -e
 
-DIR="$(dirname "$(readlink -f "$0")")"
-${DIR}/phpcs --standard=${DIR}/../configs/.phpcs.xml.dist "${@}"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+./vendor/bin/phpcs --standard=${DIR}/../configs/.phpcs.xml.dist ./
