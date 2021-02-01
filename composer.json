@@ -5,7 +5,8 @@
         "tightenco",
         "duster",
         "php",
-        "code style"
+        "code style",
+        "laravel"
     ],
     "homepage": "https://github.com/tighten/duster",
     "license": "MIT",
@@ -19,14 +20,10 @@
     ],
     "require": {
         "php": "^7.4",
-        "bamarni/composer-bin-plugin": "^1.4"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9.0"
-    },
-    "scripts": {
-        "post-install-cmd": ["@composer bin all install --ansi --no-interaction --quiet"],
-        "post-update-cmd": ["@composer bin all update --ansi --no-interaction --quiet"]
+        "phpunit/phpunit": "^9.0",
+        "friendsofphp/php-cs-fixer": "^2.18",
+        "squizlabs/php_codesniffer": "^3.5",
+        "tightenco/tlint": "^5.0"
     },
     "config": {
         "sort-packages": true
