@@ -2,14 +2,10 @@
 
 set -e
 
+# This ... seems to work? If it works on Linux and in all configurations, then let's
+# simplify it down to one line.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-SYM_DIR="$( dirname "$( readlink "${BASH_SOURCE[0]}" )" )"
+SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
+REAL_DIR="${DIR}/${SYM_DIR}"
 
-# Todo: Could we *always* use the SYM_DIR version? macOS vs linux is confusing
-if [[ "$DIR" != "$SYM_DIR" ]]; then
-    # In this context, it's *probably* the ./vendor/bin version of it...
-    ./vendor/bin/php-cs-fixer --using-cache=no --config=${SYM_DIR}/../configs/.php_cs.dist ./
-else
-    # in this context, it's *probably* being referenced locally
-    ./vendor/bin/php-cs-fixer --using-cache=no --config=${DIR}/../configs/.php_cs.dist ./
-fi
+./vendor/bin/php-cs-fixer --using-cache=no --config=${REAL_DIR}/../configs/.php_cs.dist ./
