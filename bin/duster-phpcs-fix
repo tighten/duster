@@ -8,6 +8,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
 REAL_DIR="${DIR}/${SYM_DIR}"
 
+if [[ -f "./.php_cs.dist" ]]; then
+    ./vendor/bin/php-cs-fixer fix --using-cache=no
+else
+    # @todo can we *not* override the directory we're passing it to?
+    ./vendor/bin/php-cs-fixer fix --using-cache=no --config=${REAL_DIR}/../configs/.php_cs.dist ./
+fi
 
-# @todo can we *not* override the directory we're passing it to?
-./vendor/bin/php-cs-fixer fix --using-cache=no --config=${REAL_DIR}/../configs/.php_cs.dist ./

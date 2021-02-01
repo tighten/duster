@@ -17,13 +17,20 @@
       Note that specifying any file or directory path
       on the command line will ignore all file tags.
    -->
-   <file>app</file>
-   <file>config</file>
-   <file>database</file>
-   <file>public</file>
-   <file>resources</file>
-   <file>routes</file>
-   <file>tests</file>
+   <!--
+      For now, these are set to the paths that will work when they
+      live in ./vendor/tightenco/duster/configs, which I don't
+      love and hopefully I'll find a fix.
+
+      https://twitter.com/stauffermatt/status/1356363053240086528
+   -->
+   <file>../../../../app</file>
+   <file>../../../../config</file>
+   <file>../../../../database</file>
+   <file>../../../../public</file>
+   <file>../../../../resources</file>
+   <file>../../../../routes</file>
+   <file>../../../../tests</file>
 
    <!--
       You can hard-code ignore patterns directly into your
