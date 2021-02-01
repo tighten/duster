@@ -34,6 +34,8 @@
         "bin/duster-tlint-lint",
         "bin/duster-tlint-fix",
         "bin/duster-phpcs-lint",
-        "bin/duster-phpcs-fix"
+        "bin/duster-phpcs-fix",
+        "bin/duster-lint",
+        "bin/duster-fix"
     ]
 }
