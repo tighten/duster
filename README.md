@@ -22,27 +22,27 @@ composer require tightenco/duster
 To run individual lints:
 
 ```bash
-./vendor/duster-tlint-lint
-./vendor/duster-phpcs-lint
+./vendor/bin/duster-tlint-lint
+./vendor/bin/duster-phpcs-lint
 ```
 
 To run individual fixes:
 
 ```bash
-./vendor/duster-tlint-fix
-./vendor/duster-phpcs-fix
+./vendor/bin/duster-tlint-fix
+./vendor/bin/duster-phpcs-fix
 ```
 
 To lint everything at once:
 
 ```bash
-./vendor/duster-lint
+./vendor/bin/duster-lint
 ```
 
 To fix everything at once:
 
 ```bash
-./vendor/duster-fix
+./vendor/bin/duster-fix
 ```
 
 ## Contributing
