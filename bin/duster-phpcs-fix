@@ -3,6 +3,13 @@
 set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+SYM_DIR="$( dirname "$( readlink "${BASH_SOURCE[0]}" )" )"
 
-./vendor/bin/php-cs-fixer fix --using-cache=no --config=${DIR}/../configs/.php_cs.dist ./
-
+# Todo: Could we *always* use the SYM_DIR version? macOS vs linux is confusing
+if [[ "$DIR" != "$SYM_DIR" ]]; then
+    # In this context, it's *probably* the ./vendor/bin version of it...
+    ./vendor/bin/php-cs-fixer --using-cache=no --config=${SYM_DIR}/../configs/.php_cs.dist ./
+else
+    # in this context, it's *probably* being referenced locally
+    ./vendor/bin/php-cs-fixer --using-cache=no --config=${DIR}/../configs/.php_cs.dist ./
+fi
