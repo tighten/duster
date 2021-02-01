@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+vendor/bin/tlint lint ${1:-./app} --no-interaction -v

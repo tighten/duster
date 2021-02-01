@@ -14,25 +14,27 @@
             "name": "Matt Stauffer",
             "email": "matt@tighten.co",
             "homepage": "https://tighten.co",
-            "role": "CTO"
+            "role": "Developer"
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "bamarni/composer-bin-plugin": "^1.4"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "phpunit/phpunit": "^9.0",
-        "squizlabs/php_codesniffer": "^3.5",
-        "tightenco/tlint": "^5.0"
+        "phpunit/phpunit": "^9.0"
     },
     "scripts": {
-        "lint": "vendor/bin/phpcs && vendor/bin.tlint",
-        "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes && vendor/bin/tlint format"
+        "post-install-cmd": ["@composer bin all install --ansi --no-interaction --quiet"],
+        "post-update-cmd": ["@composer bin all update --ansi --no-interaction --quiet"]
     },
     "config": {
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "bin": [
+        "bin/duster-tlint-lint",
+        "bin/duster-tlint-fix"
+    ]
 }

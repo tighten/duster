@@ -34,6 +34,7 @@ If you discover any security related issues, please email hello@tighten.co inste
 ## Credits
 
 - [Matt Stauffer](https://github.com/mattstauffer)
+- [Tom Witkowski](https://github.com/devgummibeer) -- much of the idea and syntax for this was inspired by his `elbgoods/ci-test-tools` package
 - [All Contributors](../../contributors)
 
 ## License
