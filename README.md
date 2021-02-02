@@ -47,9 +47,11 @@ To fix everything at once:
 
 ### Customizing the lints
 
-To override the PHPCS lint, put your own `.phpcs.xml.dist` file in the root of your project, and Duster will use that instead for your `duster-phpcs-lint` settings.
+To override the PHPCS lint, put your own `.phpcs.xml.dist` file in the root of your project.
 
-To override the PHPCS-Fixer fix, put your own `.php_cs.dist` file in the root of your project, and Duster will use that instead for your `duster-phpcs-fix` settings.
+To override the PHPCS-Fixer fix, put your own `.php_cs.dist` file in the root of your project.
+
+To override the Tlint lint and fix, put your own `tlint.json` file in the root of your project.
 
 ## Contributing
 
