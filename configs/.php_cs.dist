@@ -6,8 +6,7 @@ use PhpCsFixer\Finder;
 $finder = Finder::create()
     ->exclude('bootstrap')
     ->exclude('storage')
-    ->in(__DIR__);
-    // @todo set this to be in the root directory it's being called from, not __DIR__
+    ->in(getcwd());
 
 return Config::create()
     ->setFinder($finder)

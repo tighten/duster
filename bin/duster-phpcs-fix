@@ -2,8 +2,6 @@
 
 set -e
 
-# This ... seems to work? If it works on Linux and in all configurations, then let's
-# simplify it down to one line.
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
 REAL_DIR="${DIR}/${SYM_DIR}"
@@ -11,7 +9,6 @@ REAL_DIR="${DIR}/${SYM_DIR}"
 if [[ -f "./.php_cs.dist" ]]; then
     ./vendor/bin/php-cs-fixer fix --using-cache=no
 else
-    # @todo can we *not* override the directory we're passing it to?
-    ./vendor/bin/php-cs-fixer fix --using-cache=no --config=${REAL_DIR}/../configs/.php_cs.dist ./
+    ./vendor/bin/php-cs-fixer fix --using-cache=no --config=${REAL_DIR}/../configs/.php_cs.dist
 fi
 
