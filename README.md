@@ -1,7 +1,5 @@
 ![Project Banner](https://raw.githubusercontent.com/tighten/duster/main/banner.png)
-# (WIP) Duster
-
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/tightenco/duster.svg?style=flat-square)](https://packagist.org/packages/tightenco/duster)
+# Duster
 
 Automatically apply Tighten's default code style for Laravel apps:
 
