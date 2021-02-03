@@ -1,8 +1,32 @@
 #!/usr/bin/env bash
 
+
+printf "\nAdding .php_cs.cache to .gitignore...\n"
+
 if grep -q ".php_cs.cache" .gitignore; then
-  echo "Already set."
+  printf "\nAlready set.\n"
 else
-  echo "Adding .php_cs.cache to .gitignore."
   echo ".php_cs.cache" >> .gitignore
+  printf "\nAdded.\n"
+fi
+
+filename=".github/workflows/lint.yml"
+
+printf "\nChecking GitHub Action...\n\n"
+
+if [ -f "$filename" ]; then
+  printf "$filename already exists.\n"
+else
+  echo -n "Would you like a GitHub action added to this repo for running lints? (Y/n) "
+  read addGitHubAction
+
+  if [ "$addGitHubAction" != "${addGitHubAction#[Yy]}" ]; then
+    printf "\nAdding GitHub Actions workflow...\n"
+
+    mkdir -p .github/workflows
+    cp ${BIN_DIR}/../stubs/github-actions/lint.yml $filename
+    printf "\nCreated $filename.\nPlease edit the file if your primary branch is not 'main'.\n"
+  else
+    printf "\nSkipping GitHub Action.\n"
+  fi
 fi

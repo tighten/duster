@@ -15,9 +15,12 @@ You can install the package via composer:
 
 ```bash
 composer require tightenco/duster
+./vendor/bin/duster init
 ```
 
 PHPCS generates a file named `.php_cs.cache` that you'll want to ignore in Git. You can manually add this file to your `.gitignore` yourself, or run `./vendor/bin/duster init` and it'll add it for you.
+
+If you want to have these linters run as a GitHub Action, there's an option for that in `./vendor/bin/duster init` as well.
 
 ## Usage
 
