@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ -f ./.php_cs.dist ]; then
+    printf "\n.php_cs.dist already exists; skipping.\n"
+else
+    printf "\nSaving default PHP-CS-Fixer config to .php_cs.dist.\n"
+    cp ${BIN_DIR}/../configs/.php_cs.dist ./
+fi

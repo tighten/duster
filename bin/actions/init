@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if grep -q ".php_cs.cache" .gitignore; then
+  echo "Already set."
+else
+  echo "Adding .php_cs.cache to .gitignore."
+  echo ".php_cs.cache" >> .gitignore
+fi

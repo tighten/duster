@@ -7,6 +7,8 @@ Automatically apply Tighten's default code style for Laravel apps:
 - Tighten's Tlint
 - Maybe JS and CSS?
 
+To achieve this, this package installs PHPCS, PHP-CS-Fixer, and Tlint, and automatically configures them. Tlint uses the default `Tighten` preset. PHPCS uses the `PSR-12` preset and a few Tighten-specific rules. PHP-CS-Fixer uses the `PSR-12` preset and a few Tighten-specific rules.
+
 ## Installation
 
 You can install the package via composer:
@@ -15,7 +17,21 @@ You can install the package via composer:
 composer require tightenco/duster
 ```
 
+PHPCS generates a file named `.php_cs.cache` that you'll want to ignore in Git. You can manually add this file to your `.gitignore` yourself, or run `./vendor/bin/duster init` and it'll add it for you.
+
 ## Usage
+
+To lint everything at once:
+
+```bash
+./vendor/bin/duster lint
+```
+
+To fix everything at once:
+
+```bash
+./vendor/bin/duster fix
+```
 
 To run individual lints:
 
@@ -33,25 +49,29 @@ To run individual fixes:
 ./vendor/bin/duster phpcsfixer fix
 ```
 
-To lint everything at once:
-
-```bash
-./vendor/bin/duster lint
-```
-
-To fix everything at once:
-
-```bash
-./vendor/bin/duster fix
-```
-
 ### Customizing the lints
 
-To override the PHPCS configuration, put your own `.phpcs.xml.dist` file in the root of your project.
+To override the configurations for PHPCS, PHP-CS-Fixer, and/or Tlint, you can put your own configuration files in the project roots, or publish and edit the Duster default config files.
 
-To override the PHPCS-Fixer configuration, put your own `.php_cs.dist` file in the root of your project.
+To edit all three, run `publish`:
 
-To override the Tlint configuration, put your own `tlint.json` file in the root of your project.
+```bash
+./vendor/bin/duster publish
+```
+
+You'll see these files added to the project root, set to their Duster defaults:
+
+- PHP-CS: `.phpcs.xml.dist`
+- PHP-CS-Fixer: `.php_cs.dist`
+- Tlint: `tlint.json`
+
+To publish only one, pass the tool shortname to `publish`:
+
+```bash
+./vendor/bin/duster publish phpcs
+./vendor/bin/duster publish phpcsfixer
+./vendor/bin/duster publish tlint
+```
 
 ## Contributing
 
