@@ -51,11 +51,27 @@ To run individual fixes:
 
 ### Customizing the lints
 
-To override the PHPCS configuration, put your own `.phpcs.xml.dist` file in the root of your project.
+To override the configurations for PHPCS, PHP-CS-Fixer, and/or Tlint, you can put your own configuration files in the project roots, or publish and edit the Duster default config files.
 
-To override the PHPCS-Fixer configuration, put your own `.php_cs.dist` file in the root of your project.
+To edit all three, run `publish`:
 
-To override the Tlint configuration, put your own `tlint.json` file in the root of your project.
+```bash
+./vendor/bin/duster publish
+```
+
+You'll see these files added to the project root, set to their Duster defaults:
+
+- PHP-CS: `.phpcs.xml.dist`
+- PHP-CS-Fixer: `.php_cs.dist`
+- Tlint: `tlint.json`
+
+To publish only one, pass the tool shortname to `publish`:
+
+```bash
+./vendor/bin/duster publish phpcs
+./vendor/bin/duster publish phpcsfixer
+./vendor/bin/duster publish tlint
+```
 
 ## Contributing
 
