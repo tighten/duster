@@ -63,12 +63,12 @@
    <ini name="memory_limit" value="128M"/>
 
    <!--
-      Include all sniffs in the PSR2 standard. Note that the
+      Include all sniffs in the PSR12 standard. Note that the
       path to the standard does not have to be specified as the
-      PSR2 standard exists inside the PHP_CodeSniffer install
+      PSR12 standard exists inside the PHP_CodeSniffer install
       directory.
    -->
-   <rule ref="PSR2"/>
+   <rule ref="PSR12"/>
 
    <!-- Disable missing namespace rule for tests and database files -->
    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
@@ -80,11 +80,9 @@
       <exclude-pattern>*/tests/*</exclude-pattern>
    </rule>
    <!-- Make the soft line length warning silent -->
-   <!--
    <rule ref="Generic.Files.LineLength.TooLong">
       <severity>0</severity>
    </rule>
-   -->
 
    <!-- Enable some extra rules -->
    <!-- Force [] short array syntax -->
