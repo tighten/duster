@@ -3,7 +3,7 @@
 
 Automatically apply Tighten's default code style for Laravel apps:
 
-- PHPCS and PHPCS-Fixer, with PSR-2 + some special preferences
+- PHPCS and PHPCS-Fixer, with PSR-12 + some special preferences
 - Tighten's Tlint
 - Maybe JS and CSS?
 
