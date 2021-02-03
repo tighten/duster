@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+vendor/bin/tlint format --no-interaction -v

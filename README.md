@@ -3,7 +3,7 @@
 
 Automatically apply Tighten's default code style for Laravel apps:
 
-- PHPCS and PHPCS-Fixer, with PSR-12 + some special preferences
+- PHPCS and PHP-CS-Fixer, with PSR-12 + some special preferences
 - Tighten's Tlint
 - Maybe JS and CSS?
 
@@ -20,36 +20,38 @@ composer require tightenco/duster
 To run individual lints:
 
 ```bash
-./vendor/bin/duster-tlint-lint
-./vendor/bin/duster-phpcs-lint
+./vendor/bin/duster tlint
+./vendor/bin/duster phpcs
+./vendor/bin/duster phpcsfixer
 ```
 
 To run individual fixes:
 
 ```bash
-./vendor/bin/duster-tlint-fix
-./vendor/bin/duster-phpcs-fix
+./vendor/bin/duster tlint fix
+./vendor/bin/duster phpcs fix
+./vendor/bin/duster phpcsfixer fix
 ```
 
 To lint everything at once:
 
 ```bash
-./vendor/bin/duster-lint
+./vendor/bin/duster lint
 ```
 
 To fix everything at once:
 
 ```bash
-./vendor/bin/duster-fix
+./vendor/bin/duster fix
 ```
 
 ### Customizing the lints
 
-To override the PHPCS lint, put your own `.phpcs.xml.dist` file in the root of your project.
+To override the PHPCS configuration, put your own `.phpcs.xml.dist` file in the root of your project.
 
-To override the PHPCS-Fixer fix, put your own `.php_cs.dist` file in the root of your project.
+To override the PHPCS-Fixer configuration, put your own `.php_cs.dist` file in the root of your project.
 
-To override the Tlint lint and fix, put your own `tlint.json` file in the root of your project.
+To override the Tlint configuration, put your own `tlint.json` file in the root of your project.
 
 ## Contributing
 

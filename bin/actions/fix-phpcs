@@ -7,7 +7,7 @@ SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
 REAL_DIR="${DIR}/${SYM_DIR}"
 
 if [[ -f "./.phpcs.xml.dist" ]]; then
-    ./vendor/bin/phpcs
+    ./vendor/bin/phpcbf
 else
-    ./vendor/bin/phpcs --standard=${REAL_DIR}/../configs/.phpcs.xml.dist
+    ./vendor/bin/phpcbf --standard=${REAL_DIR}/../../configs/.phpcs.xml.dist
 fi
