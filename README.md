@@ -7,6 +7,8 @@ Automatically apply Tighten's default code style for Laravel apps:
 - Tighten's Tlint
 - Maybe JS and CSS?
 
+To achieve this, this package installs PHPCS, PHP-CS-Fixer, and Tlint, and automatically configures them. Tlint uses the default `Tighten` preset. PHPCS uses the `PSR-12` preset and a few Tighten-specific rules. PHP-CS-Fixer uses the `PSR-12` preset and a few Tighten-specific rules.
+
 ## Installation
 
 You can install the package via composer:
@@ -15,7 +17,21 @@ You can install the package via composer:
 composer require tightenco/duster
 ```
 
+PHPCS generates a file named `.php_cs.cache` that you'll want to ignore in Git. You can manually add this file to your `.gitignore` yourself, or run `./vendor/bin/duster init` and it'll add it for you.
+
 ## Usage
+
+To lint everything at once:
+
+```bash
+./vendor/bin/duster lint
+```
+
+To fix everything at once:
+
+```bash
+./vendor/bin/duster fix
+```
 
 To run individual lints:
 
@@ -31,18 +47,6 @@ To run individual fixes:
 ./vendor/bin/duster tlint fix
 ./vendor/bin/duster phpcs fix
 ./vendor/bin/duster phpcsfixer fix
-```
-
-To lint everything at once:
-
-```bash
-./vendor/bin/duster lint
-```
-
-To fix everything at once:
-
-```bash
-./vendor/bin/duster fix
 ```
 
 ### Customizing the lints

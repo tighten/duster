@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -f ./.phpcs.xml.dist ]; then
+    printf "\n.phpcs.xml.dist already exists; skipping.\n"
+else
+    printf "\nSaving default PHP-CS-Fixer config to .phpcs.xml.dist.\n"
+    cp ${BIN_DIR}/../configs/.phpcs.xml.dist ./
+    # Fix paths to be local, not up four folders
+    perl -pi -e "s/<file>..\/..\/..\/..\//<file>/g" ".phpcs.xml.dist"
+fi

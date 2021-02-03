@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-${DIR}/fix-tlint
-${DIR}/fix-phpcs
-${DIR}/fix-phpcsfixer
+${BIN_DIR}/actions/fix-tlint
+${BIN_DIR}/actions/fix-phpcs
+${BIN_DIR}/actions/fix-phpcsfixer
