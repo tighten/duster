@@ -3,13 +3,15 @@
 # ./bin/duster:                lint with all
 # ./bin/duster fix:            fix with all
 # ./bin/duster phpcs:          lint with phpcs
-# ./bin/duster phpcs fix:      fix with phpcbf (phpcs fixer) 
+# ./bin/duster phpcs fix:      fix with phpcbf (phpcs fixer)
 # ./bin/duster phpcsfixer:     lint with php-cs-fixer
 # ./bin/duster phpcsfixer fix: fix with php-cs-fixer
 # ./bin/duster tlint:          lint with tlint
 # ./bin/duster tlint fix:      fix with tlint
 
-DIR="$( dirname ${BASH_SOURCE[0]} )"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
+REAL_DIR="${DIR}/${SYM_DIR}"
 
 if [[ $# == 0 ]]; then
   filename="lint"
@@ -23,11 +25,11 @@ else
   filename="fix-$1"
 fi
 
-filename="$DIR/actions/$filename"
+filename="$REAL_DIR/actions/$filename"
 
 if [ ! -f "$filename" ]; then
   printf "\nSorry, that is an invalid selection.\n[$filename does not exist]\n"
-  
+
   exit
 fi
 
