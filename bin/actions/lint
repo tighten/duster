@@ -2,4 +2,3 @@
 
 . ${BIN_DIR}/actions/lint-tlint
 . ${BIN_DIR}/actions/lint-phpcs
-. ${BIN_DIR}/actions/lint-phpcsfixer
