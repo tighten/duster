@@ -4,14 +4,11 @@
 # ./bin/duster fix:                fix with all
 # ./bin/duster phpcs:              lint with phpcs
 # ./bin/duster phpcs fix:          fix with phpcbf (phpcs fixer)
-# ./bin/duster phpcsfixer:         lint with php-cs-fixer
-# ./bin/duster phpcsfixer fix:     fix with php-cs-fixer
 # ./bin/duster tlint:              lint with tlint
 # ./bin/duster tlint fix:          fix with tlint
 # ./bin/duster init:               initialize
 # ./bin/duster publish:            publish config files for potential customization
 # ./bin/duster publish phpcs:      publish PHPCS config file
-# ./bin/duster publish phpcsfixer: publish PHP-CS-Fixer file
 # ./bin/duster publish tlint:      publish config files for potential customization
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"

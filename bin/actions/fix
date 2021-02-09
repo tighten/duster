@@ -2,4 +2,3 @@
 
 . ${BIN_DIR}/actions/fix-tlint
 . ${BIN_DIR}/actions/fix-phpcs
-. ${BIN_DIR}/actions/fix-phpcsfixer

@@ -30,32 +30,6 @@ jobs:
             - name: PHPCS lint
               uses: chekalsky/phpcs-action@v1
 
-    php-cs-fixer:
-        name: PHP-CS-Fixer
-
-        runs-on: ubuntu-latest
-
-        steps:
-            - uses: actions/checkout@v2
-
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 7.4
-                  extensions: posix, dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick
-                  coverage: none
-
-            - name: Install dependencies
-              run: composer install --no-interaction --no-suggest --ignore-platform-reqs
-
-            # - run: cp -n vendor/tightenco/duster/configs/.php_cs.dist ./
-            - run: ./vendor/bin/duster publish phpcsfixer
-
-            - name: PHP-CS-Fixer lint
-              uses: docker://oskarstark/php-cs-fixer-ga
-              with:
-                  args: --diff --dry-run --using-cache=no --diff-format udiff
-
     tlint:
         name: TLint
 

@@ -3,11 +3,11 @@
 
 Automatically apply Tighten's default code style for Laravel apps:
 
-- PHPCS and PHP-CS-Fixer, with PSR-12 + some special preferences
+- PHPCS, with PSR-12 + some special preferences
 - Tighten's Tlint
 - Maybe JS and CSS?
 
-To achieve this, this package installs PHPCS, PHP-CS-Fixer, and Tlint, and automatically configures them. Tlint uses the default `Tighten` preset. PHPCS uses the `PSR-12` preset and a few Tighten-specific rules. PHP-CS-Fixer uses the `PSR-12` preset and a few Tighten-specific rules.
+To achieve this, this package installs PHPCS (and PHPCBF with it) and Tlint, and automatically configures them. Tlint uses the default `Tighten` preset. PHPCS uses the `PSR-12` preset and a few Tighten-specific rules.
 
 ## Installation
 
@@ -41,7 +41,6 @@ To run individual lints:
 ```bash
 ./vendor/bin/duster tlint
 ./vendor/bin/duster phpcs
-./vendor/bin/duster phpcsfixer
 ```
 
 To run individual fixes:
@@ -49,14 +48,13 @@ To run individual fixes:
 ```bash
 ./vendor/bin/duster tlint fix
 ./vendor/bin/duster phpcs fix
-./vendor/bin/duster phpcsfixer fix
 ```
 
 ### Customizing the lints
 
-To override the configurations for PHPCS, PHP-CS-Fixer, and/or Tlint, you can put your own configuration files in the project roots, or publish and edit the Duster default config files.
+To override the configurations for PHPCS and/or Tlint, you can put your own configuration files in the project roots, or publish and edit the Duster default config files.
 
-To edit all three, run `publish`:
+To edit both, run `publish`:
 
 ```bash
 ./vendor/bin/duster publish
@@ -65,14 +63,12 @@ To edit all three, run `publish`:
 You'll see these files added to the project root, set to their Duster defaults:
 
 - PHP-CS: `.phpcs.xml.dist`
-- PHP-CS-Fixer: `.php_cs.dist`
 - Tlint: `tlint.json`
 
 To publish only one, pass the tool shortname to `publish`:
 
 ```bash
 ./vendor/bin/duster publish phpcs
-./vendor/bin/duster publish phpcsfixer
 ./vendor/bin/duster publish tlint
 ```
 
