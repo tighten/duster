@@ -17,7 +17,7 @@ if [ -f "$phpcs_filename" ]; then
   printf "$phpcs_filename already exists.\n"
 else
   cp ${BIN_DIR}/../stubs/.phpcs.xml.dist $phpcs_filename
-  printf "\nCreated $phpcs_filename."
+  printf "Created $phpcs_filename.\n"
 fi
 
 printf "\nChecking GitHub Action...\n\n"
