@@ -24,9 +24,6 @@ jobs:
             - name: Install dependencies
               run: composer install --no-interaction --no-suggest --ignore-platform-reqs
 
-            #- run: cp -n vendor/tightenco/duster/configs/.phpcs.xml.dist ./ #needs to drop ../../../ too
-            - run: ./vendor/bin/duster publish phpcs
-
             - name: PHPCS lint
               uses: chekalsky/phpcs-action@v1
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 printf "\nAdding .php_cs.cache to .gitignore...\n"
 
 if grep -q ".php_cs.cache" .gitignore; then
@@ -10,12 +9,23 @@ else
   printf "\nAdded.\n"
 fi
 
-filename=".github/workflows/lint.yml"
+printf "\nPublishing PHPCS config...\n\n"
 
-printf "\nChecking GitHub Action...\n\n"
+phpcs_filename=".phpcs.xml.dist"
 
 if [ -f "$filename" ]; then
   printf "$filename already exists.\n"
+else
+  cp ${BIN_DIR}/../stubs/.phpcs.xml.dist $phpcs_filename
+  printf "\nCreated $phpcs_filename."
+fi
+
+printf "\nChecking GitHub Action...\n\n"
+
+gh_action_filename=".github/workflows/lint.yml"
+
+if [ -f "$gh_action_filename" ]; then
+  printf "$gh_action_filename already exists.\n"
 else
   echo -n "Would you like a GitHub action added to this repo for running lints? (Y/n) "
   read addGitHubAction
@@ -24,8 +34,8 @@ else
     printf "\nAdding GitHub Actions workflow...\n"
 
     mkdir -p .github/workflows
-    cp ${BIN_DIR}/../stubs/github-actions/lint.yml $filename
-    printf "\nCreated $filename.\nPlease edit the file if your primary branch is not 'main'.\n"
+    cp ${BIN_DIR}/../stubs/github-actions/lint.yml $gh_action_filename
+    printf "\nCreated $gh_action_filename.\nPlease edit the file if your primary branch is not 'main'.\n"
   else
     printf "\nSkipping GitHub Action.\n"
   fi

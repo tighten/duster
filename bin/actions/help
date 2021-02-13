@@ -9,7 +9,4 @@ duster phpcs fix           fix with phpcbf (phpcs fixer)
 duster tlint               lint with tlint
 duster tlint fix           fix with tlint
 duster init                initialize
-duster publish             publish config files for potential customization
-duster publish phpcs       publish PHPCS config file
-duster publish tlint       publish config files for potential customization
 HelpText

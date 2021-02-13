@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-. ${BIN_DIR}/actions/publish-tlint
-. ${BIN_DIR}/actions/publish-phpcs

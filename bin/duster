@@ -7,9 +7,6 @@
 # ./bin/duster tlint:              lint with tlint
 # ./bin/duster tlint fix:          fix with tlint
 # ./bin/duster init:               initialize
-# ./bin/duster publish:            publish config files for potential customization
-# ./bin/duster publish phpcs:      publish PHPCS config file
-# ./bin/duster publish tlint:      publish config files for potential customization
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
@@ -24,17 +21,11 @@ elif [[ $# == 1 ]]; then
     filename="init"
   elif [[ $1 == 'help' ]]; then
     filename="help"
-  elif [[ $1 == 'publish' ]]; then
-    filename="publish"
   else
     filename="lint-$1"
   fi
 else
-  if [[ $1 == 'publish' ]]; then
-    filename="publish-$2"
-  else
-    filename="fix-$1"
-  fi
+  filename="fix-$1"
 fi
 
 filename="$BIN_DIR/actions/$filename"
