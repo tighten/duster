@@ -13,8 +13,8 @@ printf "\nPublishing PHPCS config...\n\n"
 
 phpcs_filename=".phpcs.xml.dist"
 
-if [ -f "$filename" ]; then
-  printf "$filename already exists.\n"
+if [ -f "$phpcs_filename" ]; then
+  printf "$phpcs_filename already exists.\n"
 else
   cp ${BIN_DIR}/../stubs/.phpcs.xml.dist $phpcs_filename
   printf "\nCreated $phpcs_filename."
