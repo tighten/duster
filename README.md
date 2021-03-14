@@ -14,7 +14,7 @@ To achieve this, this package installs PHPCS (and PHPCBF with it) and Tlint, and
 You can install the package via composer:
 
 ```bash
-composer require tightenco/duster
+composer require tightenco/duster --dev
 ./vendor/bin/duster init
 ```
 
