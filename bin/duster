@@ -21,6 +21,8 @@ elif [[ $# == 1 ]]; then
     filename="init"
   elif [[ $1 == 'help' ]]; then
     filename="help"
+  elif [[ $1 == 'lint' ]]; then
+    filename="lint"
   else
     filename="lint-$1"
   fi
