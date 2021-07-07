@@ -26,6 +26,8 @@ jobs:
 
             - name: PHPCS lint
               uses: chekalsky/phpcs-action@v1
+              with:
+                phpcs_bin_path: './vendor/bin/phpcs'
 
     tlint:
         name: TLint
