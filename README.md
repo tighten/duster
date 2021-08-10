@@ -20,7 +20,7 @@ composer require tightenco/duster --dev
 
 You must run `./vendor/bin/duster init` after installing, or you won't have a local copy of the PHPCS config file, and Duster won't work.
 
-The `init` command will also add `.php_cs.cache` to your `.gitignore` and, optionally, add a GitHub action to run Duster's linters.
+The `init` command will also optionally add a GitHub action to run Duster's linters.
 
 ## Usage
 
