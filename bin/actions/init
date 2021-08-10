@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-printf "\nAdding .php_cs.cache to .gitignore...\n"
-
-if grep -q ".php_cs.cache" .gitignore; then
-  printf "\nAlready set.\n"
-else
-  echo ".php_cs.cache" >> .gitignore
-  printf "\nAdded.\n"
-fi
-
 printf "\nPublishing PHPCS config...\n\n"
 
 phpcs_filename=".phpcs.xml.dist"
