@@ -23,7 +23,7 @@ When installing you may see the following message:
 >dealerdirect/phpcodesniffer-composer-installer contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins
 >Do you trust "dealerdirect/phpcodesniffer-composer-installer" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
 
-You will need to accept the [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer) to have the PHPCS rulesets and GitHub actions to work.
+You will need to accept the [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer) prompt to have the PHPCS rulesets and so the GitHub actions will work.
 
 This adds an `allowed-plugins` entry to your `composer.json` file:
 
