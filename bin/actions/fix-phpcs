@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-if [[ -f "./.phpcs.xml.dist" ]]; then
-  vendor/bin/phpcbf
-else
-  printf "\nYou must run ./vendor/bin/duster init before using Duster's PHPCS fix.\n"
-fi

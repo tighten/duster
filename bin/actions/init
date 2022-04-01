@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-printf "\nPublishing PHPCS config...\n\n"
+printf "\nPublishing ECS config...\n\n"
 
-phpcs_filename=".phpcs.xml.dist"
+ecs_filename="ecs.php"
 
-if [ -f "$phpcs_filename" ]; then
-  printf "$phpcs_filename already exists.\n"
+if [ -f "$ecs_filename" ]; then
+  printf "$ecs_filename already exists.\n"
 else
-  cp ${BIN_DIR}/../stubs/.phpcs.xml.dist $phpcs_filename
-  printf "Created $phpcs_filename.\n"
+  cp ${BIN_DIR}/../stubs/ecs.php $ecs_filename
+  printf "Created $ecs_filename.\n"
 fi
 
 printf "\nChecking GitHub Action...\n\n"

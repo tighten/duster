@@ -5,7 +5,7 @@
         "tightenco",
         "duster",
         "php",
-        "phpcs",
+        "ecs",
         "code style",
         "laravel"
     ],
@@ -22,7 +22,6 @@
     "require": {
         "php": "^7.4|^8.0|^8.1",
         "phpunit/phpunit": "^9.0",
-        "squizlabs/php_codesniffer": "^3.5",
         "tightenco/tighten-coding-standard": "^1.0",
         "tightenco/tlint": "^6.0"
     },

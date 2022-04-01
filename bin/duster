@@ -2,11 +2,13 @@
 
 # ./bin/duster:                    lint with all
 # ./bin/duster fix:                fix with all
-# ./bin/duster phpcs:              lint with phpcs
-# ./bin/duster phpcs fix:          fix with phpcbf (phpcs fixer)
+# ./bin/duster ecs:                lint with ecs
+# ./bin/duster ecs fix:            fix with ecs
 # ./bin/duster tlint:              lint with tlint
 # ./bin/duster tlint fix:          fix with tlint
 # ./bin/duster init:               initialize
+# ./bin/duster phpcs:              lint with ecs (alias for previous phpcs)
+# ./bin/duster phpcs fix:          fix with ecs (alias for previous phpcs)
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
@@ -14,6 +16,10 @@ BIN_DIR="${DIR}/${SYM_DIR}"
 
 if [[ $# == 0 ]]; then
   filename="lint"
+elif [[ $1 == "phpcs" && $2 == 'fix' ]]; then
+    filename="fix-ecs"
+elif [[ $1 == "phpcs" && $2 == 'lint' ]]; then
+    filename="lint-ecs"
 elif [[ $# == 1 ]]; then
   if [[ $1 == "fix" ]]; then
     filename="fix"
@@ -31,6 +37,8 @@ else
 fi
 
 filename="$BIN_DIR/actions/$filename"
+
+printf $filename
 
 if [ ! -f "$filename" ]; then
   printf "\nSorry, that is an invalid selection.\n[$filename does not exist]\n"
