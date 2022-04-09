@@ -1,13 +1,16 @@
 ![Project Banner](https://raw.githubusercontent.com/tighten/duster/main/banner.png)
 # Duster
 
-Automatically apply Tighten's default code style for Laravel apps:
+Automatically apply Tighten's default code style for Laravel apps using:
 
-- ECS, with PSR-12 + some special preferences
-- Tighten's Tlint
-- Maybe JS and CSS?
+- [Tighten's Coding Standard](https://github.com/tighten/tighten-coding-standard)
+- [Tighten's Tlint](https://github.com/tighten/tlint)
 
-To achieve this, this package installs ECS and Tlint, and automatically configures them. Tlint uses the default `Tighten` preset. ECS uses the [`Tighten` preset](https://github.com/tighten/tighten-coding-standard) which is `PSR-12` and a few Tighten-specific rules.
+This package installs and automatically configures both tools.
+
+Tighten Coding Standard uses [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) under the hood which combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.  The default `Tighten` config is PSR-12 and a few Tighten-specific rules.
+
+Tlint uses the default `Tighten` preset.
 
 ## Installation
 
@@ -18,7 +21,7 @@ composer require tightenco/duster --dev
 ./vendor/bin/duster init
 ```
 
-You must run `./vendor/bin/duster init` after installing, or you won't have a local copy of the ECS config file, and Duster won't work.
+You must run `./vendor/bin/duster init` after installing, or you won't have a local copy of the TCS config file, and Duster won't work.
 
 The `init` command will also optionally add a GitHub action to run Duster's linters.
 
@@ -40,21 +43,19 @@ To run individual lints:
 
 ```bash
 ./vendor/bin/duster tlint
-./vendor/bin/duster ecs
+./vendor/bin/duster tcs
 ```
 
 To run individual fixes:
 
 ```bash
 ./vendor/bin/duster tlint fix
-./vendor/bin/duster ecs fix
+./vendor/bin/duster tcs fix
 ```
 
 ### Customizing the lints
 
-To override the configuration for ECS take a look at the [Tighten Coding Standard](https://github.com/tighten/tighten-coding-standard) documentation.
-
-To override the configuration for Tlint, create a `tlint.json` file in your project root. Learn more in the [Tlint documentation](https://github.com/tighten/tlint#configuration).
+Both tools can be completely customized to suit your project's needs. To learn more about how to customize each tool refer to the [Tighten Coding Standard documentation](https://github.com/tighten/tighten-coding-standard#configuration) and [TLint documentation](https://github.com/tighten/tlint#configuration)
 
 ## Contributing
 
