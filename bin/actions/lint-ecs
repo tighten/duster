@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-if [[ -f "./ecs.php" ]]; then
-  vendor/bin/ecs check
-else
-  printf "\nYou must run ./vendor/bin/duster init before using Duster's ECS lint.\n"
-fi

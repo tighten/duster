@@ -4,8 +4,8 @@ printf "\nUsage:\n\n"
 cat << HelpText
 duster                     lint with all
 duster fix                 fix with all
-duster ecs                 lint with ecs
-duster ecs fix             fix with ecs
+duster tcs                 lint with tcs
+duster tcs fix             fix with tcs
 duster tlint               lint with tlint
 duster tlint fix           fix with tlint
 duster init                initialize

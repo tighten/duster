@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-printf "\nPublishing ECS config...\n\n"
+printf "\nPublishing TCS config...\n\n"
 
-ecs_filename="ecs.php"
+tcs_filename="tcs.php"
 
-if [ -f "$ecs_filename" ]; then
-  printf "$ecs_filename already exists.\n"
+if [ -f "$tcs_filename" ]; then
+  printf "$tcs_filename already exists.\n"
 else
-  cp ${BIN_DIR}/../stubs/ecs.php $ecs_filename
-  printf "Created $ecs_filename.\n"
+  cp ${BIN_DIR}/../stubs/tcs.php $tcs_filename
+  printf "Created $tcs_filename.\n"
 fi
 
 printf "\nChecking GitHub Action...\n\n"

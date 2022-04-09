@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-. ${BIN_DIR}/actions/fix-ecs
+. ${BIN_DIR}/actions/fix-tcs
 . ${BIN_DIR}/actions/fix-tlint

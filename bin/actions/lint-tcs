@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -f "./tcs.php" ]]; then
+  vendor/bin/ecs check --config tcs.php
+else
+  printf "\nYou must run ./vendor/bin/duster init before using Duster's TCS lint.\n"
+fi

@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  ecs:
-    name: ECS
+  tcs:
+    name: TCS
 
     runs-on: ubuntu-latest
 
@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --no-suggest --ignore-platform-reqs
 
-      - name: ECS check
-        run: ./vendor/bin/ecs check
+      - name: TCS check
+        run: ./vendor/bin/ecs check --config tcs.php
 
   tlint:
     name: TLint
