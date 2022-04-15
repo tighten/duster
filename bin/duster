@@ -38,8 +38,6 @@ fi
 
 filename="$BIN_DIR/actions/$filename"
 
-printf $filename
-
 if [ ! -f "$filename" ]; then
   printf "\nSorry, that is an invalid selection.\n[$filename does not exist]\n"
 
