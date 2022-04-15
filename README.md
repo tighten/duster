@@ -3,12 +3,12 @@
 
 Automatically apply Tighten's default code style for Laravel apps using:
 
-- [Tighten's Coding Standard](https://github.com/tighten/tighten-coding-standard)
-- [Tighten's Tlint](https://github.com/tighten/tlint)
+- [Tighten Coding Standard](https://github.com/tighten/tighten-coding-standard)
+- [Tlint](https://github.com/tighten/tlint)
 
-This package installs and automatically configures both tools.
+Duster installs and automatically configures both these tools.
 
-Tighten Coding Standard uses [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) under the hood which combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.  The default `Tighten` config is PSR-12 and a few Tighten-specific rules.
+Tighten Coding Standard (TCS) uses [Easy Coding Standard](https://github.com/symplify/easy-coding-standard) under the hood which combines [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer) and [PHP Coding Standards Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) into one configuration.  The default `Tighten` config is PSR-12 and a few Tighten-specific rules.
 
 Tlint uses the default `Tighten` preset.
 
@@ -55,7 +55,7 @@ To run individual fixes:
 
 ### Customizing the lints
 
-Both tools can be completely customized to suit your project's needs. To learn more about how to customize each tool refer to the [Tighten Coding Standard documentation](https://github.com/tighten/tighten-coding-standard#configuration) and [TLint documentation](https://github.com/tighten/tlint#configuration)
+Both tools can be completely customized to suit your project's specific needs. To learn more about how to customize each tool refer to the [Tighten Coding Standard documentation](https://github.com/tighten/tighten-coding-standard#configuration) and [TLint documentation](https://github.com/tighten/tlint#configuration)
 
 ## Contributing
 
