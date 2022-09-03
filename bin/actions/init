@@ -26,7 +26,16 @@ else
 
     mkdir -p .github/workflows
     cp ${BIN_DIR}/../stubs/github-actions/lint.yml $gh_action_filename
-    printf "\nCreated $gh_action_filename.\nPlease edit the file if your primary branch is not 'main'.\n"
+
+    read -p "Enter the name of your primary branch [main]: " primary_branch
+    primary_branch=${primary_branch:-main}
+    sed -i '' "s/YOUR_BRANCH_NAME/${primary_branch}/g" $gh_action_filename
+
+    read -p "Enter your PHP version [8.1]: " php_version
+    php_version=${php_version:-8.1}
+    sed -i '' "s/YOUR_PHP_VERSION/${php_version}/g" $gh_action_filename
+
+    printf "\nCreated $gh_action_filename.\n"
   else
     printf "\nSkipping GitHub Action.\n"
   fi
