@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 
-printf "\nUsage:\n\n"
-cat << HelpText
-duster                     lint with all
-duster fix                 fix with all
-duster phpcs               lint with phpcs
-duster phpcs fix           fix with phpcbf (phpcs fixer)
-duster tlint               lint with tlint
-duster tlint fix           fix with tlint
-duster init                initialize
-HelpText
+GREEN='\033[32m'
+YELLOW='\033[33m'
+NOCOLOR='\033[0m'
+
+echo -e "Duster Commands:"
+echo -e "${GREEN}duster${NOCOLOR}                     lint using ${YELLOW}all${NOCOLOR}"
+echo -e "${GREEN}duster fix${NOCOLOR}                 fix using ${YELLOW}all${NOCOLOR}"
+echo -e "${GREEN}duster tlint${NOCOLOR}               lint using ${YELLOW}TLint${NOCOLOR}"
+echo -e "${GREEN}duster tlint fix${NOCOLOR}           fix using ${YELLOW}TLint${NOCOLOR}"
+echo -e "${GREEN}duster phpcs${NOCOLOR}               lint using ${YELLOW}PHP_CodeSniffer${NOCOLOR}"
+echo -e "${GREEN}duster phpcs fix${NOCOLOR}           fix using ${YELLOW}PHP_CodeSniffer${NOCOLOR}"
+echo -e "${GREEN}duster phpcsfixer${NOCOLOR}          lint using ${YELLOW}PHP CS Fixer${NOCOLOR}"
+echo -e "${GREEN}duster phpcsfixer fix${NOCOLOR}      fix using ${YELLOW}PHP CS Fixer${NOCOLOR}"
+echo -e "${GREEN}duster pint${NOCOLOR}                lint using ${YELLOW}Pint${NOCOLOR}"
+echo -e "${GREEN}duster pint fix${NOCOLOR}            fix using ${YELLOW}Pint${NOCOLOR}"
+echo -e "${GREEN}duster github-actions${NOCOLOR}      publish GitHub Actions"

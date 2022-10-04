@@ -1,9 +1,23 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [[ -f "./.phpcs.xml.dist" ]]; then
+if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
+  vendor/bin/phpcbf --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
   vendor/bin/phpcbf
+
+  vendor/bin/phpcs > /dev/null
+  if [ $? -ne 0 ]; then
+    echo "PHP Code_Sniffer found errors that cannot be fixed automatically. Run 'duster phpcs' to view them."
+    exit 1
+  else
+    exit 0
+  fi
 else
-  printf "\nYou must run ./vendor/bin/duster init before using Duster's PHPCS fix.\n"
+  vendor/bin/phpcbf --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
+  vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests > /dev/null
+  if [ $? -ne 0 ]; then
+    echo "PHP Code_Sniffer found errors that cannot be fixed automatically. Run 'duster phpcs' to view them."
+    exit 1
+  else
+    exit 0
+  fi
 fi

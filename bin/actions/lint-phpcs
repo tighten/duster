@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-set -e
-
-if [[ -f "./.phpcs.xml.dist" ]]; then
-    vendor/bin/phpcs
+if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
+  vendor/bin/phpcs --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
+  vendor/bin/phpcs
 else
-    printf "\nYou must run ./vendor/bin/duster init before using Duster's PHPCS lint.\n"
+  vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
 fi

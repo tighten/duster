@@ -1,0 +1,10 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "class_attributes_separation": {
+        }
+    }
+}

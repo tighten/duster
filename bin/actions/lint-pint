@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [[ -f "./.pint.json" ]]; then
+  pint --test
+else
+  pint --config vendor/tightenco/duster/pint.json --test
+fi

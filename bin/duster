@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-# ./bin/duster:                    lint with all
-# ./bin/duster fix:                fix with all
-# ./bin/duster phpcs:              lint with phpcs
-# ./bin/duster phpcs fix:          fix with phpcbf (phpcs fixer)
-# ./bin/duster tlint:              lint with tlint
-# ./bin/duster tlint fix:          fix with tlint
-# ./bin/duster init:               initialize
-
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
 BIN_DIR="${DIR}/${SYM_DIR}"
@@ -17,8 +9,8 @@ if [[ $# == 0 ]]; then
 elif [[ $# == 1 ]]; then
   if [[ $1 == "fix" ]]; then
     filename="fix"
-  elif [[ $1 == 'init' ]]; then
-    filename="init"
+  elif [[ $1 == 'github-actions' ]]; then
+    filename="github-actions"
   elif [[ $1 == 'help' ]]; then
     filename="help"
   elif [[ $1 == 'lint' ]]; then

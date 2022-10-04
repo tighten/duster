@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-set -e
-
 vendor/bin/tlint lint --no-interaction -v
