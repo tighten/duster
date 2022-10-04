@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-GREEN='\033[32m'
-YELLOW='\033[33m'
-NOCOLOR='\033[0m'
-
 echo -e "Duster Commands:"
 echo -e "${GREEN}duster${NOCOLOR}                     lint using ${YELLOW}all${NOCOLOR}"
 echo -e "${GREEN}duster fix${NOCOLOR}                 fix using ${YELLOW}all${NOCOLOR}"

@@ -4,6 +4,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SYM_DIR="$( dirname "$( readlink ${BASH_SOURCE[0]} )" )"
 BIN_DIR="${DIR}/${SYM_DIR}"
 
+GREEN='\033[32m'
+YELLOW='\033[33m'
+RED='\033[31m'
+NOCOLOR='\033[0m'
+
 if [[ $# == 0 ]]; then
   filename="lint"
 elif [[ $# == 1 ]]; then
