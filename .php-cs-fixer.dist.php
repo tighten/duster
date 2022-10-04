@@ -5,11 +5,18 @@ use PhpCsFixer\Finder;
 use Tighten\Duster\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 
 $finder = Finder::create()
-    ->notPath('bootstrap/cache')
-    ->notPath('storage')
-    ->notPath('vendor')
-    ->in('./')
-    ->name('*.php')
+    ->in(array_filter(
+        [
+            './app',
+            './config',
+            './database',
+            './public',
+            './resources',
+            './routes',
+            './tests',
+        ],
+        fn($dir) => is_dir($dir)
+    ))
     ->notName('*.blade.php');
 
 return (new Config())

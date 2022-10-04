@@ -22,7 +22,7 @@ You can install the package via composer:
 composer require tightenco/duster --dev
 ```
 
-Optionally you can publish GitHub Actions linting config:
+Optionally you can publish a GitHub Actions linting config:
 
 ```bash
 duster github-actions
