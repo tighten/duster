@@ -89,9 +89,9 @@ function _github_actions()
 function _pint_fix()
 {
   if [[ -f "./.pint.json" ]]; then
-    pint
+    vendor/bin/pint $@
   else
-    pint --config vendor/tightenco/duster/pint.json
+    vendor/bin/pint --config vendor/tightenco/duster/pint.json $@
   fi
 
   if [ $? -ne 0 ]; then
@@ -102,9 +102,9 @@ function _pint_fix()
 function _pint_lint()
 {
   if [[ -f "./.pint.json" ]]; then
-    pint --test
+    vendor/bin/pint --test $@
   else
-    pint --config vendor/tightenco/duster/pint.json --test
+    vendor/bin/pint --config vendor/tightenco/duster/pint.json --test $@
   fi
 
   if [ $? -ne 0 ]; then
@@ -119,9 +119,9 @@ function _pint_lint()
 function _phpcsfixer_fix()
 {
   if [[ -f "./.php-cs-fixer.dist.php" ]] || [[ -f "./.php-cs-fixer.php" ]]; then
-    vendor/bin/php-cs-fixer fix $(_args $@)
+    vendor/bin/php-cs-fixer fix $@
   else
-    vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php $(_args $@)
+    vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php $@
   fi
 
   if [ $? -ne 0 ]; then
@@ -132,9 +132,9 @@ function _phpcsfixer_fix()
 function _phpcsfixer_lint()
 {
   if [[ -f "./.php-cs-fixer.dist.php" ]] || [[ -f "./.php-cs-fixer.php" ]]; then
-    vendor/bin/php-cs-fixer fix --diff --dry-run $(_args $@)
+    vendor/bin/php-cs-fixer fix --diff --dry-run $@
   else
-    vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php --diff --dry-run $(_args $@)
+    vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php --diff --dry-run $@
   fi
 
   if [ $? -ne 0 ]; then
@@ -150,19 +150,20 @@ function _phpcs_fix()
 {
   if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
     vendor/bin/phpcbf --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
-    vendor/bin/phpcbf
+    vendor/bin/phpcbf $@
     if [ $? -ne 0 ]; then
       PASS_PHPCS=false
     fi
 
-    vendor/bin/phpcs -n > /dev/null
+    vendor/bin/phpcs -n $@ > /dev/null
   else
-    vendor/bin/phpcbf --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
+    args="app config database public resources routes tests" && [[ -n "$@" ]] && args=$@
+    vendor/bin/phpcbf --standard=vendor/tightenco/duster/standards/Tighten/ $args
     if [ $? -ne 0 ]; then
       PASS_PHPCS=false
     fi
 
-    vendor/bin/phpcs -n --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests > /dev/null
+    vendor/bin/phpcs -n --standard=vendor/tightenco/duster/standards/Tighten/ $args > /dev/null
   fi
 
   if [ $? -ne 0 ]; then
@@ -174,9 +175,10 @@ function _phpcs_lint()
 {
   if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
     vendor/bin/phpcs --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
-    vendor/bin/phpcs
+    vendor/bin/phpcs $@
   else
-    vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
+    args="app config database public resources routes tests" && [[ -n "$@" ]] && args=$@
+    vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ $args
   fi
 
   if [ $? -ne 0 ]; then
@@ -190,16 +192,14 @@ function _phpcs_lint()
 
 function _tlint_fix()
 {
-  args=$(_args $@)
-
-  if [ -z "${args}" ]; then
+  if [ -z "$@" ]; then
     vendor/bin/tlint --ansi format
     if [ $? -ne 0 ]; then
       PASS_TLINT=false
     fi
   fi
 
-  for path in $args
+  for path in $@
   do
     vendor/bin/tlint --ansi format "$path"
     if [ $? -ne 0 ]; then
@@ -210,16 +210,14 @@ function _tlint_fix()
 
 function _tlint_lint()
 {
-  args=$(_args $@)
-
-  if [ -z "${args}" ]; then
+  if [ -z "$@" ]; then
     vendor/bin/tlint --ansi lint
     if [ $? -ne 0 ]; then
       PASS_TLINT=false
     fi
   fi
 
-  for path in $args
+  for path in $@
   do
     vendor/bin/tlint --ansi lint "$path"
     if [ $? -ne 0 ]; then
@@ -265,29 +263,31 @@ function _fix()
 ############################################################
 
 if [[ "$*" == *"help"* ]]; then
-  _help
+  action='_help'
 elif [[ "$*" == *"github-actions"* ]]; then
-  _github_actions
+  action='_github_actions'
 elif [[ "$*" == *"pint"* ]] && [[ "$*" == *"fix"* ]]; then
-  _pint_fix $@
+  action='_pint_fix'
 elif [[ "$*" == *"pint"* ]]; then
-  _pint_lint $@
+  action='_pint_lint'
 elif [[ "$*" == *"phpcsfixer"* ]] && [[ "$*" == *"fix"* ]]; then
-  _phpcsfixer_fix $@
+  action='_phpcsfixer_fix'
 elif [[ "$*" == *"phpcsfixer"* ]]; then
-  _phpcsfixer_lint $@
+  action='_phpcsfixer_lint'
 elif [[ "$*" == *"phpcs"* ]] && [[ "$*" == *"fix"* ]]; then
-  _phpcs_fix $@
+  action='_phpcs_fix'
 elif [[ "$*" == *"phpcs"* ]]; then
-  _phpcs_lint $@
+  action='_phpcs_lint'
 elif [[ "$*" == *"tlint"* ]] && [[ "$*" == *"fix"* ]]; then
-  _tlint_fix $@
+  action='_tlint_fix'
 elif [[ "$*" == *"tlint"* ]]; then
-  _tlint_lint $@
+  action='_tlint_lint'
 elif [[ "$*" == *"fix"* ]]; then
-  _fix $@
+  action='_fix'
 else
-  _lint $@
+  action='_lint'
 fi
+
+$action $(_args $@)
 
 exit 1
