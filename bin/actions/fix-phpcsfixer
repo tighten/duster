@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ -f "./.php-cs-fixer.dist.php" ]] || [[ -f "./.php-cs-fixer.php" ]]; then
-  vendor/bin/php-cs-fixer fix
-else
-  vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php
-fi

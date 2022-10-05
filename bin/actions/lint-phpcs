@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
-  vendor/bin/phpcs --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
-  vendor/bin/phpcs
-else
-  vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
-fi

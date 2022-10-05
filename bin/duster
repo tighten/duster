@@ -9,30 +9,291 @@ YELLOW='\033[33m'
 RED='\033[31m'
 NOCOLOR='\033[0m'
 
-if [[ $# == 0 ]]; then
-  filename="lint"
-elif [[ $# == 1 ]]; then
-  if [[ $1 == "fix" ]]; then
-    filename="fix"
-  elif [[ $1 == 'github-actions' ]]; then
-    filename="github-actions"
-  elif [[ $1 == 'help' ]]; then
-    filename="help"
-  elif [[ $1 == 'lint' ]]; then
-    filename="lint"
+PASS_TLINT=true
+PASS_PHPCS=true
+PASS_PHPCSFIXER=true
+PASS_PINT=true
+
+# Clean Duster arguments to pass to the underlying linters
+function _args() {
+  for arg in "$@"; do
+    [[ ! $arg == 'github-actions' ]] \
+    && [[ ! $arg == 'pint' ]] \
+    && [[ ! $arg == 'phpcsfixer' ]] \
+    && [[ ! $arg == 'phpcs' ]] \
+    && [[ ! $arg == 'tlint' ]] \
+    && [[ ! $arg == 'fix' ]] \
+    && [[ ! $arg == 'lint' ]] \
+    && args+=("$arg")
+  done
+
+  echo "${args[@]}"
+}
+
+############################################################
+# Help                                                     #
+############################################################
+
+function _help()
+{
+  echo -e "Duster Commands:"
+  echo -e "${GREEN}duster${NOCOLOR}                     lint using ${YELLOW}all${NOCOLOR}"
+  echo -e "${GREEN}duster lint${NOCOLOR}                lint using ${YELLOW}all${NOCOLOR}"
+  echo -e "${GREEN}duster fix${NOCOLOR}                 fix using ${YELLOW}all${NOCOLOR}"
+  echo -e "${GREEN}duster tlint${NOCOLOR}               lint using ${YELLOW}TLint${NOCOLOR}"
+  echo -e "${GREEN}duster tlint fix${NOCOLOR}           fix using ${YELLOW}TLint${NOCOLOR}"
+  echo -e "${GREEN}duster phpcs${NOCOLOR}               lint using ${YELLOW}PHP_CodeSniffer${NOCOLOR}"
+  echo -e "${GREEN}duster phpcs fix${NOCOLOR}           fix using ${YELLOW}PHP_CodeSniffer${NOCOLOR}"
+  echo -e "${GREEN}duster phpcsfixer${NOCOLOR}          lint using ${YELLOW}PHP CS Fixer${NOCOLOR}"
+  echo -e "${GREEN}duster phpcsfixer fix${NOCOLOR}      fix using ${YELLOW}PHP CS Fixer${NOCOLOR}"
+  echo -e "${GREEN}duster pint${NOCOLOR}                lint using ${YELLOW}Pint${NOCOLOR}"
+  echo -e "${GREEN}duster pint fix${NOCOLOR}            fix using ${YELLOW}Pint${NOCOLOR}"
+  echo -e "${GREEN}duster github-actions${NOCOLOR}      publish GitHub Actions"
+  echo -e "${GREEN}duster help${NOCOLOR}                display this help"
+}
+
+############################################################
+# GitHub Actions                                           #
+############################################################
+
+function _github_actions()
+{
+  printf "\nChecking GitHub Actions...\n\n"
+
+  gh_actions_filename=".github/workflows/lint.yml"
+
+  if [ -f "$gh_actions_filename" ]; then
+    printf "$gh_actions_filename already exists.\n"
   else
-    filename="lint-$1"
+    printf "\nAdding GitHub Actions workflow...\n"
+
+    mkdir -p .github/workflows
+    cp ${BIN_DIR}/../stubs/github-actions/lint.yml $gh_actions_filename
+
+    read -p "Enter the name of your primary branch [main]: " primary_branch
+    primary_branch=${primary_branch:-main}
+    sed -i '' "s/YOUR_BRANCH_NAME/${primary_branch}/g" $gh_actions_filename
+
+    read -p "Enter your PHP version [8.1]: " php_version
+    php_version=${php_version:-8.1}
+    sed -i '' "s/YOUR_PHP_VERSION/${php_version}/g" $gh_actions_filename
+
+    printf "\nCreated $gh_actions_filename.\n"
   fi
+}
+
+############################################################
+# Pint                                                     #
+############################################################
+
+function _pint_fix()
+{
+  if [[ -f "./.pint.json" ]]; then
+    pint
+  else
+    pint --config vendor/tightenco/duster/pint.json
+  fi
+}
+
+function _pint_lint()
+{
+  if [[ -f "./.pint.json" ]]; then
+    pint --test
+  else
+    pint --config vendor/tightenco/duster/pint.json --test
+  fi
+}
+
+############################################################
+# PHP CS Fixer                                             #
+############################################################
+
+function _phpcsfixer_fix()
+{
+  if [[ -f "./.php-cs-fixer.dist.php" ]] || [[ -f "./.php-cs-fixer.php" ]]; then
+    vendor/bin/php-cs-fixer fix $(_args $@)
+  else
+    vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php $(_args $@)
+  fi
+}
+
+function _phpcsfixer_lint()
+{
+  if [[ -f "./.php-cs-fixer.dist.php" ]] || [[ -f "./.php-cs-fixer.php" ]]; then
+    vendor/bin/php-cs-fixer fix --diff --dry-run $(_args $@)
+  else
+    vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php --diff --dry-run $(_args $@)
+  fi
+}
+
+############################################################
+# PHP PHP_CodeSniffer                                      #
+############################################################
+
+function _phpcs_fix()
+{
+  if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
+    vendor/bin/phpcbf --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
+    vendor/bin/phpcbf
+    vendor/bin/phpcs -n > /dev/null
+  else
+    vendor/bin/phpcbf --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
+    vendor/bin/phpcs -n --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests > /dev/null
+  fi
+
+  if [ $? -ne 0 ]; then
+    echo -e "${RED}WARNING${NOCOLOR} PHP Code_Sniffer found errors that cannot be fixed automatically. Run 'duster phpcs' to view them.\n"
+  fi
+}
+
+function _phpcs_lint()
+{
+  if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
+    vendor/bin/phpcs --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
+    vendor/bin/phpcs
+  else
+    vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
+  fi
+}
+
+############################################################
+# TLint                                                    #
+############################################################
+
+function _tlint_fix()
+{
+  errors=false
+  args=$(_args $@)
+
+  if [ -z "${args}" ]; then
+    vendor/bin/tlint --ansi format
+  fi
+
+  for path in $args
+  do
+      vendor/bin/tlint --ansi format "$path"
+      if [ $? -ne 0 ]; then
+          errors=true
+      fi
+  done
+
+  if [ "$errors" = true ] ; then
+      exit 1
+  fi
+}
+
+function _tlint_lint()
+{
+  errors=false
+  args=$(_args $@)
+
+  if [ -z "${args}" ]; then
+    vendor/bin/tlint --ansi lint
+  fi
+
+  for path in $args
+  do
+      vendor/bin/tlint --ansi lint "$path"
+      if [ $? -ne 0 ]; then
+          errors=true
+      fi
+  done
+
+  if [ "$errors" = true ] ; then
+      exit 1
+  fi
+}
+
+############################################################
+# All Tools                                                #
+############################################################
+
+function _lint()
+{
+  _tlint_lint
+  if [ $? -ne 0 ]; then
+    PASS_TLINT=false
+  fi
+
+  _phpcs_lint
+  if [ $? -ne 0 ]; then
+    PASS_PHPCS=false
+  fi
+
+  _phpcsfixer_lint
+  if [ $? -ne 0 ]; then
+    PASS_PHPCSFIXER=false
+  fi
+
+  _pint_lint
+  if [ $? -ne 0 ]; then
+    PASS_PINT=false
+  fi
+
+  if [ $PASS_TLINT == false ] || [ $PASS_PHPCS == false ] || [ $PASS_PHPCSFIXER == false ] || [ $PASS_PINT == false ]; then
+    exit 1
+  else
+    exit 0
+  fi
+}
+
+function _fix()
+{
+  _tlint_fix
+  if [ $? -ne 0 ]; then
+    PASS_TLINT=false
+  fi
+
+  _phpcs_fix
+  if [ $? -ne 0 ]; then
+    PASS_PHPCS=false
+  fi
+
+  _phpcsfixer_fix
+  if [ $? -ne 0 ]; then
+    PASS_PHPCSFIXER=false
+  fi
+
+  _pint_fix
+  if [ $? -ne 0 ]; then
+    PASS_PINT=false
+  fi
+
+  if [ $PASS_TLINT == false ] || [ $PASS_PHPCS == false ] || [ $PASS_PHPCSFIXER == false ] || [ $PASS_PINT == false ]; then
+    exit 1
+  else
+    exit 0
+  fi
+}
+
+############################################################
+# Main                                                     #
+############################################################
+
+if [[ "$*" == *"github-actions"* ]]; then
+    _github_actions
+elif [[ "$*" == *"pint"* ]] && [[ "$*" == *"fix"* ]]; then
+    _pint_fix
+elif [[ "$*" == *"pint"* ]]; then
+    _pint_lint
+elif [[ "$*" == *"phpcsfixer"* ]] && [[ "$*" == *"fix"* ]]; then
+    _phpcsfixer_fix $@
+elif [[ "$*" == *"phpcsfixer"* ]]; then
+    _phpcsfixer_lint $@
+elif [[ "$*" == *"phpcs"* ]] && [[ "$*" == *"fix"* ]]; then
+    _phpcs_fix $@
+elif [[ "$*" == *"phpcs"* ]]; then
+    _phpcs_lint $@
+elif [[ "$*" == *"tlint"* ]] && [[ "$*" == *"fix"* ]]; then
+    _tlint_fix $@
+elif [[ "$*" == *"tlint"* ]]; then
+    _tlint_lint $@
+elif [[ "$*" == *"fix"* ]]; then
+    _fix $@
+elif [[ "$*" == *"lint"* ]] || [ "$#" -ne 1 ]; then
+  _lint
 else
-  filename="fix-$1"
+  _help
 fi
 
-filename="$BIN_DIR/actions/$filename"
-
-if [ ! -f "$filename" ]; then
-  printf "\nSorry, that is an invalid selection.\n[$filename does not exist]\n"
-
-  exit
-fi
-
-. $filename
+exit 0
