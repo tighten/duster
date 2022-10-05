@@ -93,6 +93,10 @@ function _pint_fix()
   else
     pint --config vendor/tightenco/duster/pint.json
   fi
+
+  if [ $? -ne 0 ]; then
+    PASS_PINT=false
+  fi
 }
 
 function _pint_lint()
@@ -101,6 +105,10 @@ function _pint_lint()
     pint --test
   else
     pint --config vendor/tightenco/duster/pint.json --test
+  fi
+
+  if [ $? -ne 0 ]; then
+    PASS_PINT=false
   fi
 }
 
@@ -115,6 +123,10 @@ function _phpcsfixer_fix()
   else
     vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php $(_args $@)
   fi
+
+  if [ $? -ne 0 ]; then
+    PASS_PHPCSFIXER=false
+  fi
 }
 
 function _phpcsfixer_lint()
@@ -123,6 +135,10 @@ function _phpcsfixer_lint()
     vendor/bin/php-cs-fixer fix --diff --dry-run $(_args $@)
   else
     vendor/bin/php-cs-fixer fix --config=vendor/tightenco/duster/.php-cs-fixer.dist.php --diff --dry-run $(_args $@)
+  fi
+
+  if [ $? -ne 0 ]; then
+    PASS_PHPCSFIXER=false
   fi
 }
 
@@ -135,9 +151,17 @@ function _phpcs_fix()
   if [[ -f "./.phpcs.xml" ]] || [[ -f "./phpcs.xml" ]] || [[ -f "./.phpcs.xml.dist" ]] || [[ -f "./phpcs.xml.dist" ]]; then
     vendor/bin/phpcbf --config-set installed_paths ../../tightenco/duster/standards/Tighten > /dev/null
     vendor/bin/phpcbf
+    if [ $? -ne 0 ]; then
+      PASS_PHPCS=false
+    fi
+
     vendor/bin/phpcs -n > /dev/null
   else
     vendor/bin/phpcbf --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
+    if [ $? -ne 0 ]; then
+      PASS_PHPCS=false
+    fi
+
     vendor/bin/phpcs -n --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests > /dev/null
   fi
 
@@ -154,6 +178,10 @@ function _phpcs_lint()
   else
     vendor/bin/phpcs --standard=vendor/tightenco/duster/standards/Tighten/ app config database public resources routes tests
   fi
+
+  if [ $? -ne 0 ]; then
+    PASS_PHPCS=false
+  fi
 }
 
 ############################################################
@@ -162,46 +190,42 @@ function _phpcs_lint()
 
 function _tlint_fix()
 {
-  errors=false
   args=$(_args $@)
 
   if [ -z "${args}" ]; then
     vendor/bin/tlint --ansi format
+    if [ $? -ne 0 ]; then
+      PASS_TLINT=false
+    fi
   fi
 
   for path in $args
   do
-      vendor/bin/tlint --ansi format "$path"
-      if [ $? -ne 0 ]; then
-          errors=true
-      fi
+    vendor/bin/tlint --ansi format "$path"
+    if [ $? -ne 0 ]; then
+      PASS_TLINT=false
+    fi
   done
-
-  if [ "$errors" = true ] ; then
-      exit 1
-  fi
 }
 
 function _tlint_lint()
 {
-  errors=false
   args=$(_args $@)
 
   if [ -z "${args}" ]; then
     vendor/bin/tlint --ansi lint
+    if [ $? -ne 0 ]; then
+      PASS_TLINT=false
+    fi
   fi
 
   for path in $args
   do
-      vendor/bin/tlint --ansi lint "$path"
-      if [ $? -ne 0 ]; then
-          errors=true
-      fi
+    vendor/bin/tlint --ansi lint "$path"
+    if [ $? -ne 0 ]; then
+      PASS_TLINT=false
+    fi
   done
-
-  if [ "$errors" = true ] ; then
-      exit 1
-  fi
 }
 
 ############################################################
@@ -210,25 +234,10 @@ function _tlint_lint()
 
 function _lint()
 {
-  _tlint_lint
-  if [ $? -ne 0 ]; then
-    PASS_TLINT=false
-  fi
-
-  _phpcs_lint
-  if [ $? -ne 0 ]; then
-    PASS_PHPCS=false
-  fi
-
-  _phpcsfixer_lint
-  if [ $? -ne 0 ]; then
-    PASS_PHPCSFIXER=false
-  fi
-
-  _pint_lint
-  if [ $? -ne 0 ]; then
-    PASS_PINT=false
-  fi
+  _tlint_lint $@
+  _phpcs_lint $@
+  _phpcsfixer_lint $@
+  _pint_lint $@
 
   if [ $PASS_TLINT == false ] || [ $PASS_PHPCS == false ] || [ $PASS_PHPCSFIXER == false ] || [ $PASS_PINT == false ]; then
     exit 1
@@ -239,25 +248,10 @@ function _lint()
 
 function _fix()
 {
-  _tlint_fix
-  if [ $? -ne 0 ]; then
-    PASS_TLINT=false
-  fi
-
-  _phpcs_fix
-  if [ $? -ne 0 ]; then
-    PASS_PHPCS=false
-  fi
-
-  _phpcsfixer_fix
-  if [ $? -ne 0 ]; then
-    PASS_PHPCSFIXER=false
-  fi
-
-  _pint_fix
-  if [ $? -ne 0 ]; then
-    PASS_PINT=false
-  fi
+  _tlint_fix $@
+  _phpcs_fix $@
+  _phpcsfixer_fix $@
+  _pint_fix $@
 
   if [ $PASS_TLINT == false ] || [ $PASS_PHPCS == false ] || [ $PASS_PHPCSFIXER == false ] || [ $PASS_PINT == false ]; then
     exit 1
@@ -270,30 +264,30 @@ function _fix()
 # Main                                                     #
 ############################################################
 
-if [[ "$*" == *"github-actions"* ]]; then
-    _github_actions
-elif [[ "$*" == *"pint"* ]] && [[ "$*" == *"fix"* ]]; then
-    _pint_fix
-elif [[ "$*" == *"pint"* ]]; then
-    _pint_lint
-elif [[ "$*" == *"phpcsfixer"* ]] && [[ "$*" == *"fix"* ]]; then
-    _phpcsfixer_fix $@
-elif [[ "$*" == *"phpcsfixer"* ]]; then
-    _phpcsfixer_lint $@
-elif [[ "$*" == *"phpcs"* ]] && [[ "$*" == *"fix"* ]]; then
-    _phpcs_fix $@
-elif [[ "$*" == *"phpcs"* ]]; then
-    _phpcs_lint $@
-elif [[ "$*" == *"tlint"* ]] && [[ "$*" == *"fix"* ]]; then
-    _tlint_fix $@
-elif [[ "$*" == *"tlint"* ]]; then
-    _tlint_lint $@
-elif [[ "$*" == *"fix"* ]]; then
-    _fix $@
-elif [[ "$*" == *"lint"* ]] || [ "$#" -ne 1 ]; then
-  _lint
-else
+if [[ "$*" == *"help"* ]]; then
   _help
+elif [[ "$*" == *"github-actions"* ]]; then
+  _github_actions
+elif [[ "$*" == *"pint"* ]] && [[ "$*" == *"fix"* ]]; then
+  _pint_fix $@
+elif [[ "$*" == *"pint"* ]]; then
+  _pint_lint $@
+elif [[ "$*" == *"phpcsfixer"* ]] && [[ "$*" == *"fix"* ]]; then
+  _phpcsfixer_fix $@
+elif [[ "$*" == *"phpcsfixer"* ]]; then
+  _phpcsfixer_lint $@
+elif [[ "$*" == *"phpcs"* ]] && [[ "$*" == *"fix"* ]]; then
+  _phpcs_fix $@
+elif [[ "$*" == *"phpcs"* ]]; then
+  _phpcs_lint $@
+elif [[ "$*" == *"tlint"* ]] && [[ "$*" == *"fix"* ]]; then
+  _tlint_fix $@
+elif [[ "$*" == *"tlint"* ]]; then
+  _tlint_lint $@
+elif [[ "$*" == *"fix"* ]]; then
+  _fix $@
+else
+  _lint $@
 fi
 
-exit 0
+exit 1
