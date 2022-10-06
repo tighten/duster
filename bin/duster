@@ -30,6 +30,12 @@ function _args() {
   echo "${args[@]}"
 }
 
+function _heading() {
+  terminal_width="$(tput cols)"
+  padding="$(printf '%0.1s' ={1..500})"
+  printf '%*.*s \e[32m%s\e[0m %*.*s' 0 "$(((terminal_width-2-${#1})/2))" "$padding" "$1" 0 "$(((terminal_width-1-${#1})/2))" "$padding"
+}
+
 ############################################################
 # Help                                                     #
 ############################################################
@@ -232,9 +238,13 @@ function _tlint_lint()
 
 function _lint()
 {
+  _heading 'TLint'
   _tlint_lint $@
+  _heading 'PHP CodeSniffer'
   _phpcs_lint $@
+  _heading 'PHP CS Fixer'
   _phpcsfixer_lint $@
+  _heading 'Pint'
   _pint_lint $@
 
   if [ $PASS_TLINT == false ] || [ $PASS_PHPCS == false ] || [ $PASS_PHPCSFIXER == false ] || [ $PASS_PINT == false ]; then
@@ -246,9 +256,13 @@ function _lint()
 
 function _fix()
 {
+  _heading 'TLint'
   _tlint_fix $@
+  _heading 'PHP CodeSniffer'
   _phpcs_fix $@
+  _heading 'PHP CS Fixer'
   _phpcsfixer_fix $@
+  _heading 'Pint'
   _pint_fix $@
 
   if [ $PASS_TLINT == false ] || [ $PASS_PHPCS == false ] || [ $PASS_PHPCSFIXER == false ] || [ $PASS_PINT == false ]; then
