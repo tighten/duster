@@ -263,31 +263,29 @@ function _fix()
 ############################################################
 
 if [[ "$*" == *"help"* ]]; then
-  action='_help'
+  _help $(_args $@)
 elif [[ "$*" == *"github-actions"* ]]; then
-  action='_github_actions'
+  _github_actions $(_args $@)
 elif [[ "$*" == *"pint"* ]] && [[ "$*" == *"fix"* ]]; then
-  action='_pint_fix'
+  _pint_fix $(_args $@)
 elif [[ "$*" == *"pint"* ]]; then
-  action='_pint_lint'
+  _pint_lint $(_args $@)
 elif [[ "$*" == *"phpcsfixer"* ]] && [[ "$*" == *"fix"* ]]; then
-  action='_phpcsfixer_fix'
+  _phpcsfixer_fix $(_args $@)
 elif [[ "$*" == *"phpcsfixer"* ]]; then
-  action='_phpcsfixer_lint'
+  _phpcsfixer_lint $(_args $@)
 elif [[ "$*" == *"phpcs"* ]] && [[ "$*" == *"fix"* ]]; then
-  action='_phpcs_fix'
+  _phpcs_fix $(_args $@)
 elif [[ "$*" == *"phpcs"* ]]; then
-  action='_phpcs_lint'
+  _phpcs_lint $(_args $@)
 elif [[ "$*" == *"tlint"* ]] && [[ "$*" == *"fix"* ]]; then
-  action='_tlint_fix'
+  _tlint_fix $(_args $@)
 elif [[ "$*" == *"tlint"* ]]; then
-  action='_tlint_lint'
+  _tlint_lint $(_args $@)
 elif [[ "$*" == *"fix"* ]]; then
-  action='_fix'
+  _fix $(_args $@)
 else
-  action='_lint'
+  _lint $(_args $@)
 fi
-
-$action $(_args $@)
 
 exit 1
