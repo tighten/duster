@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-. ${BIN_DIR}/actions/fix-phpcs
-. ${BIN_DIR}/actions/fix-tlint

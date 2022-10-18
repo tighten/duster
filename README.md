@@ -1,13 +1,18 @@
 ![Project Banner](https://raw.githubusercontent.com/tighten/duster/main/banner.png)
 # Duster
 
-Automatically apply Tighten's default code style for Laravel apps:
+Automatically apply Tighten's default code style for Laravel apps.
 
-- PHPCS, with PSR-12 + some special preferences
-- Tighten's Tlint
-- Maybe JS and CSS?
+To achieve this, Duster installs and automatically configures the following tools:
 
-To achieve this, this package installs PHPCS (and PHPCBF with it) and Tlint, and automatically configures them. Tlint uses the default `Tighten` preset. PHPCS uses the [`Tighten` preset](https://github.com/tighten/tighten-coding-standard) which is `PSR-12` and a few Tighten-specific rules.
+- TLint: Opinionated code linter for Laravel and PHP
+  - using the default `Tighten` preset
+- PHP_CodeSniffer: catch issues that can't be fixed automatically
+  - using the `Tighten` preset which is mostly PSR1 with some Tighten-specific rules
+- PHP CS Fixer: custom rules not supported by Laravel Pint
+  - `CustomOrderedClassElementsFixer` Tighten-specific order of class elements
+- Pint: Laravel's code style rules (with a few Tighten specific customizations)
+  - using the default `Laravel` preset with some Tighten-specific rules
 
 ## Installation
 
@@ -15,66 +20,83 @@ You can install the package via composer:
 
 ```bash
 composer require tightenco/duster --dev
-./vendor/bin/duster init
 ```
 
-When installing you may see the following message:
+Optionally you can publish a GitHub Actions linting config:
 
->dealerdirect/phpcodesniffer-composer-installer contains a Composer plugin which is currently not in your allow-plugins config. See https://getcomposer.org/allow-plugins
->Do you trust "dealerdirect/phpcodesniffer-composer-installer" to execute code and wish to enable it now? (writes "allow-plugins" to composer.json) [y,n,d,?]
-
-You will need to accept the [phpcodesniffer-composer-installer](https://github.com/PHPCSStandards/composer-installer) prompt to have the PHPCS rulesets and so the GitHub actions will work.
-
-This adds an `allowed-plugins` entry to your `composer.json` file:
-
-```json
-    ...
-    "config": {
-        ...
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    },
+```bash
+duster github-actions
 ```
-
-
-You must run `./vendor/bin/duster init` after installing, or you won't have a local copy of the PHPCS config file, and Duster won't work.
-
-The `init` command will also optionally add a GitHub action to run Duster's linters.
 
 ## Usage
 
 To lint everything at once:
 
 ```bash
-./vendor/bin/duster lint
+duster
 ```
 
 To fix everything at once:
 
 ```bash
-./vendor/bin/duster fix
+duster fix
 ```
 
-To run individual lints:
+To view all available commands:
 
 ```bash
-./vendor/bin/duster tlint
-./vendor/bin/duster phpcs
+duster help
 ```
 
-To run individual fixes:
+## Customizing
 
-```bash
-./vendor/bin/duster tlint fix
-./vendor/bin/duster phpcs fix
+### TLint
+
+Create a `tlint.json` file in your project root. Learn more in the [TLint documentation](https://github.com/tighten/tlint#configuration).
+
+### PHP_CodeSniffer
+
+Create a `.phpcs.xml.dist` file in your project root with the following:
+
+```xml
+<?xml version="1.0"?>
+<ruleset>
+    <file>app</file>
+    <file>config</file>
+    <file>database</file>
+    <file>public</file>
+    <file>resources</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <rule ref="Tighten"/>
+</ruleset>
 ```
 
-### Customizing the lints
+Now you can add customizations below the `<rule ref="Tighten"/>` line or even disable the Tighten rule and use your own ruleset. Learn more in this [introductory article](https://ncona.com/2012/12/creating-your-own-phpcs-standard/).
 
-To override the configuration for PHPCS, you can edit the `.phpcs.xml.dist` file and add customizations below the `<rule ref="Tighten"/>` line or even disable the Tighten rule and use your own ruleset. Learn more in this [introductory article](https://ncona.com/2012/12/creating-your-own-phpcs-standard/).
+### PHP CS Fixer
 
-To override the configuration for Tlint, create a `tlint.json` file in your project root. Learn more in the [Tlint documentation](https://github.com/tighten/tlint#configuration).
+Create a `.php-cs-fixer.dist.php` file in your project root with the contents from [Duster's `.php-cs-fixer.dist.php`](.php-cs-fixer.dist.php).  Learn more in the [PHP CS Fixer documentation](https://cs.symfony.com/doc/config.html).
+
+### Pint
+
+Create a `pint.json` file in your project root with the following:
+
+```json
+{
+    "preset": "laravel",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "class_attributes_separation": {
+        }
+    }
+}
+```
+
+Now you can add or remove customizations. Learn more in the [Pint documentation](https://laravel.com/docs/pint#configuring-pint).
 
 ## Contributing
 
