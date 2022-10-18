@@ -18,9 +18,6 @@
     <arg name="colors"/>
     <arg value="p"/>
 
-    <!-- Hard-code custom php.ini settings -->
-    <ini name="memory_limit" value="128M"/>
-
     <!-- PSR1 2.3 Side Effects -->
     <rule ref="PSR1.Files.SideEffects">
         <!-- Disable side effects for index file -->
