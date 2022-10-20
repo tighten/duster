@@ -48,7 +48,6 @@
     </rule>
 
     <!-- No compact() and no 'dumps' -->
-    <!-- Use config() over env() -->
     <rule ref="Generic.PHP.ForbiddenFunctions">
         <properties>
             <property name="forbiddenFunctions" type="array">
@@ -57,10 +56,12 @@
                 <element key="dump" value="null"/>
                 <element key="var_dump" value="null"/>
                 <element key="ray" value="null"/>
-                <element key="env" value="config"/>
             </property>
         </properties>
-        <!-- This will also allow all other forbidden functions in confg directory -->
+    </rule>
+
+    <!-- Use config() over env() -->
+    <rule ref="Tighten.PHP.UseConfigOverEnv">
         <exclude-pattern>/config/*</exclude-pattern>
     </rule>
 
