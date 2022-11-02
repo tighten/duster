@@ -11,21 +11,25 @@ use Tighten\TLint\Commands\LintCommand;
 
 class TLint extends Tool
 {
-    public function lint($paths): int
+    public function lint(array $paths): int
     {
         $this->heading('Linting using TLint');
 
         return $this->process('lint', $paths);
     }
 
-    public function fix($paths): int
+    public function fix(array $paths): int
     {
         $this->heading('Fixing using TLint');
 
         return $this->process('format', $paths);
     }
 
-    private function process($command, array $paths = []): int
+    /**
+     * @param string $command
+     * @param array<int, string> $paths
+     */
+    private function process(string $command, array $paths = []): int
     {
         $application = new Application();
         $application->add(new LintCommand);

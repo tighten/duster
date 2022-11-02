@@ -36,20 +36,23 @@ class PhpCsFixer extends Tool
             ->ignoreVCS(true);
     }
 
-    public function lint($paths): int
+    public function lint(array $paths): int
     {
         $this->heading('Linting using PHP CS Fixer');
 
         return $this->process($paths);
     }
 
-    public function fix($paths): int
+    public function fix(array $paths): int
     {
         $this->heading('Fixing using PHP CS Fixer');
 
         return $this->process($paths);
     }
 
+    /**
+     * @param array<int, string> $paths
+     */
     private function process(array $paths = []): int
     {
         $input = app()->get(InputInterface::class);

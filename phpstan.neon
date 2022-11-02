@@ -1,0 +1,21 @@
+includes:
+  - ./vendor/nunomaduro/larastan/extension.neon
+parameters:
+  paths:
+    - app
+    - bootstrap
+    - config
+    - standards
+  level: 6
+  excludePaths:
+    - app/Fixer/ClassNotation/CustomOrderedClassElementsFixer.php
+    - standards/Tighten/Sniffs/PHP/UseConfigOverEnvSniff.php
+  ignoreErrors:
+  -
+    message: '#Right side of \|\| is always false.#'
+    path: app/Commands/DusterCommand.php
+  -
+    messages:
+      - '#Instantiated class PHP_CodeSniffer\\Runner not found.#'
+      - '#Call to static method setConfigData\(\) on an unknown class PHP_CodeSniffer\\Config.#'
+    path: app/Support/PhpCodeSniffer.php

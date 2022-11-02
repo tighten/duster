@@ -8,14 +8,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpCodeSniffer extends Tool
 {
-    public function lint($paths): int
+    public function lint(array $paths): int
     {
         $this->heading('Linting using PHP_CodeSniffer');
 
         return $this->process('runPHPCS', $this->cleanPaths($paths));
     }
 
-    public function fix($paths): int
+    public function fix(array $paths): int
     {
         $this->heading('Fixing using PHP_CodeSniffer');
 
@@ -30,6 +30,10 @@ class PhpCodeSniffer extends Tool
         return $fix;
     }
 
+    /**
+     * @param string $tool
+     * @param array<int, string> $params
+     */
     private function process(string $tool, array $params = []): int
     {
         $serverArgv = $_SERVER['argv'];
@@ -53,6 +57,11 @@ class PhpCodeSniffer extends Tool
         return $exitCode;
     }
 
+    /**
+     * @param array<int, string> $paths
+     *
+     * @return array<int, string>
+     */
     private function cleanPaths(array $paths): array
     {
         return $paths === [Project::path()] ? $this->getDefaultDirectories() : $paths;
@@ -74,6 +83,9 @@ class PhpCodeSniffer extends Tool
         };
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function getDefaultDirectories(): array
     {
         return array_filter(

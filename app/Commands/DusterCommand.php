@@ -14,7 +14,10 @@ class DusterCommand extends Command
 
     protected $description = 'Clean up your code';
 
-    public function handle($clean)
+    /**
+     * @param \App\Actions\Clean $clean
+     */
+    public function handle($clean): int
     {
         if ($this->input->getOption('github-actions')) {
             return $this->gitHubActions();
@@ -37,9 +40,11 @@ class DusterCommand extends Command
                 ->using($this->input->getOption('using') ?? '')
                 ->execute();
         }
+
+        return Command::SUCCESS;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -80,7 +85,7 @@ class DusterCommand extends Command
             );
     }
 
-    private function gitHubActions()
+    private function gitHubActions(): int
     {
         $branch = $this->anticipate('What is the name of your primary branch?', ['main', 'develop', 'master'], 'main');
         $phpVersion = $this->anticipate('What PHP version do you want to use?', ['8.1', '8.0'], '8.1');
@@ -99,10 +104,12 @@ class DusterCommand extends Command
 
         file_put_contents(getcwd() . '/.github/workflows/lint.yml', $workflow);
 
-        return $this->success('GitHub Actions added');
+        $this->success('GitHub Actions added');
+
+        return Command::SUCCESS;
     }
 
-    private function success($message)
+    private function success(string $message): void
     {
         render(<<<HTML
             <div class="py-1 ml-2">

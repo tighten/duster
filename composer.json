@@ -31,6 +31,7 @@
         "laravel-zero/framework": "^9.2",
         "laravel/pint": "^1.2",
         "mockery/mockery": "^1.4.4",
+        "nunomaduro/larastan": "^2.2",
         "nunomaduro/termwind": "^1.14",
         "pestphp/pest": "^1.21.3",
         "spatie/laravel-ray": "^1.31",

@@ -8,21 +8,21 @@ use App\Commands\DefaultCommand;
 
 class Pint extends Tool
 {
-    public function lint($paths): int
+    public function lint(array $paths): int
     {
         $this->heading('Linting using Pint');
 
         return $this->process();
     }
 
-    public function fix($paths): int
+    public function fix(array $paths): int
     {
         $this->heading('Fixing using Pint');
 
         return $this->process();
     }
 
-    private function process(): bool
+    private function process(): int
     {
         $pint = new DefaultCommand();
 

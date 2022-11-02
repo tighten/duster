@@ -11,6 +11,10 @@ use Illuminate\Support\Str;
 
 class Clean
 {
+    /**
+     * @param array<int, string> $paths
+     * @param array<int, string> $tools
+     */
     public function __construct(
         protected string $mode = 'lint',
         protected array $paths = [],
@@ -30,6 +34,9 @@ class Clean
         return $this;
     }
 
+    /**
+     * @param array<int, string> $paths
+     */
     public function for(array $paths): self
     {
         $this->paths = $paths;
