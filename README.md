@@ -3,16 +3,18 @@
 
 Automatically apply Tighten's default code style for Laravel apps.
 
-To achieve this, Duster installs and automatically configures the following tools:
+Duster is built on top of the following tools:
 
-- TLint: Opinionated code linter for Laravel and PHP
+- TLint: lints Laravel and PHP code for issues not covered by other tools
   - using the default `Tighten` preset
-- PHP_CodeSniffer: catch issues that can't be fixed automatically
+- PHP_CodeSniffer: sniffs issues that can't be fixed automatically
   - using the `Tighten` preset which is mostly PSR1 with some Tighten-specific rules
-- PHP CS Fixer: custom rules not supported by Laravel Pint
+- PHP CS Fixer: adds custom rules not supported by Laravel Pint
   - `CustomOrderedClassElementsFixer` Tighten-specific order of class elements
 - Pint: Laravel's code style rules (with a few Tighten specific customizations)
   - using the default `Laravel` preset with some Tighten-specific rules
+
+New Laravel Zero architecture inspired by and relies on Laravel Pint.
 
 ## Installation
 
@@ -25,7 +27,7 @@ composer require tightenco/duster --dev
 Optionally you can publish a GitHub Actions linting config:
 
 ```bash
-duster github-actions
+./vendor/bin/duster --github-actions
 ```
 
 ## Usage
@@ -33,19 +35,22 @@ duster github-actions
 To lint everything at once:
 
 ```bash
-duster
+./vendor/bin/duster
+
+# or
+./vendor/bin/duster --lint
 ```
 
 To fix everything at once:
 
 ```bash
-duster fix
+./vendor/bin/duster --fix
 ```
 
 To view all available commands:
 
 ```bash
-duster help
+./vendor/bin/duster --help
 ```
 
 ## Customizing

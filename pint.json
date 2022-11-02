@@ -13,5 +13,8 @@
             "style": "annotation"
         },
         "blank_line_between_import_groups": true
-    }
+    },
+    "exclude": [
+        "tests/Fixtures"
+    ]
 }

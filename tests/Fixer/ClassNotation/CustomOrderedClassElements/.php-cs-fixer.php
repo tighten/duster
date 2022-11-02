@@ -1,7 +1,7 @@
 <?php
 
+use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 use PhpCsFixer\Config;
-use Tighten\Duster\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 
 return (new Config())
     ->setUsingCache(false)

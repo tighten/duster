@@ -1,0 +1,6 @@
+{
+    "preset": "Tests\\Fixtures\\TlintProjectConfig\\CustomPreset",
+    "disabled": [
+        "SpacesAroundBladeRenderContent"
+    ]
+}

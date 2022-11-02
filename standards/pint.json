@@ -1,0 +1,17 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "class_attributes_separation": {
+            "elements": {
+                "method": "one"
+            }
+        },
+        "php_unit_test_annotation": {
+            "style": "annotation"
+        },
+        "blank_line_between_import_groups": true
+    }
+}
