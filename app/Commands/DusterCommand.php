@@ -15,7 +15,7 @@ class DusterCommand extends Command
     protected $description = 'Clean up your code';
 
     /**
-     * @param \App\Actions\Clean $clean
+     * @param  \App\Actions\Clean  $clean
      */
     public function handle($clean): int
     {

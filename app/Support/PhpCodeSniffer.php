@@ -31,8 +31,8 @@ class PhpCodeSniffer extends Tool
     }
 
     /**
-     * @param string $tool
-     * @param array<int, string> $params
+     * @param  string  $tool
+     * @param  array<int, string>  $params
      */
     private function process(string $tool, array $params = []): int
     {
@@ -58,8 +58,7 @@ class PhpCodeSniffer extends Tool
     }
 
     /**
-     * @param array<int, string> $paths
-     *
+     * @param  array<int, string>  $paths
      * @return array<int, string>
      */
     private function cleanPaths(array $paths): array

@@ -51,7 +51,7 @@ class PhpCsFixer extends Tool
     }
 
     /**
-     * @param array<int, string> $paths
+     * @param  array<int, string>  $paths
      */
     private function process(array $paths = []): int
     {

@@ -26,8 +26,8 @@ class TLint extends Tool
     }
 
     /**
-     * @param string $command
-     * @param array<int, string> $paths
+     * @param  string  $command
+     * @param  array<int, string>  $paths
      */
     private function process(string $command, array $paths = []): int
     {

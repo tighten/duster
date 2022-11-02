@@ -12,8 +12,8 @@ use Illuminate\Support\Str;
 class Clean
 {
     /**
-     * @param array<int, string> $paths
-     * @param array<int, string> $tools
+     * @param  array<int, string>  $paths
+     * @param  array<int, string>  $tools
      */
     public function __construct(
         protected string $mode = 'lint',
@@ -35,7 +35,7 @@ class Clean
     }
 
     /**
-     * @param array<int, string> $paths
+     * @param  array<int, string>  $paths
      */
     public function for(array $paths): self
     {

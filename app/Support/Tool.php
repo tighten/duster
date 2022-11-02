@@ -7,12 +7,12 @@ use function Termwind\{render};
 abstract class Tool
 {
     /**
-     * @param array<int, string> $paths
+     * @param  array<int, string>  $paths
      */
     abstract public function lint(array $paths): int;
 
     /**
-     * @param array<int, string> $paths
+     * @param  array<int, string>  $paths
      */
     abstract public function fix(array $paths): int;
 
