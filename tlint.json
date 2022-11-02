@@ -1,3 +1,4 @@
 {
+    "disabled": ["AlphabeticalImports"],
     "excluded": ["tests/Fixtures"]
 }
