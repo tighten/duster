@@ -10,5 +10,5 @@ it('lints with PHP CS Fixer using project config', function () {
     expect($statusCode)->toBe(1)
         ->and($output)
         ->toContain('Linting using PHP CS Fixer')
-        ->toContain('Tighten/custom_ordered_class_elements');
+        ->toContain('Tighten/custom');
 });
