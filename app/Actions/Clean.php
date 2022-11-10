@@ -67,7 +67,7 @@ class Clean
 
     public function execute(): int
     {
-        $success = collect($this->tools)->filter(fn ($tool) => (new $tool)->{$this->mode}($this->paths))->isEmpty();
+        $success = collect($this->tools)->filter(fn ($tool) => (new $tool())->{$this->mode}($this->paths))->isEmpty();
 
         return $success ? Command::SUCCESS : Command::FAILURE;
     }

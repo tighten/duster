@@ -32,8 +32,8 @@ class TLint extends Tool
     private function process(string $command, array $paths = []): int
     {
         $application = new Application();
-        $application->add(new LintCommand);
-        $application->add(new FormatCommand);
+        $application->add(new LintCommand());
+        $application->add(new FormatCommand());
         $application->setAutoExit(false);
 
         $success = collect($paths)->map(fn ($path) => $application->run(new StringInput("{$command} {$path}"), app()->get(OutputInterface::class)))
