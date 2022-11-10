@@ -20,6 +20,7 @@
                 "function"
             ]
         },
+        "new_with_braces": true,
         "blank_line_between_import_groups": true,
         "explicit_string_variable": true,
         "simple_to_complex_string_variable": true
