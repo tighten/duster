@@ -17,43 +17,33 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
     {
         $configuration['order'] = [
             'use_trait',
-                'property_public_static',
-                'property_protected_static',
-                'property_private_static',
-                'constant_public',
-                'constant_protected',
-                'constant_private',
-                'property_public',
-                'property_protected',
-                'property_private',
-                'construct',
-                'method:__invoke',
-                'method_public_static',
-                'method_protected_static',
-                'method_private_static',
-                'method:index',
-                'method:create',
-                'method:store',
-                'method:show',
-                'method:edit',
-                'method:update',
-                'method:destroy',
-                'method_protected',
-                'method_private',
-                'magic',
+            'property_public_static',
+            'property_protected_static',
+            'property_private_static',
+            'constant_public',
+            'constant_protected',
+            'constant_private',
+            'property_public',
+            'property_protected',
+            'property_private',
+            'construct',
+            'method:__invoke',
+            'method_public_static',
+            'method_protected_static',
+            'method_private_static',
+            'method:index',
+            'method:create',
+            'method:store',
+            'method:show',
+            'method:edit',
+            'method:update',
+            'method:destroy',
+            'method_protected',
+            'method_private',
+            'magic',
         ];
 
         parent::configure($configuration);
-    }
-
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
-    {
-        for ($index = $tokens->count() - 1; $index > 0; --$index) {
-            if ($tokens[$index]->isGivenKind(T_NAMESPACE) && $this->isControllerClass($tokens, $index)) {
-                parent::applyFix($file, $tokens);
-                break;
-            }
-        }
     }
 
     public function isControllerClass(Tokens $tokens, int $index): bool
@@ -98,5 +88,15 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
         }
 
         return false;
+    }
+
+    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    {
+        for ($index = $tokens->count() - 1; $index > 0; $index--) {
+            if ($tokens[$index]->isGivenKind(T_NAMESPACE) && $this->isControllerClass($tokens, $index)) {
+                parent::applyFix($file, $tokens);
+                break;
+            }
+        }
     }
 }

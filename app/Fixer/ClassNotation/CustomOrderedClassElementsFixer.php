@@ -34,17 +34,6 @@ use PhpCsFixer\Tokenizer\Tokens;
  */
 class CustomOrderedClassElementsFixer extends AbstractFixer implements ConfigurableFixerInterface
 {
-    /** @internal */
-    public const SORT_ALPHA = 'alpha';
-
-    /** @internal */
-    public const SORT_NONE = 'none';
-
-    private const SUPPORTED_SORT_ALGORITHMS = [
-        self::SORT_NONE,
-        self::SORT_ALPHA,
-    ];
-
     /**
      * @var array<string, null|list<string>> Array containing all class element base types (keys) and their parent types (values)
      */
@@ -95,6 +84,16 @@ class CustomOrderedClassElementsFixer extends AbstractFixer implements Configura
         'magic' => null,
         'phpunit' => null,
     ];
+    /** @internal */
+    public const SORT_ALPHA = 'alpha';
+
+    /** @internal */
+    public const SORT_NONE = 'none';
+
+    private const SUPPORTED_SORT_ALGORITHMS = [
+        self::SORT_NONE,
+        self::SORT_ALPHA,
+    ];
 
     /**
      * @var array<string, int> Resolved configuration array (type => position)
@@ -125,7 +124,7 @@ class CustomOrderedClassElementsFixer extends AbstractFixer implements Configura
                 continue;
             }
 
-            if (!$parents) {
+            if (! $parents) {
                 $this->typePosition[$type] = null;
 
                 continue;
@@ -244,8 +243,8 @@ class Example
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        for ($i = 1, $count = $tokens->count(); $i < $count; ++$i) {
-            if (!$tokens[$i]->isClassy()) {
+        for ($i = 1, $count = $tokens->count(); $i < $count; $i++) {
+            if (! $tokens[$i]->isClassy()) {
                 continue;
             }
 
@@ -333,7 +332,7 @@ class Example
     {
         static $elementTokenKinds = [CT::T_USE_TRAIT, T_CASE, T_CONST, T_VARIABLE, T_FUNCTION];
 
-        ++$startIndex;
+        $startIndex++;
         $elements = [];
 
         while (true) {
@@ -345,7 +344,7 @@ class Example
                 'readonly' => false,
             ];
 
-            for ($i = $startIndex;; ++$i) {
+            for ($i = $startIndex; ; $i++) {
                 $token = $tokens[$i];
 
                 // class end
@@ -375,7 +374,7 @@ class Example
                     continue;
                 }
 
-                if (!$token->isGivenKind($elementTokenKinds)) {
+                if (! $token->isGivenKind($elementTokenKinds)) {
                     continue;
                 }
 
@@ -465,9 +464,9 @@ class Example
             $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }
 
-        for (++$index; $tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment(); ++$index);
+        for (++$index; $tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment(); $index++);
 
-        --$index;
+        $index--;
 
         return $tokens[$index]->isWhitespace() ? $index - 1 : $index;
     }
@@ -524,7 +523,7 @@ class Example
             }
 
             if (\in_array($type, ['constant', 'property', 'method'], true)) {
-                $type .= '_'.$element['visibility'];
+                $type .= '_' . $element['visibility'];
 
                 if ($element['abstract']) {
                     $type .= '_abstract';
@@ -608,7 +607,7 @@ class Example
         $replaceTokens = [];
 
         foreach ($elements as $element) {
-            for ($i = $element['start']; $i <= $element['end']; ++$i) {
+            for ($i = $element['start']; $i <= $element['end']; $i++) {
                 $replaceTokens[] = clone $tokens[$i];
             }
         }

@@ -74,7 +74,7 @@ class Example extends Something
     public function store(Request $request){}
 }
 EOT,
-<<<'EOT'
+        <<<'EOT'
 <?php
 
 namespace App\Http\Controllers;
@@ -104,7 +104,7 @@ class Example extends Controller
     public function store(Request $request){}
 }
 EOT,
-<<<'EOT'
+        <<<'EOT'
 <?php
 
 namespace Some\Other\Namespace;
