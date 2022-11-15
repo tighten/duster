@@ -12,7 +12,7 @@ return (new Config())
         'Tighten/custom_ordered_class_elements' => [
             'order' => [
                 'method_public',
-                'invoke',
+                'method:__invoke',
             ],
         ],
     ]);

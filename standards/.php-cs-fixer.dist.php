@@ -1,5 +1,6 @@
 <?php
 
+use App\Fixer\ClassNotation\CustomControllerOrderFixer;
 use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 use App\Support\PhpCsFixer;
 use PhpCsFixer\Config;
@@ -7,8 +8,12 @@ use PhpCsFixer\Config;
 return (new Config())
     ->setFinder(PhpCsFixer::getFinder())
     ->setUsingCache(false)
-    ->registerCustomFixers([new CustomOrderedClassElementsFixer()])
+    ->registerCustomFixers([
+        new CustomOrderedClassElementsFixer(),
+        new CustomControllerOrderFixer(),
+    ])
     ->setRules([
+        'Tighten/custom_controller_order' => true,
         'Tighten/custom_ordered_class_elements' => [
             'order' => [
                 'use_trait',
@@ -22,7 +27,7 @@ return (new Config())
                 'property_protected',
                 'property_private',
                 'construct',
-                'invoke',
+                'method:__invoke',
                 'method_public_static',
                 'method_protected_static',
                 'method_private_static',
