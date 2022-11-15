@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Fixer\ClassNotation;
 
+use LogicException;
 use PhpCsFixer\Tokenizer\Tokens;
 
 class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
@@ -49,7 +50,7 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
     public function isControllerClass(Tokens $tokens, int $index): bool
     {
         if (! $tokens[$index]->isGivenKind(T_NAMESPACE)) {
-            throw new \LogicException(sprintf('No "T_NAMESPACE" at given index %d, got "%s".', $index, $tokens[$index]->getName()));
+            throw new LogicException(sprintf('No "T_NAMESPACE" at given index %d, got "%s".', $index, $tokens[$index]->getName()));
         }
 
         $extendsIndex = $tokens->getNextTokenOfKind($index, ['{', [T_EXTENDS]]);

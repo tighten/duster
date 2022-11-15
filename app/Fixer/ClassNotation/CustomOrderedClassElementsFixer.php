@@ -84,6 +84,7 @@ class CustomOrderedClassElementsFixer extends AbstractFixer implements Configura
         'magic' => null,
         'phpunit' => null,
     ];
+
     /** @internal */
     public const SORT_ALPHA = 'alpha';
 
