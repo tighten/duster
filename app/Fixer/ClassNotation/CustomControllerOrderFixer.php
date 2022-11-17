@@ -39,6 +39,7 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
             'method:edit',
             'method:update',
             'method:destroy',
+            'method_public',
             'method_protected',
             'method_private',
             'magic',
