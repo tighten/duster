@@ -6,15 +6,14 @@ use function Termwind\{render};
 
 abstract class Tool
 {
-    /**
-     * @param  array<int, string>  $paths
-     */
-    abstract public function lint(array $paths): int;
+    public function __construct(
+        protected DusterConfig $dusterConfig,
+    ) {
+    }
 
-    /**
-     * @param  array<int, string>  $paths
-     */
-    abstract public function fix(array $paths): int;
+    abstract public function lint(): int;
+
+    abstract public function fix(): int;
 
     public function heading(string $heading): void
     {

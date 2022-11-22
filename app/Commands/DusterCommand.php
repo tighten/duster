@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Actions\Clean;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,34 +15,13 @@ class DusterCommand extends Command
 
     protected $description = 'Clean up your code';
 
-    /**
-     * @param  \App\Actions\Clean  $clean
-     */
-    public function handle($clean): int
+    public function handle(Clean $clean): int
     {
         if ($this->input->getOption('github-actions')) {
             return $this->gitHubActions();
         }
 
-        if ($this->input->getOption('lint') || ! ($this->input->getOption('fix') || $this->input->getOption('github-actions'))) {
-            $this->input->setOption('lint', true);
-        }
-
-        if ($this->input->getOption('lint')) {
-            return $clean->mode('lint')
-                ->for($this->input->getArgument('path'))
-                ->using($this->input->getOption('using') ?? '')
-                ->execute();
-        }
-
-        if ($this->input->getOption('fix')) {
-            return $clean->mode('fix')
-                ->for($this->input->getArgument('path'))
-                ->using($this->input->getOption('using') ?? '')
-                ->execute();
-        }
-
-        return Command::SUCCESS;
+        return $clean->execute();
     }
 
     protected function configure(): void

@@ -5,6 +5,8 @@ namespace App\Support;
 use App\Actions\ElaborateSummary;
 use ArrayIterator;
 use PhpCsFixer\Config;
+use PhpCsFixer\ConfigInterface;
+use PhpCsFixer\ConfigurationException\InvalidConfigurationException;
 use PhpCsFixer\Console\ConfigurationResolver;
 use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Finder;
@@ -36,36 +38,32 @@ class PhpCsFixer extends Tool
             ->ignoreVCS(true);
     }
 
-    public function lint(array $paths): int
+    public function lint(): int
     {
         $this->heading('Linting using PHP CS Fixer');
 
-        return $this->process($paths);
+        return $this->process();
     }
 
-    public function fix(array $paths): int
+    public function fix(): int
     {
         $this->heading('Fixing using PHP CS Fixer');
 
-        return $this->process($paths);
+        return $this->process();
     }
 
-    /**
-     * @param  array<int, string>  $paths
-     */
-    private function process(array $paths = []): int
+    private function process(): int
     {
         $input = app()->get(InputInterface::class);
         $output = app()->get(OutputInterface::class);
 
         $resolver = new ConfigurationResolver(
-            new Config(),
+            $this->getConfig(),
             [
                 'allow-risky' => 'yes',
-                'config' => $this->getConfigFile(),
                 'diff' => $output->isVerbose(),
                 'dry-run' => $input->getOption('lint'),
-                'path' => $paths,
+                'path' => $this->dusterConfig->get('paths'),
                 'path-mode' => ConfigurationResolver::PATH_MODE_OVERRIDE,
                 'stop-on-violation' => false,
                 'verbosity' => $output->getVerbosity(),
@@ -95,14 +93,33 @@ class PhpCsFixer extends Tool
         return app()->get(ElaborateSummary::class)->execute($totalFiles, $changes);
     }
 
-    private function getConfigFile(): string
+    private function getConfig(): ConfigInterface
     {
-        return (string) collect([
+        $config = $this->getConfigFile();
+
+        if (! $config instanceof ConfigInterface) {
+            throw new InvalidConfigurationException("The PHP CS Fixer config file does not return a 'PhpCsFixer\ConfigInterface' instance.");
+        }
+
+        $finder = $config->getFinder();
+
+        collect($this->dusterConfig->get('exclude', []))->each(function ($path) use ($finder) {
+            if (is_dir($path)) {
+                $finder = $finder->exclude($path);
+            } elseif (is_file($path)) {
+                $finder = $finder->notPath($path);
+            }
+        });
+
+        return $config->setFinder($finder);
+    }
+
+    private function getConfigFile(): Config
+    {
+        return include (string) collect([
             Project::path() . '/.php-cs-fixer.dist.php',
             Project::path() . '/.php-cs-fixer.php',
             base_path('standards/.php-cs-fixer.dist.php'),
-        ])->first(function ($path) {
-            return file_exists($path);
-        });
+        ])->first(fn ($path) => file_exists($path));
     }
 }

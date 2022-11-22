@@ -9,6 +9,8 @@ use App\Contracts\PintInputInterface;
 use App\Output\ProgressOutput;
 use App\Output\SummaryOutput;
 use App\Repositories\ConfigurationJsonRepository;
+use App\Repositories\PintConfigurationJsonRepository;
+use App\Support\DusterConfig;
 use App\Support\Project;
 use Illuminate\Support\ServiceProvider;
 use PhpCsFixer\Error\ErrorsManager;
@@ -74,7 +76,7 @@ class PintServiceProvider extends ServiceProvider
                 return file_exists($path);
             });
 
-            return new ConfigurationJsonRepository($config, null);
+            return new PintConfigurationJsonRepository($config, null, resolve(DusterConfig::class));
         });
     }
 }

@@ -11,32 +11,33 @@ use Tighten\TLint\Commands\LintCommand;
 
 class TLint extends Tool
 {
-    public function lint(array $paths): int
+    public function lint(): int
     {
         $this->heading('Linting using TLint');
 
-        return $this->process('lint', $paths);
+        return $this->process('lint');
     }
 
-    public function fix(array $paths): int
+    public function fix(): int
     {
         $this->heading('Fixing using TLint');
 
-        return $this->process('format', $paths);
+        return $this->process('format');
     }
 
     /**
      * @param  string  $command
-     * @param  array<int, string>  $paths
      */
-    private function process(string $command, array $paths = []): int
+    private function process(string $command): int
     {
+        $tlintCommand = $command === 'lint' ? new LintCommand() : new FormatCommand();
+        $tlintCommand->config->excluded = [...$tlintCommand->config->excluded ?? [], ...$this->dusterConfig->get('exclude', [])];
+
         $application = new Application();
-        $application->add(new LintCommand());
-        $application->add(new FormatCommand());
+        $application->add($tlintCommand);
         $application->setAutoExit(false);
 
-        $success = collect($paths)->map(fn ($path) => $application->run(new StringInput("{$command} {$path}"), app()->get(OutputInterface::class)))
+        $success = collect($this->dusterConfig->get('paths'))->map(fn ($path) => $application->run(new StringInput("{$command} {$path}"), app()->get(OutputInterface::class)))
             ->filter()
             ->isEmpty();
 

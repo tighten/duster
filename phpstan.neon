@@ -11,9 +11,8 @@ parameters:
     - app/Fixer/ClassNotation/CustomOrderedClassElementsFixer.php
     - standards/Tighten/Sniffs/PHP/UseConfigOverEnvSniff.php
   ignoreErrors:
-  -
-    message: '#Right side of \|\| is always false.#'
-    path: app/Commands/DusterCommand.php
+  - '#Unable to resolve the template type TKey in call to function collect#'
+  - '#Unable to resolve the template type TValue in call to function collect#'
   -
     messages:
       - '#Instantiated class PHP_CodeSniffer\\Runner not found.#'

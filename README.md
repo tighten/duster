@@ -55,6 +55,24 @@ To view all available commands:
 
 ## Customizing
 
+If you need to include or exclude files or directories for each tool you can create a `duster.json` config file in your project root:
+
+```json
+{
+    "include": [
+        "bin",
+        "scripts",
+        "src",
+        "tests"
+    ],
+    "exclude": [
+        "tests/fixtures"
+    ]
+}
+```
+
+This is especially helpful when including Duster in Laravel Zero applications.
+
 ### TLint
 
 Create a `tlint.json` file in your project root. Learn more in the [TLint documentation](https://github.com/tighten/tlint#configuration).

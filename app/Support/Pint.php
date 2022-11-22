@@ -8,14 +8,14 @@ use App\Commands\DefaultCommand;
 
 class Pint extends Tool
 {
-    public function lint(array $paths): int
+    public function lint(): int
     {
         $this->heading('Linting using Pint');
 
         return $this->process();
     }
 
-    public function fix(array $paths): int
+    public function fix(): int
     {
         $this->heading('Fixing using Pint');
 

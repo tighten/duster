@@ -8,20 +8,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PhpCodeSniffer extends Tool
 {
-    public function lint(array $paths): int
+    public function lint(): int
     {
         $this->heading('Linting using PHP_CodeSniffer');
 
-        return $this->process('runPHPCS', $this->cleanPaths($paths));
+        return $this->process('runPHPCS', $this->getPaths());
     }
 
-    public function fix(array $paths): int
+    public function fix(): int
     {
         $this->heading('Fixing using PHP_CodeSniffer');
 
-        $fix = $this->process('runPHPCBF', $this->cleanPaths($paths));
+        $fix = $this->process('runPHPCBF', $this->getPaths());
 
-        $lint = $this->process('runPHPCS', ['-n', '--report=summary', ...$this->cleanPaths($paths)]);
+        $lint = $this->process('runPHPCS', ['-n', '--report=summary', ...$this->getPaths()]);
 
         if ($lint) {
             $this->failure('PHP Code_Sniffer found errors that cannot be fixed automatically.');
@@ -40,7 +40,17 @@ class PhpCodeSniffer extends Tool
 
         $this->installTightenCodingStandard();
 
-        $_SERVER['argv'] = ['Duster', '--standard=' . $this->getConfigFile(), ...$params];
+        $ignore = $this->dusterConfig->get('exclude')
+            ? ['--ignore=' . implode(',', $this->dusterConfig->get('exclude'))]
+            : [];
+
+        $_SERVER['argv'] = [
+            'Duster',
+            '--standard=' . $this->getConfigFile(),
+            ...$ignore,
+            ...$params,
+            ...$this->dusterConfig->get('include', []),
+        ];
 
         $runner = new Runner();
 
@@ -58,12 +68,12 @@ class PhpCodeSniffer extends Tool
     }
 
     /**
-     * @param  array<int, string>  $paths
      * @return array<int, string>
      */
-    private function cleanPaths(array $paths): array
+    private function getPaths(): array
     {
-        return $paths === [Project::path()] ? $this->getDefaultDirectories() : $paths;
+        return $this->dusterConfig->get('paths') === [Project::path()]
+            ? $this->getDefaultDirectories() : $this->dusterConfig->get('paths');
     }
 
     private function installTightenCodingStandard(): void
