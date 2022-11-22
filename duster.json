@@ -1,0 +1,12 @@
+{
+    "include" : [
+        "app",
+        "config",
+        "standards",
+        "tests"
+    ],
+    "exclude" : [
+        "tests/Fixtures",
+        "tests/Pest.php"
+    ]
+}
