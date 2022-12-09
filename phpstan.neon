@@ -1,5 +1,6 @@
 includes:
   - ./vendor/nunomaduro/larastan/extension.neon
+  - ./vendor/spatie/invade/phpstan-extension.neon
 parameters:
   paths:
     - app
@@ -13,8 +14,3 @@ parameters:
   ignoreErrors:
   - '#Unable to resolve the template type TKey in call to function collect#'
   - '#Unable to resolve the template type TValue in call to function collect#'
-  -
-    messages:
-      - '#Instantiated class PHP_CodeSniffer\\Runner not found.#'
-      - '#Call to static method setConfigData\(\) on an unknown class PHP_CodeSniffer\\Config.#'
-    path: app/Support/PhpCodeSniffer.php

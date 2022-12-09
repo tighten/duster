@@ -25,9 +25,6 @@ class TLint extends Tool
         return $this->process('format');
     }
 
-    /**
-     * @param  string  $command
-     */
     private function process(string $command): int
     {
         $tlintCommand = $command === 'lint' ? new LintCommand() : new FormatCommand();
