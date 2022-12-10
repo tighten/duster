@@ -10,8 +10,8 @@ use App\Support\PhpCsFixer;
 use App\Support\Pint;
 use App\Support\Project;
 use App\Support\TLint;
+use App\Support\UserScript;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputInterface;
 
 class DusterServiceProvider extends ServiceProvider
@@ -21,7 +21,13 @@ class DusterServiceProvider extends ServiceProvider
         $this->app->singleton(DusterConfig::class, function () {
             $input = $this->app->get(InputInterface::class);
 
-            return new DusterConfig(['paths' => $input->getArgument('path'), ...$this->getDusterConfig()]);
+            return new DusterConfig([
+                'paths' => $input->getArgument('path'),
+                'lint' => $input->getOption('lint'),
+                'fix' => $input->getOption('fix'),
+                'using' => $input->getOption('using'),
+                ...$this->getDusterConfig(),
+            ]);
         });
 
         $this->app->bindMethod([DusterCommand::class, 'handle'], function ($command) {
@@ -29,15 +35,17 @@ class DusterServiceProvider extends ServiceProvider
 
             $mode = ! $input->getOption('fix') ? 'lint' : 'fix';
 
-            $tools = Str::of($input->getOption('using') ?? 'tlint,phpcs,php-cs-fixer,pint')
-                ->explode(',')
-                ->collect()
+            $using = $input->getOption('using')
+                ? explode(',', $input->getOption('using'))
+                : ['tlint', 'phpcs', 'php-cs-fixer', 'pint', ...array_keys($this->getDusterConfig()['scripts'][$mode] ?? [])];
+
+            $tools = collect($using)
                 ->map(fn ($using) => match (trim($using)) {
-                    'tlint' => TLint::class,
-                    'phpcs', 'phpcodesniffer', 'php-code-sniffer' => PhpCodeSniffer::class,
-                    'php-cs-fixer', 'phpcsfixer' => PhpCsFixer::class,
-                    'pint' => Pint::class,
-                    default => null,
+                    'tlint' => resolve(TLint::class),
+                    'phpcs', 'phpcodesniffer', 'php-code-sniffer' => resolve(PhpCodeSniffer::class),
+                    'php-cs-fixer', 'phpcsfixer' => resolve(PhpCsFixer::class),
+                    'pint' => resolve(Pint::class),
+                    default => $this->userScript($mode, $using),
                 })
                 ->filter()
                 ->unique()
@@ -46,8 +54,7 @@ class DusterServiceProvider extends ServiceProvider
             return $command->handle(
                 new Clean(
                     mode: $mode,
-                    tools: $tools,
-                    dusterConfig: resolve(DusterConfig::class),
+                    tools: $tools
                 ),
             );
         });
@@ -67,5 +74,14 @@ class DusterServiceProvider extends ServiceProvider
         }
 
         return [];
+    }
+
+    private function userScript(string $mode, string $scriptName): ?UserScript
+    {
+        $userScript = $this->getDusterConfig()['scripts'][$mode][$scriptName] ?? null;
+
+        return $userScript
+            ? new UserScript($scriptName, $userScript, resolve(DusterConfig::class))
+            : null;
     }
 }

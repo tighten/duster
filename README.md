@@ -14,7 +14,7 @@ Duster is built on top of the following tools:
 - Pint: Laravel's code style rules (with a few Tighten specific customizations)
   - using the default `Laravel` preset with some Tighten-specific rules
 
-New Laravel Zero architecture inspired by and relies on Laravel Pint.
+New Laravel Zero architecture inspired by Laravel Pint.
 
 ## Installation
 
@@ -71,7 +71,27 @@ If you need to include or exclude files or directories for each tool you can cre
 }
 ```
 
-This is especially helpful when including Duster in Laravel Zero applications.
+To run additional scripts as part of Duster first add them to `duster.json` as part of `scripts` separated into `lint` and `fix`.
+
+The key is the name of the command and the value is an array of arguments which is passed to [`Symfony\Component\Process\Process`](https://symfony.com/doc/current/components/process.html).
+
+```json
+{
+    "scripts": {
+        "lint": {
+            "phpstan": ["./vendor/bin/phpstan", "analyse"]
+        }
+    }
+}
+```
+
+Duster will pick these up automatically when running either `--lint` or `--fix`.
+
+To customize which tools Duster runs or the order in which they are executed use the `--using` command which accepts a comma-separated list:
+
+```bash
+./vendor/bin/duster --lint --using="phpstan,tlint,pint"
+```
 
 ### TLint
 
@@ -96,7 +116,7 @@ Create a `.phpcs.xml.dist` file in your project root with the following:
 </ruleset>
 ```
 
-Now you can add customizations below the `<rule ref="Tighten"/>` line or even disable the Tighten rule and use your own ruleset. Learn more in this [introductory article](https://ncona.com/2012/12/creating-your-own-phpcs-standard/).
+Now you can add customizations below the `<rule ref="Tighten"/>` line or even disable the Tighten rule to use your own ruleset. Learn more in this [introductory article](https://ncona.com/2012/12/creating-your-own-phpcs-standard/).
 
 ### PHP CS Fixer
 
