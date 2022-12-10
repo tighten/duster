@@ -54,7 +54,7 @@ class PhpCodeSniffer extends Tool
 
         $this->resetConfig($tool);
 
-        $runner = new Runner();
+        $runner = new Runner;
 
         ob_start();
 
@@ -94,7 +94,7 @@ class PhpCodeSniffer extends Tool
             define('PHP_CODESNIFFER_CBF', $tool === 'runPHPCBF');
         }
 
-        invade(new Config())->overriddenDefaults = [];
+        invade(new Config)->overriddenDefaults = [];
     }
 
     private function getConfigFile(): string

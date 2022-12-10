@@ -70,7 +70,7 @@ class PhpCsFixer extends Tool
                 'show-progress' => 'true',
             ],
             Project::path(),
-            new ToolInfo(),
+            new ToolInfo,
         );
 
         $changes = (new Runner(

@@ -24,11 +24,11 @@ class PintServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton(ErrorsManager::class, function () {
-            return new ErrorsManager();
+            return new ErrorsManager;
         });
 
         $this->app->singleton(EventDispatcher::class, function () {
-            return new EventDispatcher();
+            return new EventDispatcher;
         });
 
         $this->app->singleton(PintInputInterface::class, function () {

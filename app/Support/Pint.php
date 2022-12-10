@@ -24,7 +24,7 @@ class Pint extends Tool
 
     private function process(): int
     {
-        $pint = new DefaultCommand();
+        $pint = new DefaultCommand;
 
         return $pint->handle(resolve(FixCode::class), resolve(ElaborateSummary::class));
     }

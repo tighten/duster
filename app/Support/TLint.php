@@ -27,10 +27,10 @@ class TLint extends Tool
 
     private function process(string $command): int
     {
-        $tlintCommand = $command === 'lint' ? new LintCommand() : new FormatCommand();
+        $tlintCommand = $command === 'lint' ? new LintCommand : new FormatCommand;
         $tlintCommand->config->excluded = [...$tlintCommand->config->excluded ?? [], ...$this->dusterConfig->get('exclude', [])];
 
-        $application = new Application();
+        $application = new Application;
         $application->add($tlintCommand);
         $application->setAutoExit(false);
 
