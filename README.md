@@ -14,7 +14,7 @@ Duster is built on top of the following tools:
 - Pint: Laravel's code style rules (with a few Tighten specific customizations)
   - using the default `Laravel` preset with some Tighten-specific rules
 
-New Laravel Zero architecture inspired by Laravel Pint.
+You can view a list of the compiled rules and examples of what they do in the [style guide](./style-guide.md).
 
 ## Installation
 
