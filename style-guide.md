@@ -815,10 +815,50 @@ Curly braces must be placed as configured.
 
 ```diff
 <?php
+// control_structures_opening_brace = same_line
+-if (foo())
+-{
++if (foo()) {
+    bar();
+}
+
+// functions_opening_brace = next_line_unless_newline_at_signature_end
+-function foo() {
++function foo()
++{
+}
+
+// anonymous_functions_opening_brace = same_line
+-$foo = function()
+-{
++$foo = function() {
+};
+
+// classes_opening_brace = next_line_unless_newline_at_signature_end
+-class Foo {
++class Foo
++{
+}
+
+// anonymous_classes_opening_brace = next_line_unless_newline_at_signature_end
 -$foo = new class {
 +$foo = new class
 +{
- };
+};
+
+// allow_single_line_empty_anonymous_classes = false
+-$bar = new class { private $baz; };
++$bar = new class
++{
++    private $baz;
++};
+
+// allow_single_line_anonymous_functions = false
+-$foo = function () { return true; };
++$foo = function () {
++    return true;
++};
+
 ```
 
 ### cast_spaces
@@ -1516,7 +1556,7 @@ In method arguments and method call, there MUST NOT be a space before each comma
   'on_multiline' => 'ignore',
 ]
 ```
-@TODO - finish example
+
 ##### Examples
 
 ```diff
