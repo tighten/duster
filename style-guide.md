@@ -475,6 +475,7 @@ Orders class elements to match the order provided in the configuration.
     'property_public',
     'property_protected',
     'property_private',
+    'phpunit',
     'construct',
     'method:__invoke',
     'method_public_static',
