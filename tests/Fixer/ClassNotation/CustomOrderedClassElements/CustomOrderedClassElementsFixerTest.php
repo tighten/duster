@@ -57,9 +57,10 @@ EOT,
 
 class ExampleTest extends TestCase
 {
-    protected function setUp(): void
+    /** @test */
+    public function testExample()
     {
-        parent::setUp();
+        $this->assertTrue(true);
     }
 
     protected function tearDown(): void
@@ -67,10 +68,9 @@ class ExampleTest extends TestCase
         parent::tearDown();
     }
 
-    /** @test */
-    public function testExample()
+    protected function setUp(): void
     {
-        $this->assertTrue(true);
+        parent::setUp();
     }
 }
 EOT,
@@ -79,6 +79,7 @@ EOT,
 
 class ExampleTest extends TestCase
 {
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -88,7 +89,6 @@ class ExampleTest extends TestCase
     {
         parent::tearDown();
     }
-
     /** @test */
     public function testExample()
     {

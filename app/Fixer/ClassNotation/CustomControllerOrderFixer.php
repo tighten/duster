@@ -48,6 +48,16 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
         parent::configure($configuration);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * Must run after CustomOrderedClassElementsFixer.
+     */
+    public function getPriority(): int
+    {
+        return 64;
+    }
+
     public function isControllerClass(Tokens $tokens, int $index): bool
     {
         if (! $tokens[$index]->isGivenKind(T_NAMESPACE)) {

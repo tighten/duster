@@ -1,6 +1,6 @@
 <?php
 
-it('fixes class order', function ($input, $expected) {
+it('fixes controller class order', function ($input, $expected) {
     $config = __DIR__ . '/.php-cs-fixer.php';
     $file = self::STUBS_DIR . '/' . md5($input) . '.php';
     file_put_contents($file, $input);

@@ -25,7 +25,6 @@ use PhpCsFixer\FixerConfiguration\FixerOptionBuilder;
 use PhpCsFixer\FixerDefinition\CodeSample;
 use PhpCsFixer\FixerDefinition\FixerDefinition;
 use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
-use PhpCsFixer\Indicator\PhpUnitTestCaseIndicator;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -245,15 +244,8 @@ class Example
      */
     protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
     {
-        $phpUnitTestCaseIndicator = new PhpUnitTestCaseIndicator();
-
         for ($i = 1, $count = $tokens->count(); $i < $count; $i++) {
             if (! $tokens[$i]->isClassy()) {
-                continue;
-            }
-
-            // Skip PHPUnit test classes
-            if ($phpUnitTestCaseIndicator->isPhpUnitClass($tokens, $i)) {
                 continue;
             }
 
