@@ -36,6 +36,7 @@ return (new Config())
                 'property_public',
                 'property_protected',
                 'property_private',
+                'phpunit',
                 'construct',
                 'invoke',
                 'method_public_static',
