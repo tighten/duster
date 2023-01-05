@@ -51,4 +51,50 @@ class Example_Staff
 }
 EOT,
     ],
+    [
+        <<<'EOT'
+<?php
+
+class ExampleTest extends TestCase
+{
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+    }
+
+    /** @test */
+    public function testExample()
+    {
+        $this->assertTrue(true);
+    }
+}
+EOT,
+        <<<'EOT'
+<?php
+
+class ExampleTest extends TestCase
+{
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+    }
+
+    /** @test */
+    public function testExample()
+    {
+        $this->assertTrue(true);
+    }
+}
+EOT,
+    ],
 ]);
