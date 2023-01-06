@@ -12,7 +12,6 @@ use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Finder;
 use PhpCsFixer\Runner\Runner;
 use PhpCsFixer\ToolInfo;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
