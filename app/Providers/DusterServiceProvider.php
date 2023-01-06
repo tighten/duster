@@ -23,7 +23,7 @@ class DusterServiceProvider extends ServiceProvider
 
             return new DusterConfig([
                 'paths' => $input->getArgument('path'),
-                'lint' => $input->getOption('lint'),
+                'lint' => ! $input->getOption('fix'),
                 'fix' => $input->getOption('fix'),
                 'using' => $input->getOption('using'),
                 ...$this->getDusterConfig(),

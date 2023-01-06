@@ -54,7 +54,6 @@ class PhpCsFixer extends Tool
 
     private function process(): int
     {
-        $input = app()->get(InputInterface::class);
         $output = app()->get(OutputInterface::class);
 
         $resolver = new ConfigurationResolver(
@@ -62,7 +61,7 @@ class PhpCsFixer extends Tool
             [
                 'allow-risky' => 'yes',
                 'diff' => $output->isVerbose(),
-                'dry-run' => $input->getOption('lint'),
+                'dry-run' => $this->dusterConfig->get('lint'),
                 'path' => $this->dusterConfig->get('paths'),
                 'path-mode' => ConfigurationResolver::PATH_MODE_OVERRIDE,
                 'stop-on-violation' => false,
