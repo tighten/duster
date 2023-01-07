@@ -1,0 +1,87 @@
+<?php
+
+namespace App\Providers;
+
+use App\Actions\Clean;
+use App\Commands\DusterCommand;
+use App\Support\DusterConfig;
+use App\Support\PhpCodeSniffer;
+use App\Support\PhpCsFixer;
+use App\Support\Pint;
+use App\Support\Project;
+use App\Support\TLint;
+use App\Support\UserScript;
+use Illuminate\Support\ServiceProvider;
+use Symfony\Component\Console\Input\InputInterface;
+
+class DusterServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        $this->app->singleton(DusterConfig::class, function () {
+            $input = $this->app->get(InputInterface::class);
+
+            return new DusterConfig([
+                'paths' => $input->getArgument('path'),
+                'lint' => ! $input->getOption('fix'),
+                'fix' => $input->getOption('fix'),
+                'using' => $input->getOption('using'),
+                ...$this->getDusterConfig(),
+            ]);
+        });
+
+        $this->app->bindMethod([DusterCommand::class, 'handle'], function ($command) {
+            $input = $this->app->get(InputInterface::class);
+
+            $mode = ! $input->getOption('fix') ? 'lint' : 'fix';
+
+            $using = $input->getOption('using')
+                ? explode(',', $input->getOption('using'))
+                : ['tlint', 'phpcs', 'php-cs-fixer', 'pint', ...array_keys($this->getDusterConfig()['scripts'][$mode] ?? [])];
+
+            $tools = collect($using)
+                ->map(fn ($using) => match (trim($using)) {
+                    'tlint' => resolve(TLint::class),
+                    'phpcs', 'phpcodesniffer', 'php-code-sniffer' => resolve(PhpCodeSniffer::class),
+                    'php-cs-fixer', 'phpcsfixer' => resolve(PhpCsFixer::class),
+                    'pint' => resolve(Pint::class),
+                    default => $this->userScript($mode, $using),
+                })
+                ->filter()
+                ->unique()
+                ->toArray();
+
+            return $command->handle(
+                new Clean(
+                    mode: $mode,
+                    tools: $tools
+                ),
+            );
+        });
+    }
+
+    /**
+     * @return  array<string, mixed>
+     */
+    private function getDusterConfig(): array
+    {
+        if (file_exists(Project::path() . '/duster.json')) {
+            return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true), function ($configuration) {
+                if (! is_array($configuration)) {
+                    abort(1, 'The configuration file duster.json is not valid JSON.');
+                }
+            });
+        }
+
+        return [];
+    }
+
+    private function userScript(string $mode, string $scriptName): ?UserScript
+    {
+        $userScript = $this->getDusterConfig()['scripts'][$mode][$scriptName] ?? null;
+
+        return $userScript
+            ? new UserScript($scriptName, $userScript, resolve(DusterConfig::class))
+            : null;
+    }
+}

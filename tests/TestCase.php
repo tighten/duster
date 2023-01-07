@@ -1,11 +1,13 @@
 <?php
 
-namespace Tighten\Duster\Tests;
+namespace Tests;
 
-use PHPUnit\Framework\TestCase as BaseTestCase;
+use LaravelZero\Framework\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication;
+
     const STUBS_DIR = __DIR__ . '/stubs';
 
     protected function setUp(): void

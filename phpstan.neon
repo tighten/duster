@@ -1,0 +1,16 @@
+includes:
+  - ./vendor/nunomaduro/larastan/extension.neon
+  - ./vendor/spatie/invade/phpstan-extension.neon
+parameters:
+  paths:
+    - app
+    - bootstrap
+    - config
+    - standards
+  level: 6
+  excludePaths:
+    - app/Fixer/ClassNotation/CustomOrderedClassElementsFixer.php
+    - standards/Tighten/Sniffs/PHP/UseConfigOverEnvSniff.php
+  ignoreErrors:
+  - '#Unable to resolve the template type TKey in call to function collect#'
+  - '#Unable to resolve the template type TValue in call to function collect#'

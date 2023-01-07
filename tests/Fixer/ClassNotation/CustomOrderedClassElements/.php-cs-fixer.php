@@ -1,7 +1,7 @@
 <?php
 
+use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 use PhpCsFixer\Config;
-use Tighten\Duster\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 
 return (new Config())
     ->setUsingCache(false)
@@ -21,7 +21,7 @@ return (new Config())
                 'property_private',
                 'phpunit',
                 'construct',
-                'invoke',
+                'method:__invoke',
                 'method_public_static',
                 'method_protected_static',
                 'method_private_static',

@@ -3,16 +3,18 @@
 
 Automatically apply Tighten's default code style for Laravel apps.
 
-To achieve this, Duster installs and automatically configures the following tools:
+Duster is built on top of the following tools:
 
-- TLint: Opinionated code linter for Laravel and PHP
+- TLint: lints Laravel and PHP code for issues not covered by other tools
   - using the default `Tighten` preset
-- PHP_CodeSniffer: catch issues that can't be fixed automatically
+- PHP_CodeSniffer: sniffs issues that can't be fixed automatically
   - using the `Tighten` preset which is mostly PSR1 with some Tighten-specific rules
-- PHP CS Fixer: custom rules not supported by Laravel Pint
+- PHP CS Fixer: adds custom rules not supported by Laravel Pint
   - `CustomOrderedClassElementsFixer` Tighten-specific order of class elements
 - Pint: Laravel's code style rules (with a few Tighten specific customizations)
   - using the default `Laravel` preset with some Tighten-specific rules
+
+You can view a list of the compiled rules and examples of what they do in the [style guide](./style-guide.md).
 
 ## Installation
 
@@ -25,7 +27,7 @@ composer require tightenco/duster --dev
 Optionally you can publish a GitHub Actions linting config:
 
 ```bash
-duster github-actions
+./vendor/bin/duster --github-actions
 ```
 
 ## Usage
@@ -33,22 +35,63 @@ duster github-actions
 To lint everything at once:
 
 ```bash
-duster
+./vendor/bin/duster
+
+# or
+./vendor/bin/duster --lint
 ```
 
 To fix everything at once:
 
 ```bash
-duster fix
+./vendor/bin/duster --fix
 ```
 
 To view all available commands:
 
 ```bash
-duster help
+./vendor/bin/duster --help
 ```
 
 ## Customizing
+
+If you need to include or exclude files or directories for each tool you can create a `duster.json` config file in your project root:
+
+```json
+{
+    "include": [
+        "bin",
+        "scripts",
+        "src",
+        "tests"
+    ],
+    "exclude": [
+        "tests/fixtures"
+    ]
+}
+```
+
+To run additional scripts as part of Duster first add them to `duster.json` as part of `scripts` separated into `lint` and `fix`.
+
+The key is the name of the command and the value is an array of arguments which is passed to [`Symfony\Component\Process\Process`](https://symfony.com/doc/current/components/process.html).
+
+```json
+{
+    "scripts": {
+        "lint": {
+            "phpstan": ["./vendor/bin/phpstan", "analyse"]
+        }
+    }
+}
+```
+
+Duster will pick these up automatically when running either `--lint` or `--fix`.
+
+To customize which tools Duster runs or the order in which they are executed use the `--using` command which accepts a comma-separated list:
+
+```bash
+./vendor/bin/duster --lint --using="phpstan,tlint,pint"
+```
 
 ### TLint
 
@@ -73,7 +116,7 @@ Create a `.phpcs.xml.dist` file in your project root with the following:
 </ruleset>
 ```
 
-Now you can add customizations below the `<rule ref="Tighten"/>` line or even disable the Tighten rule and use your own ruleset. Learn more in this [introductory article](https://ncona.com/2012/12/creating-your-own-phpcs-standard/).
+Now you can add customizations below the `<rule ref="Tighten"/>` line or even disable the Tighten rule to use your own ruleset. Learn more in this [introductory article](https://ncona.com/2012/12/creating-your-own-phpcs-standard/).
 
 ### PHP CS Fixer
 
