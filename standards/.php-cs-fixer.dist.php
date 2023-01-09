@@ -2,6 +2,7 @@
 
 use App\Fixer\ClassNotation\CustomControllerOrderFixer;
 use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
+use App\Fixer\ClassNotation\CustomPhpUnitOrderFixer;
 use App\Support\PhpCsFixer;
 use PhpCsFixer\Config;
 
@@ -11,6 +12,7 @@ return (new Config())
     ->registerCustomFixers([
         new CustomControllerOrderFixer(),
         new CustomOrderedClassElementsFixer(),
+        new CustomPhpUnitOrderFixer(),
     ])
     ->setRules([
         'Tighten/custom_controller_order' => true,
@@ -26,7 +28,6 @@ return (new Config())
                 'property_public',
                 'property_protected',
                 'property_private',
-                'phpunit',
                 'construct',
                 'method:__invoke',
                 'method_public_static',
@@ -38,4 +39,5 @@ return (new Config())
                 'magic',
             ],
         ],
+        'Tighten/custom_phpunit_order' => true,
     ]);
