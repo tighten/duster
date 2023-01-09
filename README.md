@@ -73,7 +73,7 @@ If you need to include or exclude files or directories for each tool you can cre
 
 To run additional scripts as part of Duster first add them to `duster.json` as part of `scripts` separated into `lint` and `fix`.
 
-The key is the name of the command and the value is an array of arguments which is passed to [`Symfony\Component\Process\Process`](https://symfony.com/doc/current/components/process.html).
+The key is the name of the command (used with the `--using` flag), and the value is an array of arguments passed to [`Symfony\Component\Process\Process`](https://symfony.com/doc/current/components/process.html).
 
 ```json
 {
@@ -87,7 +87,7 @@ The key is the name of the command and the value is an array of arguments which 
 
 Duster will pick these up automatically when running either `--lint` or `--fix`.
 
-To customize which tools Duster runs or the order in which they are executed use the `--using` command which accepts a comma-separated list:
+To customize which tools Duster runs, or the order in which they are executed you can use the `--using` flag and supply a comma-separated list of commands:
 
 ```bash
 ./vendor/bin/duster --lint --using="phpstan,tlint,pint"
