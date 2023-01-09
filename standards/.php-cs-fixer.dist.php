@@ -19,6 +19,7 @@ return (new Config())
         'Tighten/custom_ordered_class_elements' => [
             'order' => [
                 'use_trait',
+                'case',
                 'property_public_static',
                 'property_protected_static',
                 'property_private_static',
