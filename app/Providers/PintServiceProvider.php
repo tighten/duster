@@ -11,7 +11,7 @@ use App\Output\SummaryOutput;
 use App\Repositories\ConfigurationJsonRepository;
 use App\Repositories\PintConfigurationJsonRepository;
 use App\Support\DusterConfig;
-use App\Support\Project;
+use App\Project;
 use Illuminate\Support\ServiceProvider;
 use PhpCsFixer\Error\ErrorsManager;
 use Symfony\Component\Console\Input\ArrayInput;
