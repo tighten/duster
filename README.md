@@ -126,6 +126,10 @@ Create a `.php-cs-fixer.dist.php` file in your project root with the contents fr
 
 Create a `pint.json` file in your project root, you can use [Duster's `pint.json`](pint.json) file as a starting point. Learn more in the [Pint documentation](https://laravel.com/docs/pint#configuring-pint).
 
+## GitHub Action
+
+There's a [GitHub Action](https://github.com/tighten/duster-action) you use to clean-up your workflows.
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
