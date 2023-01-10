@@ -22,7 +22,7 @@ jobs:
                   coverage: none
 
             - name: Install dependencies
-              run: composer install --no-interaction --no-suggest --ignore-platform-reqs
+              run: composer install --no-interaction --ignore-platform-reqs
 
             - name: Duster Lint
               run: vendor/bin/duster
