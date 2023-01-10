@@ -11,9 +11,11 @@
     ],
     "scripts": {
         "lint": {
-            "php-version": ["php", "-v"],
-            "phpstan-version": ["./vendor/bin/phpstan", "-V"],
-            "phpstan": ["./vendor/bin/phpstan", "analyse"]
+            "PHP Version": ["php", "-v"],
+            "PHPStan Version": ["./vendor/bin/phpstan", "-V"],
+            "PHPStan": ["./vendor/bin/phpstan", "analyse"],
+            "Pest Version": ["./vendor/bin/pest", "--version"],
+            "Pest": ["./vendor/bin/pest"]
         }
     }
 }

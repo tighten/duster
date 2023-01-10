@@ -26,6 +26,3 @@ jobs:
 
             - name: Duster
               run: ./duster
-
-            - name: Pest
-              run: vendor/bin/pest
