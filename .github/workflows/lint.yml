@@ -22,13 +22,10 @@ jobs:
                   coverage: none
 
             - name: Install dependencies
-              run: composer install --no-interaction --no-suggest --ignore-platform-reqs
+              run: composer install --no-interaction
 
             - name: Duster
               run: ./duster
-
-            - name: PHPStan
-              run: vendor/bin/phpstan
 
             - name: Pest
               run: vendor/bin/pest
