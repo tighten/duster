@@ -11,6 +11,8 @@
     ],
     "scripts": {
         "lint": {
+            "php-version": ["php", "-v"],
+            "phpstan-version": ["./vendor/bin/phpstan", "-V"],
             "phpstan": ["./vendor/bin/phpstan", "analyse"]
         }
     }
