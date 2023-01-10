@@ -4,12 +4,13 @@ namespace App\Providers;
 
 use App\Actions\Clean;
 use App\Commands\DusterCommand;
+use App\Project;
 use App\Support\DusterConfig;
 use App\Support\PhpCodeSniffer;
 use App\Support\PhpCsFixer;
 use App\Support\Pint;
-use App\Support\Project;
 use App\Support\TLint;
+use App\Support\Tool;
 use App\Support\UserScript;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,7 +41,7 @@ class DusterServiceProvider extends ServiceProvider
                 : ['tlint', 'phpcs', 'php-cs-fixer', 'pint', ...array_keys($this->getDusterConfig()['scripts'][$mode] ?? [])];
 
             $tools = collect($using)
-                ->map(fn ($using) => match (trim($using)) {
+                ->map(fn ($using): Tool => match (trim($using)) {
                     'tlint' => resolve(TLint::class),
                     'phpcs', 'phpcodesniffer', 'php-code-sniffer' => resolve(PhpCodeSniffer::class),
                     'php-cs-fixer', 'phpcsfixer' => resolve(PhpCsFixer::class),

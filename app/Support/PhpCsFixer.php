@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Actions\ElaborateSummary;
+use App\Project;
 use ArrayIterator;
 use PhpCsFixer\Config;
 use PhpCsFixer\ConfigInterface;

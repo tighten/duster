@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Project;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;
 use Symfony\Component\Console\Output\OutputInterface;
