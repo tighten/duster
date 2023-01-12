@@ -1,6 +1,7 @@
 {
     "preset": "laravel",
     "rules": {
+        "blank_line_between_import_groups": true,
         "concat_space": {
             "spacing": "one"
         },
@@ -9,8 +10,15 @@
                 "method": "one"
             }
         },
-        "php_unit_test_annotation": {
-            "style": "annotation"
+        "explicit_string_variable": true,
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "new_with_braces": {
+            "named_class": false,
+            "anonymous_class": false
         },
         "ordered_imports": {
             "sort_algorithm": "alpha",
@@ -20,12 +28,9 @@
                 "function"
             ]
         },
-        "new_with_braces": {
-            "named_class": false,
-            "anonymous_class": false
+        "php_unit_test_annotation": {
+            "style": "annotation"
         },
-        "blank_line_between_import_groups": true,
-        "explicit_string_variable": true,
         "simple_to_complex_string_variable": true
     }
 }

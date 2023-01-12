@@ -6,6 +6,7 @@ namespace App\Fixer\ClassNotation;
 
 use LogicException;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 
 class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
 {
@@ -102,7 +103,7 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
         return false;
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         for ($index = $tokens->count() - 1; $index > 0; $index--) {
             if ($tokens[$index]->isGivenKind(T_NAMESPACE) && $this->isControllerClass($tokens, $index)) {
