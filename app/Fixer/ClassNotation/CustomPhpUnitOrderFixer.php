@@ -6,6 +6,7 @@ namespace App\Fixer\ClassNotation;
 
 use PhpCsFixer\Indicator\PhpUnitTestCaseIndicator;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
 
 class CustomPhpUnitOrderFixer extends CustomOrderedClassElementsFixer
 {
@@ -52,7 +53,7 @@ class CustomPhpUnitOrderFixer extends CustomOrderedClassElementsFixer
         return 64;
     }
 
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         $phpUnitTestCaseIndicator = new PhpUnitTestCaseIndicator;
 

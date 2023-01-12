@@ -1278,6 +1278,41 @@ Renames PHPDoc tags.
   */
 ```
 
+### global_namespace_import
+
+Imports or fully qualifies global classes/functions/constants.
+
+##### Configuration
+
+```php
+[
+    'import_classes' => true,
+    'import_constants' => true,
+    'import_functions' => true,
+]
+```
+
+##### Examples
+
+```diff
+<?php
+
+ namespace Foo;
++use DateTimeImmutable;
++use function count;
++use const M_PI;
+
+-if (\count($x)) {
+-    /** @var \DateTimeImmutable $d */
+-    $d = new \DateTimeImmutable();
+-    $p = \M_PI;
++if (count($x)) {
++    /** @var DateTimeImmutable $d */
++    $d = new DateTimeImmutable();
++    $p = M_PI;
+ }
+```
+
 ### heredoc_to_nowdoc
 
 Convert `heredoc` to `nowdoc` where possible.
@@ -1285,8 +1320,10 @@ Convert `heredoc` to `nowdoc` where possible.
 ##### Examples
 
 ```diff
--<?php $a = <<<"TEST"
-+<?php $a = <<<'TEST'
+<?php
+
+-$a = <<<"TEST"
++$a = <<<'TEST'
  Foo
  TEST;
 ```

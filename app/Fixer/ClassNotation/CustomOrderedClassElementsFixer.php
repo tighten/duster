@@ -28,6 +28,13 @@ use PhpCsFixer\FixerDefinition\FixerDefinitionInterface;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
+use SplFileInfo;
+
+use function array_key_exists;
+use function count;
+use function defined;
+use function in_array;
+use function is_array;
 
 /**
  * @author Gregor Harlan <gharlan@web.de>
@@ -142,7 +149,7 @@ class CustomOrderedClassElementsFixer extends AbstractFixer implements Configura
             $this->typePosition[$type] = null;
         }
 
-        $lastPosition = \count($this->configuration['order']);
+        $lastPosition = count($this->configuration['order']);
 
         foreach ($this->typePosition as &$pos) {
             if (null === $pos) {
@@ -242,7 +249,7 @@ class Example
     /**
      * {@inheritdoc}
      */
-    protected function applyFix(\SplFileInfo $file, Tokens $tokens): void
+    protected function applyFix(SplFileInfo $file, Tokens $tokens): void
     {
         for ($i = 1, $count = $tokens->count(); $i < $count; $i++) {
             if (! $tokens[$i]->isClassy()) {
@@ -252,12 +259,12 @@ class Example
             $i = $tokens->getNextTokenOfKind($i, ['{']);
             $elements = $this->getElements($tokens, $i);
 
-            if (0 === \count($elements)) {
+            if (0 === count($elements)) {
                 continue;
             }
 
             $sorted = $this->sortElements($elements);
-            $endIndex = $elements[\count($elements) - 1]['end'];
+            $endIndex = $elements[count($elements) - 1]['end'];
 
             if ($sorted !== $elements) {
                 $this->sortTokens($tokens, $i, $endIndex, $sorted);
@@ -280,7 +287,7 @@ class Example
                 ->setAllowedValues([
                     static function (array $values) use ($builtIns): bool {
                         foreach ($values as $value) {
-                            if (\in_array($value, $builtIns, true)) {
+                            if (in_array($value, $builtIns, true)) {
                                 return true;
                             }
 
@@ -365,7 +372,7 @@ class Example
                     continue;
                 }
 
-                if (\defined('T_READONLY') && $token->isGivenKind(T_READONLY)) { // @TODO: drop condition when PHP 8.1+ is required
+                if (defined('T_READONLY') && $token->isGivenKind(T_READONLY)) { // @TODO: drop condition when PHP 8.1+ is required
                     $element['readonly'] = true;
                 }
 
@@ -381,7 +388,7 @@ class Example
 
                 $type = $this->detectElementType($tokens, $i);
 
-                if (\is_array($type)) {
+                if (is_array($type)) {
                     $element['type'] = $type[0];
                     $element['name'] = $type[1];
                 } else {
@@ -390,7 +397,7 @@ class Example
 
                 if ('property' === $element['type']) {
                     $element['name'] = $tokens[$i]->getContent();
-                } elseif (\in_array($element['type'], ['use_trait', 'case', 'constant', 'method', 'magic', 'construct', 'destruct'], true)) {
+                } elseif (in_array($element['type'], ['use_trait', 'case', 'constant', 'method', 'magic', 'construct', 'destruct'], true)) {
                     $element['name'] = $tokens[$tokens->getNextMeaningfulToken($i)]->getContent();
                 }
 
@@ -503,13 +510,13 @@ class Example
         foreach ($elements as &$element) {
             $type = $element['type'];
 
-            if (\in_array($type, ['method', 'magic', 'phpunit'], true) && isset($this->typePosition["method:{$element['name']}"])) {
+            if (in_array($type, ['method', 'magic', 'phpunit'], true) && isset($this->typePosition["method:{$element['name']}"])) {
                 $element['position'] = $this->typePosition["method:{$element['name']}"];
 
                 continue;
             }
 
-            if (\array_key_exists($type, self::$specialTypes)) {
+            if (array_key_exists($type, self::$specialTypes)) {
                 if (isset($this->typePosition[$type])) {
                     $element['position'] = $this->typePosition[$type];
 
@@ -523,7 +530,7 @@ class Example
                 $type = 'method';
             }
 
-            if (\in_array($type, ['constant', 'property', 'method'], true)) {
+            if (in_array($type, ['constant', 'property', 'method'], true)) {
                 $type .= '_' . $element['visibility'];
 
                 if ($element['abstract']) {
