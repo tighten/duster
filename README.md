@@ -120,11 +120,11 @@ Now you can add customizations below the `<rule ref="Tighten"/>` line or even di
 
 ### PHP CS Fixer
 
-Create a `.php-cs-fixer.dist.php` file in your project root with the contents from [Duster's `.php-cs-fixer.dist.php`](.php-cs-fixer.dist.php) file. Learn more in the [PHP CS Fixer documentation](https://cs.symfony.com/doc/config.html).
+Create a `.php-cs-fixer.dist.php` file in your project root with the contents from [Duster's `.php-cs-fixer.dist.php`](standards/.php-cs-fixer.dist.php) file. Learn more in the [PHP CS Fixer documentation](https://cs.symfony.com/doc/config.html).
 
 ### Pint
 
-Create a `pint.json` file in your project root, you can use [Duster's `pint.json`](pint.json) file as a starting point. Learn more in the [Pint documentation](https://laravel.com/docs/pint#configuring-pint).
+Create a `pint.json` file in your project root, you can use [Duster's `pint.json`](standards/pint.json) file as a starting point. Learn more in the [Pint documentation](https://laravel.com/docs/pint#configuring-pint).
 
 ## GitHub Action
 
