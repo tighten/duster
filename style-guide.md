@@ -837,12 +837,10 @@ Curly braces must be placed as configured.
   'anonymous_functions_opening_brace' => 'same_line',
   'classes_opening_brace' => 'next_line_unless_newline_at_signature_end',
   'anonymous_classes_opening_brace' => 'next_line_unless_newline_at_signature_end',
-  'allow_single_line_empty_anonymous_classes' => false,
+  'allow_single_line_empty_anonymous_classes' => true,
   'allow_single_line_anonymous_functions' => false,
 ]
 ```
-
-@TODO add more examples
 
 ##### Examples
 
@@ -879,12 +877,14 @@ Curly braces must be placed as configured.
 +{
 };
 
-// allow_single_line_empty_anonymous_classes = false
--$bar = new class { private $baz; };
-+$bar = new class
-+{
-+    private $baz;
-+};
+// allow_single_line_empty_anonymous_classes = true
+static::swap(
+-    $fake = new class extends TestCampaignClass
+-    {
++    $fake = new class extends TestCampaignClass {
+        //...
+    }
+)
 
 // allow_single_line_anonymous_functions = false
 -$foo = function () { return true; };
