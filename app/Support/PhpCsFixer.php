@@ -49,6 +49,7 @@ class PhpCsFixer extends Tool
         $resolver = new ConfigurationResolver(
             $this->getConfig(),
             [
+                'config' => $this->getConfigFilePath(),
                 'allow-risky' => 'yes',
                 'diff' => $output->isVerbose(),
                 'dry-run' => $this->dusterConfig->get('lint'),
@@ -63,7 +64,7 @@ class PhpCsFixer extends Tool
         );
 
         $changes = (new Runner(
-            $resolver->getFinder(),
+            $this->getConfig()->getFinder(),
             $resolver->getFixers(),
             $resolver->getDiffer(),
             app()->get(EventDispatcher::class),
@@ -84,13 +85,29 @@ class PhpCsFixer extends Tool
 
     private function getConfig(): ConfigInterface
     {
-        $config = $this->getConfigFile();
+        $config = $this->includeConfig();
 
         if (! $config instanceof ConfigInterface) {
             throw new InvalidConfigurationException("The PHP CS Fixer config file does not return a 'PhpCsFixer\ConfigInterface' instance.");
         }
 
-        $finder = $config->getFinder();
+        return $config->setFinder($this->updateFinder($config->getFinder()));
+    }
+
+    /**
+     * Update the finder with the paths and exclude from the config.
+     * We are bypassing resolveFinder() in ConfigurationResolver
+     * to allow for us to use the global duster config.
+     */
+    private function updateFinder(Finder $finder): Finder
+    {
+        collect($this->dusterConfig->get('paths', []))->each(function ($path) use ($finder) {
+            if (is_dir($path)) {
+                $finder = $finder->in($path);
+            } elseif (is_file($path)) {
+                $finder = $finder->append([$path]);
+            }
+        });
 
         collect($this->dusterConfig->get('exclude', []))->each(function ($path) use ($finder) {
             if (is_dir($path)) {
@@ -100,12 +117,17 @@ class PhpCsFixer extends Tool
             }
         });
 
-        return $config->setFinder($finder);
+        return $finder;
     }
 
-    private function getConfigFile(): Config
+    private function includeConfig(): Config
     {
-        return include (string) collect([
+        return include $this->getConfigFilePath();
+    }
+
+    private function getConfigFilePath(): string
+    {
+        return (string) collect([
             Project::path() . '/.php-cs-fixer.dist.php',
             Project::path() . '/.php-cs-fixer.php',
             base_path('standards/.php-cs-fixer.dist.php'),

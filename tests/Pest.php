@@ -2,6 +2,7 @@
 
 use App\Commands\DusterCommand;
 use App\Kernel;
+use Illuminate\Support\Arr;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -65,7 +66,7 @@ function run($command, $arguments)
         '--lint' => true,
     ], $arguments);
 
-    $arguments['path'] = [$arguments['path']];
+    $arguments['path'] = Arr::wrap($arguments['path']);
 
     $input = new ArrayInput($arguments, resolve(DusterCommand::class)->getDefinition());
     $output = new BufferedOutput(

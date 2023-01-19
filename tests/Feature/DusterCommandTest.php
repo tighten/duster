@@ -128,3 +128,19 @@ it('only lints with both TLint and Pint', function () {
         ->not->toContain('Linting using PHP_CodeSniffer')
         ->not->toContain('Linting using PHP CS Fixer');
 });
+
+it('lints multiple provided files', function () {
+    [$statusCode, $output] = run('duster', [
+        'path' => [
+            base_path('tests/Fixtures/MultipleFixableIssues/file.blade.php'),
+            base_path('tests/Fixtures/MultipleFixableIssues/file.php'),
+        ],
+    ]);
+
+    expect($statusCode)->toBe(1)
+        ->and($output)
+        ->toContain('Linting using TLint')
+        ->toContain('Put a space between blade control structure names and the opening paren:`@if(` -> `@if (`')
+        ->toContain('Linting using Pint')
+        ->toContain('concat_space');
+});
