@@ -32,7 +32,6 @@ class PhpCodeSniffer extends Tool
     }
 
     /**
-     * @param  string  $tool
      * @param  array<int, string>  $params
      */
     private function process(string $tool, array $params = []): int

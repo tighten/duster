@@ -8,7 +8,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    const STUBS_DIR = __DIR__ . '/stubs';
+    public const DS = DIRECTORY_SEPARATOR;
+    public const STUBS_DIR = __DIR__ . self::DS . 'stubs';
 
     protected function setUp(): void
     {
@@ -23,7 +24,7 @@ abstract class TestCase extends BaseTestCase
     {
         parent::tearDown();
 
-        array_map('unlink', array_filter((array) glob(self::STUBS_DIR . '/*')));
+        array_map('unlink', array_filter((array) glob(self::STUBS_DIR . self::DS . '*')));
         rmdir(self::STUBS_DIR);
     }
 }

@@ -34,7 +34,11 @@ class TLint extends Tool
         $application->add($tlintCommand);
         $application->setAutoExit(false);
 
-        $success = collect($this->dusterConfig->get('paths'))->map(fn ($path) => $application->run(new StringInput("{$command} {$path}"), app()->get(OutputInterface::class)))
+        $success = collect($this->dusterConfig->get('paths'))->map(function ($path) use ($application, $command) {
+            $path = str_replace('\\', '\\\\', $path);
+
+            return $application->run(new StringInput("{$command} {$path}"), app()->get(OutputInterface::class));
+        })
             ->filter()
             ->isEmpty();
 
