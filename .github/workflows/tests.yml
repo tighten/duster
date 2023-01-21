@@ -1,0 +1,49 @@
+name: tests
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        os: [ubuntu-22.04, windows-2019]
+        php: ['8.0', 8.1, 8.2]
+
+    name: PHP ${{ matrix.php }} - ${{ matrix.os }}
+
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, fileinfo
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install
+
+      - name: Run Duster
+        run: ./builds/duster --lint --using="tlint,phpcodesniffer,phpcsfixer,pint"
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan
+        if: matrix.php == '8.1'
+
+      - name: Run Pest
+        run: vendor/bin/pest
