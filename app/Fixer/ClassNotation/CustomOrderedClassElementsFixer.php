@@ -149,7 +149,7 @@ class CustomOrderedClassElementsFixer extends AbstractFixer implements Configura
             $this->typePosition[$type] = null;
         }
 
-        $lastPosition = count($this->configuration['order']);
+        $lastPosition = is_countable($this->configuration['order']) ? count($this->configuration['order']) : 0;
 
         foreach ($this->typePosition as &$pos) {
             if (null === $pos) {
@@ -291,7 +291,7 @@ class Example
                                 return true;
                             }
 
-                            if (is_string($value) && substr($value, 0, 7) === 'method:') {
+                            if (is_string($value) && str_starts_with($value, 'method:')) {
                                 return true;
                             }
                         }

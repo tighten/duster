@@ -22,12 +22,16 @@ class DusterServiceProvider extends ServiceProvider
         $this->app->singleton(DusterConfig::class, function () {
             $input = $this->app->get(InputInterface::class);
 
+            $dusterConfig = $this->getDusterConfig();
+
             return new DusterConfig([
                 'paths' => $input->getArgument('path'),
                 'lint' => ! $input->getOption('fix'),
                 'fix' => $input->getOption('fix'),
                 'using' => $input->getOption('using'),
-                ...$this->getDusterConfig(),
+                'include' => $dusterConfig['include'] ?? [],
+                'exclude' => $dusterConfig['exclude'] ?? [],
+                'scripts' => $dusterConfig['scripts'] ?? [],
             ]);
         });
 
@@ -67,7 +71,7 @@ class DusterServiceProvider extends ServiceProvider
     private function getDusterConfig(): array
     {
         if (file_exists(Project::path() . '/duster.json')) {
-            return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true), function ($configuration) {
+            return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true, 512, JSON_THROW_ON_ERROR), function ($configuration) {
                 if (! is_array($configuration)) {
                     abort(1, 'The configuration file duster.json is not valid JSON.');
                 }

@@ -23,13 +23,9 @@ class PintServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->singleton(ErrorsManager::class, function () {
-            return new ErrorsManager;
-        });
+        $this->app->singleton(ErrorsManager::class, fn () => new ErrorsManager);
 
-        $this->app->singleton(EventDispatcher::class, function () {
-            return new EventDispatcher;
-        });
+        $this->app->singleton(EventDispatcher::class, fn () => new EventDispatcher);
 
         $this->app->singleton(PintInputInterface::class, function () {
             $input = $this->app->get(InputInterface::class);
@@ -40,41 +36,35 @@ class PintServiceProvider extends ServiceProvider
             );
         });
 
-        $this->app->singleton(FixCode::class, function () {
-            return new FixCode(
-                resolve(ErrorsManager::class),
+        $this->app->singleton(FixCode::class, fn () => new FixCode(
+            resolve(ErrorsManager::class),
+            resolve(EventDispatcher::class),
+            resolve(PintInputInterface::class),
+            resolve(OutputInterface::class),
+            new ProgressOutput(
                 resolve(EventDispatcher::class),
                 resolve(PintInputInterface::class),
                 resolve(OutputInterface::class),
-                new ProgressOutput(
-                    resolve(EventDispatcher::class),
-                    resolve(PintInputInterface::class),
-                    resolve(OutputInterface::class),
-                )
-            );
-        });
+            )
+        ));
 
-        $this->app->singleton(ElaborateSummary::class, function () {
-            return new ElaborateSummary(
+        $this->app->singleton(ElaborateSummary::class, fn () => new ElaborateSummary(
+            resolve(ErrorsManager::class),
+            resolve(PintInputInterface::class),
+            resolve(OutputInterface::class),
+            new SummaryOutput(
+                resolve(ConfigurationJsonRepository::class),
                 resolve(ErrorsManager::class),
                 resolve(PintInputInterface::class),
                 resolve(OutputInterface::class),
-                new SummaryOutput(
-                    resolve(ConfigurationJsonRepository::class),
-                    resolve(ErrorsManager::class),
-                    resolve(PintInputInterface::class),
-                    resolve(OutputInterface::class),
-                )
-            );
-        });
+            )
+        ));
 
         $this->app->singleton(ConfigurationJsonRepository::class, function () {
             $config = (string) collect([
                 Project::path() . '/pint.json',
                 base_path('standards/pint.json'),
-            ])->first(function ($path) {
-                return file_exists($path);
-            });
+            ])->first(fn ($path) => file_exists($path));
 
             return new PintConfigurationJsonRepository($config, null, resolve(DusterConfig::class));
         });
