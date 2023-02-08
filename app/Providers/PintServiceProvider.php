@@ -31,7 +31,7 @@ class PintServiceProvider extends ServiceProvider
             $input = $this->app->get(InputInterface::class);
 
             return new ArrayInput(
-                ['--test' => ! $input->getOption('fix'), 'path' => $input->getArgument('path')],
+                ['--test' => $input->getOption('lint'), 'path' => $input->getArgument('path')],
                 resolve(DefaultCommand::class)->getDefinition()
             );
         });
