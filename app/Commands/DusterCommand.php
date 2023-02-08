@@ -21,6 +21,12 @@ class DusterCommand extends Command
             return $this->gitHubActions();
         }
 
+        if (! $this->input->getOption('fix') && ! $this->input->getOption('lint')) {
+            return $this->call('help', [
+                'command_name' => 'duster',
+            ]);
+        }
+
         return $clean->execute();
     }
 
