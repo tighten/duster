@@ -5,11 +5,13 @@ namespace App\Providers;
 use App\Actions\ElaborateSummary;
 use App\Actions\FixCode;
 use App\Commands\DefaultCommand;
+use App\Contracts\PathsRepository;
 use App\Contracts\PintInputInterface;
 use App\Output\ProgressOutput;
 use App\Output\SummaryOutput;
 use App\Project;
 use App\Repositories\ConfigurationJsonRepository;
+use App\Repositories\GitPathsRepository;
 use App\Repositories\PintConfigurationJsonRepository;
 use App\Support\DusterConfig;
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +33,7 @@ class PintServiceProvider extends ServiceProvider
             $input = $this->app->get(InputInterface::class);
 
             return new ArrayInput(
-                ['--test' => ! $input->getOption('fix'), 'path' => $input->getArgument('path')],
+                ['--test' => ! $input->getOption('fix'), 'path' => Project::paths($input)],
                 resolve(DefaultCommand::class)->getDefinition()
             );
         });
@@ -66,7 +68,13 @@ class PintServiceProvider extends ServiceProvider
                 base_path('standards/pint.json'),
             ])->first(fn ($path) => file_exists($path));
 
-            return new PintConfigurationJsonRepository($config, null, resolve(DusterConfig::class));
+            return new PintConfigurationJsonRepository($config, null, DusterConfig::all()['exclude'] ?? []);
+        });
+
+        $this->app->singleton(PathsRepository::class, function () {
+            return new GitPathsRepository(
+                Project::path(),
+            );
         });
     }
 }
