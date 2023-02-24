@@ -62,6 +62,11 @@ class DusterCommand extends Command
                         description: 'Lint/Fix using specified (comma separated) tools: tlint,phpcodesniffer,phpcsfixer,pint',
                     ),
                     new InputOption(
+                        name: 'dirty',
+                        mode: InputOption::VALUE_NONE,
+                        description: 'Only fix files that have uncommitted changes'
+                    ),
+                    new InputOption(
                         name: 'github-actions',
                         shortcut: 'g',
                         mode: InputOption::VALUE_NONE,

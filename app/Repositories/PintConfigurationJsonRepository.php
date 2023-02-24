@@ -2,14 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Support\DusterConfig;
-
 class PintConfigurationJsonRepository extends ConfigurationJsonRepository
 {
+    /**
+     * @param  array<string, array<int, string>|string>  $exclude
+     */
     public function __construct(
         protected $path,
         protected $preset,
-        protected DusterConfig $dusterConfig)
+        protected array $exclude)
     {
     }
 
@@ -20,10 +21,9 @@ class PintConfigurationJsonRepository extends ConfigurationJsonRepository
     {
         $config = $this->getPintConfig();
 
-        collect($this->dusterConfig->get('exclude', []))
-            ->each(function ($path) use (&$config) {
-                $config = $this->addPathToConfig($path, $config);
-            });
+        collect($this->exclude)->each(function ($path) use (&$config) {
+            $config = $this->addPathToConfig($path, $config);
+        });
 
         return $config;
     }

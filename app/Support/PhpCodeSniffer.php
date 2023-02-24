@@ -49,7 +49,6 @@ class PhpCodeSniffer extends Tool
             '--standard=' . $this->getConfigFile(),
             ...$ignore,
             ...$params,
-            ...$this->dusterConfig->get('include', []),
         ];
 
         $this->resetConfig($tool);
@@ -122,6 +121,7 @@ class PhpCodeSniffer extends Tool
                 Project::path() . '/resources',
                 Project::path() . '/routes',
                 Project::path() . '/tests',
+                ...$this->dusterConfig->get('include', []),
             ],
             fn ($dir) => is_dir($dir)
         ) ?: [Project::path()];

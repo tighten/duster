@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Project;
 use Illuminate\Support\Arr;
 
 class DusterConfig
@@ -25,6 +26,22 @@ class DusterConfig
                 'storage',
             ]
         );
+    }
+
+    /**
+     * @return  array<string, mixed>
+     */
+    public static function all(): array
+    {
+        if (file_exists(Project::path() . '/duster.json')) {
+            return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true, 512, JSON_THROW_ON_ERROR), function ($configuration) {
+                if (! is_array($configuration)) {
+                    abort(1, 'The configuration file duster.json is not valid JSON.');
+                }
+            });
+        }
+
+        return [];
     }
 
     public function get(string $key, mixed $default = null): mixed
