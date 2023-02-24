@@ -27,9 +27,9 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.12",
+        "friendsofphp/php-cs-fixer": "^3.14",
         "laravel-zero/framework": "^9.2",
-        "laravel/pint": "^1.2",
+        "laravel/pint": "1.5",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/larastan": "^2.2",
         "nunomaduro/termwind": "^1.14",
