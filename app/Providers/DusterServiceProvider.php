@@ -26,7 +26,7 @@ class DusterServiceProvider extends ServiceProvider
 
             return new DusterConfig([
                 'paths' => Project::paths($input),
-                'lint' => ! $input->getOption('fix'),
+                'lint' => $input->getOption('lint'),
                 'fix' => $input->getOption('fix'),
                 'using' => $input->getOption('using'),
                 'include' => $dusterConfig['include'] ?? [],
@@ -38,7 +38,7 @@ class DusterServiceProvider extends ServiceProvider
         $this->app->bindMethod([DusterCommand::class, 'handle'], function ($command) {
             $input = $this->app->get(InputInterface::class);
 
-            $mode = ! $input->getOption('fix') ? 'lint' : 'fix';
+            $mode = $input->getOption('fix') ? 'fix' : 'lint';
 
             $using = $input->getOption('using')
                 ? explode(',', $input->getOption('using'))

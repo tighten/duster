@@ -35,9 +35,6 @@ Optionally you can publish a GitHub Actions linting config:
 To lint everything at once:
 
 ```bash
-./vendor/bin/duster
-
-# or
 ./vendor/bin/duster --lint
 ```
 
@@ -48,6 +45,12 @@ To fix everything at once:
 ```
 
 To view all available commands:
+
+```bash
+./vendor/bin/duster
+```
+
+or
 
 ```bash
 ./vendor/bin/duster --help
