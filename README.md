@@ -144,6 +144,7 @@ If you discover any security-related issues, please email hello@tighten.co inste
 ## Credits
 
 - [Matt Stauffer](https://github.com/mattstauffer)
+- [Anthony Clark](https://github.com/driftingly)
 - [Tom Witkowski](https://github.com/devgummibeer) - much of the original idea and syntax for this was inspired by his [`elbgoods/ci-test-tools`](https://github.com/elbgoods/ci-test-tools) package
 - [All Contributors](../../contributors)
 
