@@ -52,7 +52,7 @@ class PhpCsFixer extends Tool
                 'config' => $this->getConfigFilePath(),
                 'allow-risky' => 'yes',
                 'diff' => $output->isVerbose(),
-                'dry-run' => $this->dusterConfig->get('lint'),
+                'dry-run' => $this->dusterConfig->get('mode') === 'lint',
                 'path' => $this->dusterConfig->get('paths'),
                 'path-mode' => ConfigurationResolver::PATH_MODE_OVERRIDE,
                 'stop-on-violation' => false,

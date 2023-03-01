@@ -33,7 +33,7 @@ class PintServiceProvider extends ServiceProvider
             $input = $this->app->get(InputInterface::class);
 
             return new ArrayInput(
-                ['--test' => $input->getOption('lint'), 'path' => Project::paths($input)],
+                ['--test' => $input->getArgument('command') === 'lint', 'path' => Project::paths($input)],
                 resolve(DefaultCommand::class)->getDefinition()
             );
         });
@@ -68,7 +68,7 @@ class PintServiceProvider extends ServiceProvider
                 base_path('standards/pint.json'),
             ])->first(fn ($path) => file_exists($path));
 
-            return new PintConfigurationJsonRepository($config, null, DusterConfig::all()['exclude'] ?? []);
+            return new PintConfigurationJsonRepository($config, null, DusterConfig::loadLocal()['exclude'] ?? []);
         });
 
         $this->app->singleton(PathsRepository::class, function () {

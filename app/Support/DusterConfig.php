@@ -31,7 +31,7 @@ class DusterConfig
     /**
      * @return  array<string, mixed>
      */
-    public static function all(): array
+    public static function loadLocal(): array
     {
         if (file_exists(Project::path() . '/duster.json')) {
             return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true, 512, JSON_THROW_ON_ERROR), function ($configuration) {

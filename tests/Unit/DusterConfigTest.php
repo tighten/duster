@@ -5,14 +5,10 @@ use App\Support\DusterConfig;
 it('provides config values', function () {
     $dusterConfig = new DusterConfig([
         'paths' => ['path1', 'path2'],
-        'lint' => true,
-        'fix' => false,
         'using' => ['tlint', 'phpcs', 'php-cs-fixer', 'pint'],
     ]);
 
     expect($dusterConfig->get('paths'))->toBe(['path1', 'path2']);
-    expect($dusterConfig->get('lint'))->toBeTrue();
-    expect($dusterConfig->get('fix'))->toBeFalse();
     expect($dusterConfig->get('using'))->toBe(['tlint', 'phpcs', 'php-cs-fixer', 'pint']);
 });
 

@@ -1,6 +1,6 @@
 <?php
 
-use App\Commands\DusterCommand;
+use App\Commands\HelpCommand;
 
 return [
 
@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => DusterCommand::class,
+    'default' => HelpCommand::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -65,6 +65,21 @@ return [
         Illuminate\Console\Scheduling\ScheduleFinishCommand::class,
         Illuminate\Foundation\Console\VendorPublishCommand::class,
         LaravelZero\Framework\Commands\StubPublishCommand::class,
+        // @todo hide these:
+        /**
+         *
+         * app:build      Build a single file executable
+  app:install    Install optional components
+  app:rename     Set the application name
+
+  make:command   Create a new command
+  make:test      Create a new test class
+
+  pest:dataset   Create a new dataset file
+  pest:install   Creates Pest resources in your current PHPUnit test suite
+         *
+         *
+         */
     ],
 
     /*
