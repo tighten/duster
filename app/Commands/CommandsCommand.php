@@ -4,7 +4,7 @@ namespace App\Commands;
 
 use LaravelZero\Framework\Commands\Command;
 
-class HelpCommand extends Command
+class CommandsCommand extends Command
 {
     protected $signature = 'commands';
 

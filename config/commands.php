@@ -1,6 +1,6 @@
 <?php
 
-use App\Commands\HelpCommand;
+use App\Commands\CommandsCommand;
 
 return [
 
@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => HelpCommand::class,
+    'default' => CommandsCommand::class,
 
     /*
     |--------------------------------------------------------------------------
