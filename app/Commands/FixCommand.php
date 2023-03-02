@@ -15,7 +15,7 @@ class FixCommand extends Command
 
     protected $description = 'Fix your code';
 
-    public function handle()
+    public function handle(): int
     {
         $clean = $this->getCleaner('fix', $this->input->getOption('using'));
 

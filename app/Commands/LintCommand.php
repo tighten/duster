@@ -15,7 +15,7 @@ class LintCommand extends Command
 
     protected $description = 'Lint your code';
 
-    public function handle()
+    public function handle(): int
     {
         $clean = $this->getCleaner('lint', $this->input->getOption('using'));
 

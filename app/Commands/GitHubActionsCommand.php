@@ -12,7 +12,7 @@ class GitHubActionsCommand extends Command
 
     protected $description = 'Publish GitHub Actions';
 
-    public function handle()
+    public function handle(): int
     {
         $branch = $this->anticipate('What is the name of your primary branch?', ['main', 'develop', 'master'], 'main');
         $phpVersion = $this->anticipate('What PHP version do you want to use?', ['8.1', '8.0'], '8.1');
