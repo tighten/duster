@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use LaravelZero\Framework\Commands\Command;
+
 use function Termwind\{render};
 
 class GitHubActionsCommand extends Command
@@ -24,7 +25,7 @@ class GitHubActionsCommand extends Command
             $workflow
         );
 
-        if (!is_dir(getcwd() . '/.github/workflows')) {
+        if (! is_dir(getcwd() . '/.github/workflows')) {
             mkdir(getcwd() . '/.github/workflows', 0777, true);
         }
 
