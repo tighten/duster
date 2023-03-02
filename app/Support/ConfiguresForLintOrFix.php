@@ -26,11 +26,10 @@ trait ConfiguresForLintOrFix
                         mode: InputOption::VALUE_REQUIRED,
                         description: 'Lint/fix using specified (comma separated) tools: tlint,phpcodesniffer,phpcsfixer,pint',
                     ),
-                    // Annoyingly, needed for 'lint' in order to make Pint work
                     new InputOption(
                         name: 'dirty',
                         mode: InputOption::VALUE_NONE,
-                        description: 'Only fix files that have uncommitted changes'
+                        description: 'Only lint/fix files that have uncommitted changes'
                     ),
                 ]
             );
