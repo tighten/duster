@@ -1,6 +1,6 @@
 <?php
 
-use App\Commands\DusterCommand;
+use App\Commands\LintCommand;
 use App\Kernel;
 use Illuminate\Support\Arr;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -60,13 +60,13 @@ expect()->extend('toBeOne', fn() => $this->toBe(1));
  */
 function run($command, $arguments)
 {
-    $arguments = array_merge([
-        '--lint' => true,
-    ], $arguments);
+    // $arguments = array_merge([
+    //     '--lint' => true,
+    // ], $arguments);
 
     $arguments['path'] = Arr::wrap($arguments['path']);
 
-    $input = new ArrayInput($arguments, resolve(DusterCommand::class)->getDefinition());
+    $input = new ArrayInput($arguments, resolve(LintCommand::class)->getDefinition());
     $output = new BufferedOutput(
         BufferedOutput::VERBOSITY_VERBOSE,
     );

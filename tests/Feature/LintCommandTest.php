@@ -2,6 +2,7 @@
 
 it('lints without issues', function () {
     [$statusCode, $output] = run('duster', [
+        'command' => 'lint',
         'path' => base_path('tests/Fixtures/WithoutIssues'),
     ]);
 

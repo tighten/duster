@@ -3,7 +3,7 @@
 it('uses duster config file', function () {
     chdir(__DIR__ . '/../Fixtures/DusterConfig');
 
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/DusterConfig'),
     ]);
 
