@@ -1,7 +1,7 @@
 <?php
 
 it('lints without issues', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/WithoutIssues'),
     ]);
 
@@ -10,7 +10,7 @@ it('lints without issues', function () {
 });
 
 it('lints with TLint', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/TlintFixableIssues'),
     ]);
 
@@ -21,7 +21,7 @@ it('lints with TLint', function () {
 });
 
 it('only lints with TLint', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/TlintFixableIssues'),
         '--using' => 'tlint',
     ]);
@@ -36,7 +36,7 @@ it('only lints with TLint', function () {
 });
 
 it('lints with PHP_CodeSniffer', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCodeSnifferFixableIssues'),
     ]);
 
@@ -47,7 +47,7 @@ it('lints with PHP_CodeSniffer', function () {
 });
 
 it('only lints with PHP_CodeSniffer', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCodeSnifferFixableIssues'),
         '--using' => 'phpcs',
     ]);
@@ -62,7 +62,7 @@ it('only lints with PHP_CodeSniffer', function () {
 });
 
 it('lints with PHP CS Fixer', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCsFixerFixableIssues'),
     ]);
 
@@ -73,7 +73,7 @@ it('lints with PHP CS Fixer', function () {
 });
 
 it('only lints with PHP CS Fixer', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCsFixerFixableIssues'),
         '--using' => 'phpcsfixer',
     ]);
@@ -88,7 +88,7 @@ it('only lints with PHP CS Fixer', function () {
 });
 
 it('lints with Pint', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PintFixableIssues'),
     ]);
 
@@ -99,7 +99,7 @@ it('lints with Pint', function () {
 });
 
 it('only lints with Pint', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PintFixableIssues'),
         '--using' => 'pint',
     ]);
@@ -114,7 +114,7 @@ it('only lints with Pint', function () {
 });
 
 it('only lints with both TLint and Pint', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/MultipleFixableIssues'),
         '--using' => 'tlint,pint',
     ]);
@@ -130,7 +130,7 @@ it('only lints with both TLint and Pint', function () {
 });
 
 it('lints multiple provided files', function () {
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => [
             base_path('tests/Fixtures/MultipleFixableIssues/file.blade.php'),
             base_path('tests/Fixtures/MultipleFixableIssues/file.php'),

@@ -1,7 +1,6 @@
 <?php
 
-use App\Commands\DusterCommand;
-use App\Kernel;
+use App\DusterKernel;
 use Illuminate\Support\Arr;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -60,13 +59,10 @@ expect()->extend('toBeOne', fn() => $this->toBe(1));
  */
 function run($command, $arguments)
 {
-    $arguments = array_merge([
-        '--lint' => true,
-    ], $arguments);
-
+    $arguments = array_merge([$command], $arguments);
     $arguments['path'] = Arr::wrap($arguments['path']);
 
-    $input = new ArrayInput($arguments, resolve(DusterCommand::class)->getDefinition());
+    $input = new ArrayInput($arguments);
     $output = new BufferedOutput(
         BufferedOutput::VERBOSITY_VERBOSE,
     );
@@ -74,7 +70,7 @@ function run($command, $arguments)
     app()->singleton(InputInterface::class, fn () => $input);
     app()->singleton(OutputInterface::class, fn () => $output);
 
-    $statusCode = resolve(Kernel::class)->call($command, $arguments, $output);
+    $statusCode = resolve(DusterKernel::class)->handle($input, $output);
 
     $output = preg_replace('#\\x1b[[][^A-Za-z]*[A-Za-z]#', '', $output->fetch());
 

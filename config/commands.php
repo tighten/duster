@@ -1,6 +1,6 @@
 <?php
 
-use App\Commands\DusterCommand;
+use App\Commands\CommandsCommand;
 
 return [
 
@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => DusterCommand::class,
+    'default' => CommandsCommand::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -65,6 +65,15 @@ return [
         Illuminate\Console\Scheduling\ScheduleFinishCommand::class,
         Illuminate\Foundation\Console\VendorPublishCommand::class,
         LaravelZero\Framework\Commands\StubPublishCommand::class,
+
+        Pest\Laravel\Commands\PestDatasetCommand::class,
+        Pest\Laravel\Commands\PestInstallCommand::class,
+        Pest\Laravel\Commands\PestTestCommand::class,
+
+        LaravelZero\Framework\Commands\MakeCommand::class,
+        LaravelZero\Framework\Commands\TestMakeCommand::class,
+        LaravelZero\Framework\Commands\RenameCommand::class,
+        LaravelZero\Framework\Commands\InstallCommand::class,
     ],
 
     /*

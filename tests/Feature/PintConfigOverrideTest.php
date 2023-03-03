@@ -3,7 +3,7 @@
 it('lints with pint using project config', function () {
     chdir(__DIR__ . '/../Fixtures/PintProjectConfig');
 
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PintProjectConfig'),
     ]);
 

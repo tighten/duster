@@ -3,7 +3,7 @@
 it('lints with PHP CS Fixer using project config', function () {
     chdir(__DIR__ . '/../Fixtures/PhpCsFixerProjectConfig');
 
-    [$statusCode, $output] = run('duster', [
+    [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCsFixerProjectConfig'),
     ]);
 
