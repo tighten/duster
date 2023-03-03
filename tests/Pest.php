@@ -1,6 +1,5 @@
 <?php
 
-use App\Commands\LintCommand;
 use App\DusterKernel;
 use Illuminate\Support\Arr;
 use Symfony\Component\Console\Input\ArrayInput;

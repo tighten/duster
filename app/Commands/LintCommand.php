@@ -8,8 +8,8 @@ use LaravelZero\Framework\Commands\Command;
 
 class LintCommand extends Command
 {
-    use GetsCleaner;
     use ConfiguresForLintOrFix;
+    use GetsCleaner;
 
     protected $signature = 'lint';
 

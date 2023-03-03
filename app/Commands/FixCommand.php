@@ -8,8 +8,8 @@ use LaravelZero\Framework\Commands\Command;
 
 class FixCommand extends Command
 {
-    use GetsCleaner;
     use ConfiguresForLintOrFix;
+    use GetsCleaner;
 
     protected $signature = 'fix';
 
