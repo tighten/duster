@@ -39,7 +39,7 @@ jobs:
         run: composer install
 
       - name: Run Duster
-        run: ./builds/duster --lint --using="tlint,phpcodesniffer,phpcsfixer,pint"
+        run: ./builds/duster lint --using="tlint,phpcodesniffer,phpcsfixer,pint"
 
       - name: Run PHPStan
         run: vendor/bin/phpstan

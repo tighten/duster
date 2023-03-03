@@ -92,12 +92,12 @@ The key is the name of the command (used with the `--using` flag), and the value
 }
 ```
 
-Duster will pick these up automatically when running either `--lint` or `--fix`.
+Duster will pick these up automatically when running either `lint` or `fix`.
 
 To customize which tools Duster runs, or the order in which they are executed you can use the `--using` flag and supply a comma-separated list of commands:
 
 ```bash
-./vendor/bin/duster --lint --using="phpstan,tlint,pint"
+./vendor/bin/duster lint --using="phpstan,tlint,pint"
 ```
 
 ### TLint
