@@ -24,10 +24,10 @@ You can install the package via composer:
 composer require tightenco/duster --dev
 ```
 
-Optionally you can publish a GitHub Actions linting config:
+Optionally you can publish a GitHub Actions config:
 
 ```bash
-./vendor/bin/duster --github-actions
+./vendor/bin/duster github-actions
 ```
 
 ## Usage
@@ -35,21 +35,21 @@ Optionally you can publish a GitHub Actions linting config:
 To lint everything at once:
 
 ```bash
-./vendor/bin/duster --lint
+./vendor/bin/duster lint
 ```
 
 To fix everything at once:
 
 ```bash
-./vendor/bin/duster --fix
+./vendor/bin/duster fix
 ```
 
 To dust only files that have uncommitted changes according to Git, you may use the `--dirty` option:
 
 ```bash
-./vendor/bin/duster --lint --dirty
+./vendor/bin/duster lint --dirty
 #or
-./vendor/bin/duster --fix --dirty
+./vendor/bin/duster fix --dirty
 ```
 
 To view all available commands:
@@ -57,7 +57,7 @@ To view all available commands:
 ```bash
 ./vendor/bin/duster
 #or
-./vendor/bin/duster --help
+./vendor/bin/duster commands
 ```
 
 ## Customizing
