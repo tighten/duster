@@ -15,21 +15,18 @@ class GitHubActionsCommand extends Command
     public function handle(): int
     {
         $branch = $this->anticipate('What is the name of your primary branch?', ['main', 'develop', 'master'], 'main');
-        $phpVersion = $this->anticipate('What PHP version do you want to use?', ['8.1', '8.0'], '8.1');
+        $commit = $this->choice('Would you like the action to automatically commit fixes?', ['yes', 'no'], 1);
 
-        $workflow = file_get_contents(__DIR__ . '/../../stubs/github-actions/lint.yml');
+        $workflowName = $commit === 'yes' ? 'duster-fix' : 'duster-lint';
 
-        $workflow = str_replace(
-            ['YOUR_BRANCH_NAME', 'YOUR_PHP_VERSION'],
-            [$branch, $phpVersion],
-            $workflow
-        );
+        $workflow = file_get_contents(__DIR__ . "/../../stubs/github-actions/{$workflowName}.yml");
+        $workflow = str_replace('YOUR_BRANCH_NAME', $branch, $workflow);
 
         if (! is_dir(getcwd() . '/.github/workflows')) {
             mkdir(getcwd() . '/.github/workflows', 0777, true);
         }
 
-        file_put_contents(getcwd() . '/.github/workflows/lint.yml', $workflow);
+        file_put_contents(getcwd() . "/.github/workflows/{$workflowName}.yml", $workflow);
 
         $this->success('GitHub Actions added');
 
