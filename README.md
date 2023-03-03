@@ -44,15 +44,19 @@ To fix everything at once:
 ./vendor/bin/duster --fix
 ```
 
+To dust only files that have uncommitted changes according to Git, you may use the `--dirty` option:
+
+```bash
+./vendor/bin/duster --lint --dirty
+#or
+./vendor/bin/duster --fix --dirty
+```
+
 To view all available commands:
 
 ```bash
 ./vendor/bin/duster
-```
-
-or
-
-```bash
+#or
 ./vendor/bin/duster --help
 ```
 

@@ -2132,6 +2132,46 @@ There MUST NOT be a space after the opening parenthesis. There MUST NOT be a spa
  }
 ```
 
+### no_superfluous_phpdoc_tags
+
+Removes `@param`, `@return` and `@var` tags that don't provide any useful information.
+
+##### Configuration
+
+```php
+[
+  'no_superfluous_phpdoc_tags' => [
+    'allow_mixed' => true,
+    'allow_unused_params' => true,
+  ],
+]
+```
+
+##### Examples
+
+```diff
+<?php
+ class Foo {
+     /**
+-     * @param Bar $bar
+      * @param mixed $baz
+      */
+     public function doFoo(Bar $bar, $baz) {}
+ }
+```
+
+```diff
+ <?php
+ class Foo {
+     /**
+-     * @param Bar $bar
+-     * @param mixed $baz
+      * @param string|int|null $qux
+      */
+     public function doFoo(Bar $bar, $baz /*, $qux = null */) {}
+ }
+ ```
+
 ### no_trailing_whitespace
 
 Remove trailing whitespace at the end of non-blank lines.
