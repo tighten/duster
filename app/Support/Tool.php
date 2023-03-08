@@ -17,7 +17,7 @@ abstract class Tool
 
     public function heading(string $heading): void
     {
-        render('<div class="px-1 bg-green-300 w-full text-center font-bold">' . $heading . '</div>');
+        render('<div class="px-1 bg-green-300 text-black w-full text-center font-bold">' . $heading . '</div>');
     }
 
     public function success(string $message): void
