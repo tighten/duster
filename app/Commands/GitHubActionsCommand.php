@@ -15,9 +15,9 @@ class GitHubActionsCommand extends Command
     public function handle(): int
     {
         $choices = [
-            'Lint only'=> 'duster-lint',
-            'Fix and commit'=> 'duster-fix',
-            'Fix, commit, and update .git-blame-ignore-revs'=> 'duster-fix-blame',
+            'Lint only' => 'duster-lint',
+            'Fix and commit' => 'duster-fix',
+            'Fix, commit, and update .git-blame-ignore-revs' => 'duster-fix-blame',
         ];
 
         $branch = $this->anticipate('What is the name of your primary branch?', ['main', 'develop', 'master'], 'main');
