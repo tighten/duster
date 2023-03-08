@@ -1,0 +1,40 @@
+name: Duster Fix
+
+on:
+    push:
+        branches: [ YOUR_BRANCH_NAME ]
+    pull_request:
+
+jobs:
+  duster:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: "Duster Fix"
+        uses: tighten/duster-action@v1
+        with:
+          args: fix
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        id: auto_commit_action
+        with:
+          commit_message: Dusting
+          commit_user_name: GitHub Action
+          commit_user_email: actions@github.com
+
+      - name: Ignore Duster commit in git blame
+        if: steps.auto_commit_action.outputs.changes_detected == 'true'
+        run: echo ${{ steps.auto_commit_action.outputs.commit_hash }} >> .git-blame-ignore-revs
+
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Ignore Dusting commit in git blame
+          commit_user_name: GitHub Action
+          commit_user_email: actions@github.com
