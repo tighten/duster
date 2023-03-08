@@ -14,10 +14,16 @@ class GitHubActionsCommand extends Command
 
     public function handle(): int
     {
-        $branch = $this->anticipate('What is the name of your primary branch?', ['main', 'develop', 'master'], 'main');
-        $commit = $this->choice('Would you like the action to automatically commit fixes?', ['yes', 'no'], 1);
+        $choices = [
+            'Lint only' => 'duster-lint',
+            'Fix and commit' => 'duster-fix',
+            'Fix, commit, and update .git-blame-ignore-revs' => 'duster-fix-blame',
+        ];
 
-        $workflowName = $commit === 'yes' ? 'duster-fix' : 'duster-lint';
+        $branch = $this->anticipate('What is the name of your primary branch?', ['main', 'develop', 'master'], 'main');
+        $choice = $this->choice('Which GitHub action would you like?', array_keys($choices), 0);
+
+        $workflowName = $choices[$choice];
 
         $workflow = file_get_contents(__DIR__ . "/../../stubs/github-actions/{$workflowName}.yml");
         $workflow = str_replace('YOUR_BRANCH_NAME', $branch, $workflow);
