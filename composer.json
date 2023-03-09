@@ -24,36 +24,36 @@
         }
     ],
     "require": {
-        "php": "^8.0"
-    },
-    "require-dev": {
+        "php": "^8.0",
         "friendsofphp/php-cs-fixer": "^3.14",
         "laravel-zero/framework": "^9.2",
         "laravel/pint": "1.5",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/larastan": "^2.2",
         "nunomaduro/termwind": "^1.14",
-        "pestphp/pest": "^1.21.3",
-        "rector/rector": "^0.15.10",
         "spatie/invade": "^1.1",
-        "spatie/laravel-ray": "^1.31",
         "squizlabs/php_codesniffer": "^3.7",
         "tightenco/tlint": "^8.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/larastan": "^2.2",
+        "pestphp/pest": "^1.21.3",
+        "rector/rector": "^0.15.10",
+        "spatie/laravel-ray": "^1.31"
     },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
         },
         "files": [
             "./vendor/squizlabs/php_codesniffer/autoload.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "config": {
         "preferred-install": {

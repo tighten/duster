@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'hidden' => [
+    'hidden' => array_filter([
         NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
         Symfony\Component\Console\Command\DumpCompletionCommand::class,
         Symfony\Component\Console\Command\HelpCommand::class,
@@ -66,15 +66,15 @@ return [
         Illuminate\Foundation\Console\VendorPublishCommand::class,
         LaravelZero\Framework\Commands\StubPublishCommand::class,
 
-        Pest\Laravel\Commands\PestDatasetCommand::class,
-        Pest\Laravel\Commands\PestInstallCommand::class,
-        Pest\Laravel\Commands\PestTestCommand::class,
+        class_exists('Pest\Laravel\Commands\PestDatasetCommand') ? Pest\Laravel\Commands\PestDatasetCommand::class : null,
+        class_exists('Pest\Laravel\Commands\PestInstallCommand') ? Pest\Laravel\Commands\PestInstallCommand::class : null,
+        class_exists('Pest\Laravel\Commands\PestTestCommand') ? Pest\Laravel\Commands\PestTestCommand::class : null,
 
         LaravelZero\Framework\Commands\MakeCommand::class,
         LaravelZero\Framework\Commands\TestMakeCommand::class,
         LaravelZero\Framework\Commands\RenameCommand::class,
         LaravelZero\Framework\Commands\InstallCommand::class,
-    ],
+    ]),
 
     /*
     |--------------------------------------------------------------------------
