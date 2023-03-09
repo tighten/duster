@@ -18,8 +18,14 @@
     "authors": [
         {
             "name": "Matt Stauffer",
-            "email": "matt@tighten.co",
-            "homepage": "https://tighten.co",
+            "email": "matt@tighten.com",
+            "homepage": "https://tighten.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Anthony Clark",
+            "email": "anthony@tighten.com",
+            "homepage": "https://tighten.com",
             "role": "Developer"
         }
     ],
