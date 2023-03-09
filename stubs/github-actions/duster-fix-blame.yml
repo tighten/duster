@@ -1,5 +1,8 @@
 name: Duster Fix
 
+# Commits made in here will not trigger any workflows
+# Checkout Duster's documentation for a workaround
+
 on:
     push:
         branches: [ YOUR_BRANCH_NAME ]

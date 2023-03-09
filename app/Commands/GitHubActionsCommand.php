@@ -2,9 +2,10 @@
 
 namespace App\Commands;
 
-use LaravelZero\Framework\Commands\Command;
-
 use function Termwind\{render};
+
+use Illuminate\Support\Str;
+use LaravelZero\Framework\Commands\Command;
 
 class GitHubActionsCommand extends Command
 {
@@ -24,6 +25,14 @@ class GitHubActionsCommand extends Command
         $choice = $this->choice('Which GitHub action would you like?', array_keys($choices), 0);
 
         $workflowName = $choices[$choice];
+
+        if (Str::contains($workflowName, 'fix')) {
+            $this->warn('The resulting commit will stop any currently running workflows and will not trigger another.');
+            $this->warn('Checkout Duster\'s documentation for a workaround.');
+            if (! $this->confirm('Do you wish to continue?', true)) {
+                return Command::FAILURE;
+            }
+        }
 
         $workflow = file_get_contents(__DIR__ . "/../../stubs/github-actions/{$workflowName}.yml");
         $workflow = str_replace('YOUR_BRANCH_NAME', $branch, $workflow);
