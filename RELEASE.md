@@ -4,7 +4,7 @@
 2. On your local machine, pull down the latest changes on the `main` branch (`git checkout main && git pull`)
 3. Update the version in [`config/app.php`](./config/app.php)
 4. Remove dev dependencies `composer install --no-dev`
-5. Compile the binary with
+5. Compile the binary with (run on PHP < `8.2`)
 
 ```zsh
 ./duster app:build
