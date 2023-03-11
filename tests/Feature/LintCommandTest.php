@@ -20,6 +20,18 @@ it('lints with TLint', function () {
         ->toContain('Put a space between blade control structure names and the opening paren:`@if(` -> `@if (`');
 });
 
+it('lints with TLint when path contains space', function () {
+    [$statusCode, $output] = run('lint', [
+        'path' => base_path('tests/Fixtures/TlintFixableIssues/file with spaces.blade.php'),
+        '--using' => 'tlint',
+    ]);
+
+    expect($statusCode)->toBe(1)
+        ->and($output)
+        ->toContain('Linting using TLint')
+        ->toContain('Put a space between blade control structure names and the opening paren:`@if(` -> `@if (`');
+});
+
 it('only lints with TLint', function () {
     [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/TlintFixableIssues'),
