@@ -35,7 +35,7 @@ class TLint extends Tool
         $application->setAutoExit(false);
 
         $success = collect($this->dusterConfig->get('paths'))->map(function ($path) use ($application, $command) {
-            $path = str_replace('\\', '\\\\', $path);
+            $path = '"' . str_replace('\\', '\\\\', $path) . '"';
 
             return $application->run(new StringInput("{$command} {$path}"), app()->get(OutputInterface::class));
         })
