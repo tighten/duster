@@ -60,6 +60,18 @@ To view all available commands:
 ./vendor/bin/duster commands
 ```
 
+### Usage with Sail
+
+```bash
+./vendor/bin/sail php ./vendor/bin/duster
+```
+
+Alternatively, Sail has a bin [script](https://github.com/laravel/sail/blob/1.x/bin/sail#L211) that eases the execution of package binaries, so you do the same thing like this:
+
+```bash
+./vendor/bin/sail bin duster
+```
+
 ## Customizing
 
 If you need to include or exclude files or directories for each tool you can create a `duster.json` config file in your project root:
