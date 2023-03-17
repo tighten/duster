@@ -41,11 +41,10 @@ class UserScript extends Tool
         $output = app()->get(OutputInterface::class);
 
         try {
-            $process->run(fn($type, $buffer) => $output->write($buffer));
+            $process->run(fn ($type, $buffer) => $output->write($buffer));
 
             return $process->getExitCode();
-        }
-        catch(ProcessTimedOutException $e) {
+        } catch(ProcessTimedOutException $e) {
             $this->failure($e->getMessage() . '<br />You can overwrite this timeout with the processTimeout key in your duster.json file.');
 
             return 1;
