@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
 
 class UserScript extends Tool
@@ -33,11 +34,20 @@ class UserScript extends Tool
 
     private function process(): int
     {
+        $dusterConfig = DusterConfig::loadLocal();
+
         $process = new Process($this->command);
+        $process->setTimeout($dusterConfig['processTimeout'] ?? 60);
         $output = app()->get(OutputInterface::class);
 
-        $process->run(fn ($type, $buffer) => $output->write($buffer));
+        try {
+            $process->run(fn ($type, $buffer) => $output->write($buffer));
 
-        return $process->getExitCode();
+            return $process->getExitCode();
+        } catch(ProcessTimedOutException $e) {
+            $this->failure($e->getMessage() . '<br />You can overwrite this timeout with the processTimeout key in your duster.json file.');
+
+            return 1;
+        }
     }
 }

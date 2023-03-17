@@ -100,11 +100,13 @@ The key is the name of the command (used with the `--using` flag), and the value
         "lint": {
             "phpstan": ["./vendor/bin/phpstan", "analyse"]
         }
-    }
+    },
+    "processTimeout": 120
 }
 ```
 
-Duster will pick these up automatically when running either `lint` or `fix`.
+Duster will pick these up automatically when running either `lint` or `fix`.  
+By default, additional scripts timeout after 60 seconds. You can overwrite this setting using the `processTimeout` key.
 
 To customize which tools Duster runs, or the order in which they are executed you can use the `--using` flag and supply a comma-separated list of commands:
 
