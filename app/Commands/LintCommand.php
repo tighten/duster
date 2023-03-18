@@ -4,7 +4,9 @@ namespace App\Commands;
 
 use App\Support\ConfiguresForLintOrFix;
 use App\Support\GetsCleaner;
+use Exception;
 use LaravelZero\Framework\Commands\Command;
+use LaravelZero\Framework\Exceptions\ConsoleException;
 
 class LintCommand extends Command
 {
@@ -17,8 +19,18 @@ class LintCommand extends Command
 
     public function handle(): int
     {
-        $clean = $this->getCleaner('lint', $this->input->getOption('using'));
+        try {
+            $clean = $this->getCleaner('lint', $this->input->getOption('using'));
 
-        return $clean->execute();
+            return $clean->execute();
+        } catch (ConsoleException $exception) {
+            $this->error($exception->getMessage());
+
+            return $exception->getCode();
+        } catch (Exception $exception) {
+            $this->error($exception->getMessage());
+
+            return 1;
+        }
     }
 }
