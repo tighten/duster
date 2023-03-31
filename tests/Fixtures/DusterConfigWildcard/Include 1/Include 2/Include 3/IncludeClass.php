@@ -8,6 +8,7 @@ class WrongName
 
     private function method()
     {
+        // Tighten/custom_ordered_class_elements
         $a = 'b'.'c';
     }
 
