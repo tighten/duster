@@ -4,8 +4,6 @@ namespace App\Support;
 
 use App\Project;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Symfony\Component\Finder\Finder;
 
 class DusterConfig
 {
@@ -60,14 +58,8 @@ class DusterConfig
     public function expandWildcards(array $paths): array
     {
         return collect($paths)->flatMap(function ($path) {
-            if (Str::contains($path, '*')) {
-                $finder = new Finder;
-                $finder->ignoreUnreadableDirs()->in($path);
-
-                return collect($finder)->keys();
-            }
-
-            return [$path];
+            return collect(glob($path, GLOB_NOCHECK))
+                ->filter(fn ($path) => file_exists($path));
         })->toArray();
     }
 }
