@@ -59,7 +59,8 @@ class DusterConfig
     {
         return collect($paths)->flatMap(function ($path) {
             return collect(glob($path, GLOB_NOCHECK))
-                ->filter(fn ($path) => file_exists($path));
+                ->filter(fn ($path) => file_exists($path))
+                ->all();
         })->toArray();
     }
 }
