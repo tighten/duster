@@ -9,6 +9,7 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     public const DS = DIRECTORY_SEPARATOR;
+
     public const STUBS_DIR = __DIR__ . self::DS . 'stubs';
 
     protected function setUp(): void

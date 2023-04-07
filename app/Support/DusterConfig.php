@@ -13,8 +13,10 @@ class DusterConfig
     public function __construct(
         protected array $config = []
     ) {
+        $this->config['includes'] = $this->expandWildcards($this->config['includes'] ?? []);
+
         $this->config['exclude'] = array_merge(
-            $this->config['exclude'] ?? [],
+            $this->expandWildcards($this->config['exclude'] ?? []),
             [
                 '_ide_helper_actions.php',
                 '_ide_helper_models.php',
@@ -47,5 +49,18 @@ class DusterConfig
     public function get(string $key, mixed $default = null): mixed
     {
         return Arr::get($this->config, $key, $default);
+    }
+
+    /**
+     * @param  array<int, string>  $paths
+     * @return  array<int, string>
+     */
+    public function expandWildcards(array $paths): array
+    {
+        return collect($paths)->flatMap(function ($path) {
+            return collect(glob($path, GLOB_NOCHECK))
+                ->filter(fn ($path) => file_exists($path))
+                ->all();
+        })->toArray();
     }
 }
