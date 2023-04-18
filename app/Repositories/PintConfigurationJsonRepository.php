@@ -5,7 +5,7 @@ namespace App\Repositories;
 class PintConfigurationJsonRepository extends ConfigurationJsonRepository
 {
     /**
-     * @param  array<string, array<int, string>|string>  $exclude
+     * @param  array<int, string>  $exclude
      */
     public function __construct(
         protected $path,

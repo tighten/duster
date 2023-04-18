@@ -13,21 +13,7 @@ class DusterConfig
     public function __construct(
         protected array $config = []
     ) {
-        $this->config['includes'] = $this->expandWildcards($this->config['includes'] ?? []);
-
-        $this->config['exclude'] = array_merge(
-            $this->expandWildcards($this->config['exclude'] ?? []),
-            [
-                '_ide_helper_actions.php',
-                '_ide_helper_models.php',
-                '_ide_helper.php',
-                '.phpstorm.meta.php',
-                'bootstrap/cache',
-                'build',
-                'node_modules',
-                'storage',
-            ]
-        );
+        $this->config = static::scopeConfigPaths($this->config);
     }
 
     /**
@@ -46,21 +32,46 @@ class DusterConfig
         return [];
     }
 
-    public function get(string $key, mixed $default = null): mixed
+    /**
+     * @param  array<string, array<int, string>|string>  $config
+     * @return  array<string, array<int, string>|string>
+     */
+    public static function scopeConfigPaths(array $config): array
     {
-        return Arr::get($this->config, $key, $default);
+        $config['include'] = static::expandWildcards($config['include'] ?? []);
+
+        $config['exclude'] = array_merge(
+            static::expandWildcards($config['exclude'] ?? []),
+            [
+                '_ide_helper_actions.php',
+                '_ide_helper_models.php',
+                '_ide_helper.php',
+                '.phpstorm.meta.php',
+                'bootstrap/cache',
+                'build',
+                'node_modules',
+                'storage',
+            ]
+        );
+
+        return $config;
     }
 
     /**
      * @param  array<int, string>  $paths
      * @return  array<int, string>
      */
-    public function expandWildcards(array $paths): array
+    public static function expandWildcards(array $paths): array
     {
         return collect($paths)->flatMap(function ($path) {
             return collect(glob($path, GLOB_NOCHECK))
                 ->filter(fn ($path) => file_exists($path))
                 ->all();
         })->toArray();
+    }
+
+    public function get(string $key, mixed $default = null): mixed
+    {
+        return Arr::get($this->config, $key, $default);
     }
 }
