@@ -30,13 +30,13 @@
         }
     ],
     "require": {
-        "php": "^8.0"
+        "php": "^8.1.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.14",
-        "laravel-zero/framework": "^9.2",
-        "laravel/pint": "1.5",
-        "nunomaduro/termwind": "^1.14",
+        "friendsofphp/php-cs-fixer": "^3.16.0",
+        "laravel-zero/framework": "^10.0.0",
+        "laravel/pint": "^1.9",
+        "nunomaduro/termwind": "^1.15.1",
         "spatie/invade": "^1.1",
         "squizlabs/php_codesniffer": "^3.7",
         "tightenco/tlint": "^8.0"
@@ -67,7 +67,7 @@
             "pestphp/pest-plugin": true
         },
         "platform": {
-            "php": "8.0.2"
+            "php": "8.1.0"
         }
     },
     "minimum-stability": "dev",
