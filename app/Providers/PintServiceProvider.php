@@ -68,9 +68,9 @@ class PintServiceProvider extends ServiceProvider
                 base_path('standards/pint.json'),
             ])->first(fn ($path) => file_exists($path));
 
-            $dusterConfig = resolve(DusterConfig::class);
+            $dusterConfig = DusterConfig::scopeConfigPaths(DusterConfig::loadLocal());
 
-            return new PintConfigurationJsonRepository($config, null, $dusterConfig->get('exclude', []));
+            return new PintConfigurationJsonRepository($config, null, $dusterConfig['exclude']);
         });
 
         $this->app->singleton(PathsRepository::class, function () {
