@@ -13,7 +13,7 @@ trait GetsCleaner
             : ['tlint', 'phpcs', 'php-cs-fixer', 'pint', ...array_keys(DusterConfig::loadLocal()['scripts'][$mode] ?? [])];
 
         $tools = collect($using)
-            ->map(fn ($using): Tool => match (trim($using)) {
+            ->map(fn ($using): ?Tool => match (trim($using)) {
                 'tlint' => resolve(TLint::class),
                 'phpcs',
                 'phpcodesniffer',
