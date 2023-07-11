@@ -10,7 +10,7 @@
 ./duster app:build
 ```
 
-6. Run the build once to make sure it works (`./builds/duster`)
+6. Run the build once to make sure it works (`./builds/duster fix`)
 7. Commit all changes
 8. Push all commits to GitHub
 9. [Draft a new release](https://github.com/tighten/duster/releases/new) with both the tag version and title of your tag (e.g. `v2.5.1`)

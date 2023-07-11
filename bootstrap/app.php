@@ -1,5 +1,7 @@
 <?php
 
+use LaravelZero\Framework\Application;
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -11,7 +13,7 @@
 |
 */
 
-$app = new LaravelZero\Framework\Application(
+$app = new Application(
     dirname(__DIR__)
 );
 
