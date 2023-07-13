@@ -2,7 +2,6 @@
 /app export-ignore
 /bootstrap export-ignore
 /config export-ignore
-/standards export-ignore
 /stubs export-ignore
 /tests export-ignore
 /.editorconfig export-ignore
