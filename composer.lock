@@ -4924,16 +4924,16 @@
         },
         {
             "name": "tightenco/tlint",
-            "version": "v9.0.0",
+            "version": "v9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/tlint.git",
-                "reference": "b1d5c861e449651cf409fa26d9548000a8bd5dcc"
+                "reference": "1db6b582c673a8f320d9ca0a1e871f02a0cc7219"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/tlint/zipball/b1d5c861e449651cf409fa26d9548000a8bd5dcc",
-                "reference": "b1d5c861e449651cf409fa26d9548000a8bd5dcc",
+                "url": "https://api.github.com/repos/tighten/tlint/zipball/1db6b582c673a8f320d9ca0a1e871f02a0cc7219",
+                "reference": "1db6b582c673a8f320d9ca0a1e871f02a0cc7219",
                 "shasum": ""
             },
             "require": {
@@ -4973,9 +4973,9 @@
             "homepage": "https://github.com/tighten/tlint",
             "support": {
                 "issues": "https://github.com/tighten/tlint/issues",
-                "source": "https://github.com/tighten/tlint/tree/v9.0.0"
+                "source": "https://github.com/tighten/tlint/tree/v9.1.0"
             },
-            "time": "2023-07-11T04:38:34+00:00"
+            "time": "2023-09-01T22:41:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
