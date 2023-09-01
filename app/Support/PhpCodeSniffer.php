@@ -28,7 +28,7 @@ class PhpCodeSniffer extends Tool
             $this->failure('PHP Code_Sniffer found errors that cannot be fixed automatically.');
         }
 
-        return $fix || $lint;
+        return $fix || $lint ? 1 : 0;
     }
 
     /**
