@@ -61,6 +61,8 @@ class HuskyHooksCommand extends Command
 
     /**
      * Run the given commands.
+     *
+     * @param  array<string>  $commands
      */
     protected function runCommands(array $commands): void
     {
