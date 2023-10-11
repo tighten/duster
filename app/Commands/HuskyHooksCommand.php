@@ -61,10 +61,8 @@ class HuskyHooksCommand extends Command
 
     /**
      * Run the given commands.
-     *
-     * @param  array  $commands
      */
-    protected function runCommands($commands): void
+    protected function runCommands(array $commands): void
     {
         $process = Process::fromShellCommandline(implode(' && ', $commands), null, null, null, null);
 
