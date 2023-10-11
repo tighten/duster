@@ -2,9 +2,9 @@
 
 namespace App\Commands;
 
+use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use Symfony\Component\Process\Process;
-use LaravelZero\Framework\Commands\Command;
 
 use function Termwind\{render};
 
@@ -34,15 +34,15 @@ class HuskyHooksCommand extends Command
 
         $this->runCommands(['git init']);
 
-        if (!file_exists(base_path('node_modules/husky'))) {
+        if (! file_exists(base_path('node_modules/husky'))) {
             $this->runCommands(['npx husky-init']);
         }
 
-        if (!file_exists(base_path('node_modules/lint-staged'))) {
+        if (! file_exists(base_path('node_modules/lint-staged'))) {
             $this->runCommands(['npm install lint-staged --save-dev']);
         }
 
-        $preCommit = file_get_contents(__DIR__ . "/../../stubs/husky-hooks/pre-commit");
+        $preCommit = file_get_contents(__DIR__ . '/../../stubs/husky-hooks/pre-commit');
 
         $lintStaged = file_get_contents(__DIR__ . "/../../stubs/husky-hooks/duster-{$lintStagedConfigFile}.js");
 
@@ -50,9 +50,9 @@ class HuskyHooksCommand extends Command
             mkdir(getcwd() . '/.husky', 0777, true);
         }
 
-        file_put_contents(getcwd() . "/.husky/pre-commit", $preCommit);
+        file_put_contents(getcwd() . '/.husky/pre-commit', $preCommit);
 
-        file_put_contents(getcwd() . "/lint-staged.config.js", $lintStaged);
+        file_put_contents(getcwd() . '/lint-staged.config.js', $lintStaged);
 
         $this->runCommands(["npx husky add ./.husky/pre-commit 'npx --no-install lint-staged'"]);
 
@@ -63,7 +63,6 @@ class HuskyHooksCommand extends Command
      * Run the given commands.
      *
      * @param  array  $commands
-     * @return void
      */
     protected function runCommands($commands): void
     {
@@ -73,12 +72,12 @@ class HuskyHooksCommand extends Command
             try {
                 $process->setTty(true);
             } catch (RuntimeException $e) {
-                $this->output->writeln('  <bg=yellow;fg=black> WARN </> '.$e->getMessage().PHP_EOL);
+                $this->output->writeln('  <bg=yellow;fg=black> WARN </> ' . $e->getMessage() . PHP_EOL);
             }
         }
 
         $process->run(function ($type, $line) {
-            $this->output->write('    '.$line);
+            $this->output->write('    ' . $line);
         });
     }
 
