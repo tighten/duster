@@ -67,8 +67,8 @@ return [
     */
 
     'providers' => [
-        App\Providers\DusterServiceProvider::class,
-        App\Providers\PintServiceProvider::class,
+        Tighten\Duster\Providers\DusterServiceProvider::class,
+        Tighten\Duster\Providers\PintServiceProvider::class,
     ],
 
 ];

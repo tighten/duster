@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Fixer\ClassNotation;
+namespace Tighten\Duster\Fixer\ClassNotation;
 
 use LogicException;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -80,7 +80,7 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
             $namespace[] = $tokens[$index]->getContent();
         }
 
-        if (implode('', $namespace) !== 'App\Http\Controllers') {
+        if (implode('', $namespace) !== 'Tighten\Duster\Http\Controllers') {
             return false;
         }
 

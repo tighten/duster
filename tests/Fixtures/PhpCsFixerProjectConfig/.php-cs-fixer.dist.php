@@ -1,7 +1,7 @@
 <?php
 
-use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
-use App\Support\PhpCsFixer;
+use Tighten\Duster\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
+use Tighten\Duster\Support\PhpCsFixer;
 use PhpCsFixer\Config;
 
 return (new Config())

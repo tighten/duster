@@ -247,7 +247,7 @@ Use request()->validate(...) helper function or extract a FormRequest instead of
 
 namespace App;
 
-use App\Http\Controllers\Controller;
+use Tighten\Duster\Http\Controllers\Controller;
 
 class ControllerA extends Controller
 {

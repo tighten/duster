@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Commands;
+namespace Tighten\Duster\Commands;
 
-use App\Support\ConfiguresForLintOrFix;
-use App\Support\GetsCleaner;
 use Exception;
 use LaravelZero\Framework\Commands\Command;
 use LaravelZero\Framework\Exceptions\ConsoleException;
+use Tighten\Duster\Support\ConfiguresForLintOrFix;
+use Tighten\Duster\Support\GetsCleaner;
 
 class FixCommand extends Command
 {

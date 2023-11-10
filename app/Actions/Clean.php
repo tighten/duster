@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Actions;
+namespace Tighten\Duster\Actions;
 
-use App\Support\Tool;
 use Illuminate\Console\Command;
+use Tighten\Duster\Support\Tool;
 
 class Clean
 {

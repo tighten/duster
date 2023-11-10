@@ -30,7 +30,7 @@ $app = new Application(
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\DusterKernel::class
+    Tighten\Duster\DusterKernel::class
 );
 
 $app->singleton(

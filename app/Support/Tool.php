@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace Tighten\Duster\Support;
 
 use function Termwind\{render};
 

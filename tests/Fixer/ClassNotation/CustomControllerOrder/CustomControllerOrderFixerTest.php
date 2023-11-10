@@ -17,7 +17,7 @@ it('fixes controller class order', function ($input, $expected) {
         <<<'EOT'
 <?php
 
-namespace App\Http\Controllers;
+namespace Tighten\Duster\Http\Controllers;
 
 class UserController extends Controller
 {
@@ -41,7 +41,7 @@ EOT,
         <<<'EOT'
 <?php
 
-namespace App\Http\Controllers;
+namespace Tighten\Duster\Http\Controllers;
 
 class UserController extends Controller
 {
@@ -67,7 +67,7 @@ EOT,
         <<<'EOT'
 <?php
 
-namespace App\Http\Controllers;
+namespace Tighten\Duster\Http\Controllers;
 
 class Example extends Something
 {
@@ -81,7 +81,7 @@ EOT,
         <<<'EOT'
 <?php
 
-namespace App\Http\Controllers;
+namespace Tighten\Duster\Http\Controllers;
 
 class Example extends Something
 {

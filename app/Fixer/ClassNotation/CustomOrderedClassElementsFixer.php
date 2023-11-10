@@ -15,7 +15,7 @@ declare(strict_types=1);
  * @see https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/6360
  */
 
-namespace App\Fixer\ClassNotation;
+namespace Tighten\Duster\Fixer\ClassNotation;
 
 use PhpCsFixer\AbstractFixer;
 use PhpCsFixer\Fixer\ConfigurableFixerInterface;

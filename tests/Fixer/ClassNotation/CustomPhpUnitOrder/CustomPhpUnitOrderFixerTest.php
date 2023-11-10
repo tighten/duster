@@ -73,7 +73,7 @@ EOT,
         <<<'EOT'
 <?php
 
-namespace App\Console\Commands;
+namespace Tighten\Duster\Console\Commands;
 
 class Example extends Command
 {
@@ -91,7 +91,7 @@ EOT,
         <<<'EOT'
 <?php
 
-namespace App\Console\Commands;
+namespace Tighten\Duster\Console\Commands;
 
 class Example extends Command
 {

@@ -1,6 +1,6 @@
 <?php
 
-use App\DusterKernel;
+use Tighten\Duster\DusterKernel;
 use Illuminate\Support\Arr;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;

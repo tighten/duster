@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Support;
+namespace Tighten\Duster\Support;
 
-use App\Actions\Clean;
+use Tighten\Duster\Actions\Clean;
 
 trait GetsCleaner
 {

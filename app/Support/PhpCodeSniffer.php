@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace Tighten\Duster\Support;
 
 use App\Project;
 use PHP_CodeSniffer\Config;

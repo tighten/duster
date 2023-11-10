@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Commands;
+namespace Tighten\Duster\Commands;
 
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;

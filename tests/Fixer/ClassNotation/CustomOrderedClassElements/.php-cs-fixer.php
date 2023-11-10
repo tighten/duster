@@ -1,6 +1,6 @@
 <?php
 
-use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
+use Tighten\Duster\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
 use PhpCsFixer\Config;
 
 return (new Config())

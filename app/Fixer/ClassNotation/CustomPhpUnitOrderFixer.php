@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Fixer\ClassNotation;
+namespace Tighten\Duster\Fixer\ClassNotation;
 
 use PhpCsFixer\Indicator\PhpUnitTestCaseIndicator;
 use PhpCsFixer\Tokenizer\Tokens;

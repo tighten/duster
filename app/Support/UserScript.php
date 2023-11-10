@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace Tighten\Duster\Support;
 
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;

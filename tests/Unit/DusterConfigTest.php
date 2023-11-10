@@ -1,6 +1,6 @@
 <?php
 
-use App\Support\DusterConfig;
+use Tighten\Duster\Support\DusterConfig;
 
 it('provides config values', function () {
     $dusterConfig = new DusterConfig([

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Providers;
+namespace Tighten\Duster\Providers;
 
 use App\Project;
-use App\Support\DusterConfig;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\Console\Input\InputInterface;
+use Tighten\Duster\Support\DusterConfig;
 
 class DusterServiceProvider extends ServiceProvider
 {

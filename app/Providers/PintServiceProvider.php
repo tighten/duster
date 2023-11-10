@@ -1,25 +1,25 @@
 <?php
 
-namespace App\Providers;
+namespace Tighten\Duster\Providers;
 
 use App\Actions\ElaborateSummary;
 use App\Actions\FixCode;
 use App\Commands\DefaultCommand;
 use App\Contracts\PathsRepository;
-use App\Contracts\PintInputInterface;
 use App\Output\ProgressOutput;
 use App\Output\SummaryOutput;
 use App\Project;
 use App\Repositories\ConfigurationJsonRepository;
 use App\Repositories\GitPathsRepository;
-use App\Repositories\PintConfigurationJsonRepository;
-use App\Support\DusterConfig;
 use Illuminate\Support\ServiceProvider;
 use PhpCsFixer\Error\ErrorsManager;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Tighten\Duster\Contracts\PintInputInterface;
+use Tighten\Duster\Repositories\PintConfigurationJsonRepository;
+use Tighten\Duster\Support\DusterConfig;
 
 class PintServiceProvider extends ServiceProvider
 {

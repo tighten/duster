@@ -1,9 +1,9 @@
 <?php
 
-use App\Fixer\ClassNotation\CustomControllerOrderFixer;
-use App\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
-use App\Fixer\ClassNotation\CustomPhpUnitOrderFixer;
-use App\Support\PhpCsFixer;
+use Tighten\Duster\Fixer\ClassNotation\CustomControllerOrderFixer;
+use Tighten\Duster\Fixer\ClassNotation\CustomOrderedClassElementsFixer;
+use Tighten\Duster\Fixer\ClassNotation\CustomPhpUnitOrderFixer;
+use Tighten\Duster\Support\PhpCsFixer;
 use PhpCsFixer\Config;
 
 return (new Config())
