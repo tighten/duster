@@ -30,6 +30,12 @@ Optionally you can publish a GitHub Actions config:
 ./vendor/bin/duster github-actions
 ```
 
+Or you can publish Husky Hooks:
+
+```bash 
+./vendor/bin/duster husky-hooks
+```
+
 ## Usage
 
 To lint everything at once:
