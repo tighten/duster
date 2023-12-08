@@ -1,10 +1,8 @@
 {
     "include": [
-        "**/Include 2/**",
-        "**\\Include 2\\**"
+        "**/Include2/**"
     ],
     "exclude": [
-        "**/Exclude 2/**",
-        "**\\Exclude 2\\**"
+        "**/Exclude2/**"
     ]
 }

@@ -3,7 +3,10 @@
 namespace App\Support;
 
 use App\Project;
+use Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Symfony\Component\Finder\Finder;
 
 class DusterConfig
 {
@@ -63,11 +66,48 @@ class DusterConfig
      */
     public static function expandWildcards(array $paths): array
     {
-        return collect($paths)->flatMap(function ($path) {
+        return collect($paths)->flatMap(fn ($path) => static::globPath($path))->values()->toArray();
+    }
+
+    /**
+     * @return  array<int, string>
+     */
+    public static function globPath(string $path): array
+    {
+        try {
+            // Finder uses forward slashes even on windows
+            $path = Str::of($path)->replace('\\', '/')->__toString();
+
+            if (Str::of($path)->endsWith('.php')) {
+                $name = Str::of($path)->afterLast('/');
+                $path = Str::of($path)->beforeLast('/');
+
+                $files = (new Finder)
+                    ->ignoreUnreadableDirs()
+                    ->ignoreDotFiles(false)
+                    ->files()
+                    ->in($path);
+            } else {
+                $name = '.php';
+                $files = (new Finder)
+                    ->ignoreUnreadableDirs()
+                    ->files()
+                    ->in($path);
+            }
+
+            return collect($files)
+                ->map(
+                    fn ($file) => Str::of($file->getPathName())->endsWith($name)
+                        ? Str::of($file->getPathName())->replace('\\', '/')->__toString()
+                        : null
+                )
+                ->filter()
+                ->all();
+        } catch (Exception) {
             return collect(glob($path, GLOB_NOCHECK))
                 ->filter(fn ($path) => file_exists($path))
                 ->all();
-        })->toArray();
+        }
     }
 
     public function get(string $key, mixed $default = null): mixed

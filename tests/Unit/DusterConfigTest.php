@@ -38,11 +38,11 @@ it('merges provided exclude with default exclude config values', function () {
         'lint' => true,
         'fix' => false,
         'using' => ['tlint', 'phpcs', 'php-cs-fixer', 'pint'],
-        'exclude' => ['vendor'],
+        'exclude' => ['standards'],
     ]);
 
     expect($dusterConfig->get('exclude'))->toBe([
-        'vendor',
+        'standards/Tighten/Sniffs/PHP/UseConfigOverEnvSniff.php',
         '_ide_helper_actions.php',
         '_ide_helper_models.php',
         '_ide_helper.php',
