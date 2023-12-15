@@ -98,6 +98,7 @@ class DusterConfig
             return collect($files)
                 ->map(
                     fn ($file) => Str::of($file->getPathName())->endsWith($name)
+                        // Fixes weird windows path issue with mixed slashes
                         ? Str::of($file->getPathName())->replace('\\', '/')->__toString()
                         : null
                 )
