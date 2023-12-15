@@ -11,6 +11,16 @@ use Symfony\Component\Finder\Finder;
 class DusterConfig
 {
     /**
+     * @var array<int, string>
+     */
+    public static array $phpSuffixes = [
+        '.php',
+        '.php.inc',
+        '.php.stub',
+        '.php.skeleton',
+    ];
+
+    /**
      * @param  array<string, array<int, string>|string>  $config
      */
     public function __construct(
@@ -78,8 +88,8 @@ class DusterConfig
             // Finder uses forward slashes even on windows
             $path = Str::of($path)->replace('\\', '/')->__toString();
 
-            if (Str::of($path)->endsWith('.php')) {
-                $name = Str::of($path)->afterLast('/');
+            if (Str::of($path)->endsWith(self::$phpSuffixes)) {
+                $endsWith = Str::of($path)->afterLast('/');
                 $path = Str::of($path)->beforeLast('/');
 
                 $files = (new Finder)
@@ -88,7 +98,7 @@ class DusterConfig
                     ->files()
                     ->in($path);
             } else {
-                $name = '.php';
+                $endsWith = self::$phpSuffixes;
                 $files = (new Finder)
                     ->ignoreUnreadableDirs()
                     ->files()
@@ -97,7 +107,7 @@ class DusterConfig
 
             return collect($files)
                 ->map(
-                    fn ($file) => Str::of($file->getPathName())->endsWith($name)
+                    fn ($file) => Str::of($file->getPathName())->endsWith($endsWith)
                         // Fixes weird windows path issue with mixed slashes
                         ? Str::of($file->getPathName())->replace('\\', '/')->__toString()
                         : null
