@@ -17,7 +17,7 @@ class DusterConfig
         '.php',
         '.php.inc',
         '.php.stub',
-        '.php.skeleton'
+        '.php.skeleton',
     ];
 
     /**
