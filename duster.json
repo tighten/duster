@@ -6,8 +6,7 @@
         "tests"
     ],
     "exclude" : [
-        "tests/Fixtures",
-        "tests/Pest.php"
+        "tests/Fixtures"
     ],
     "scripts": {
         "lint": {
