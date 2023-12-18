@@ -64,7 +64,7 @@ class DusterConfig
                 'build',
                 'node_modules',
                 'storage',
-                'test/Pest.php',
+                'tests/Pest.php',
             ]
         );
 
