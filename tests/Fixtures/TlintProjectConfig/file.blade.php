@@ -1,1 +1,2 @@
-{{Illuminate\Support\Facades\Auth::user()->name}}
+{{Auth::user()->name}}
+@json(Auth::user())

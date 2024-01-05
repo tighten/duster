@@ -10,6 +10,6 @@ it('lints with tlint using project config', function () {
     expect($statusCode)->toBe(1)
         ->and($output)
         ->toContain('Linting using TLint')
-        ->toContain('Prefer the `auth()` helper function over the `Auth` Facade')
+        ->toContain('Use blade `{{ $model }}` auto escaping for models')
         ->not->toContain('Spaces around blade rendered content');
 });
