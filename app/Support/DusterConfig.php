@@ -64,6 +64,7 @@ class DusterConfig
                 'build',
                 'node_modules',
                 'storage',
+                'tests/Pest.php',
             ]
         );
 
@@ -87,6 +88,9 @@ class DusterConfig
         try {
             // Finder uses forward slashes even on windows
             $path = Str::of($path)->replace('\\', '/')->__toString();
+
+            // Remove trailing / or /* from path before passing to finder
+            $path = Str::of($path)->replaceMatches('/(\/|\/\*)$/', '')->__toString();
 
             if (Str::of($path)->endsWith(self::$phpSuffixes)) {
                 $endsWith = Str::of($path)->afterLast('/');
