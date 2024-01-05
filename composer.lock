@@ -5087,16 +5087,16 @@
         },
         {
             "name": "tightenco/tlint",
-            "version": "v9.1.1",
+            "version": "v9.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/tlint.git",
-                "reference": "3e998a426449c66313d0ae6bca8c6e448bccce4e"
+                "reference": "947188436e8a013674ed3df24aadb958f4266cba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/tlint/zipball/3e998a426449c66313d0ae6bca8c6e448bccce4e",
-                "reference": "3e998a426449c66313d0ae6bca8c6e448bccce4e",
+                "url": "https://api.github.com/repos/tighten/tlint/zipball/947188436e8a013674ed3df24aadb958f4266cba",
+                "reference": "947188436e8a013674ed3df24aadb958f4266cba",
                 "shasum": ""
             },
             "require": {
@@ -5136,9 +5136,9 @@
             "homepage": "https://github.com/tighten/tlint",
             "support": {
                 "issues": "https://github.com/tighten/tlint/issues",
-                "source": "https://github.com/tighten/tlint/tree/v9.1.1"
+                "source": "https://github.com/tighten/tlint/tree/v9.2.0"
             },
-            "time": "2023-12-01T18:30:23+00:00"
+            "time": "2024-01-05T18:23:50+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
