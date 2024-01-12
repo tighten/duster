@@ -84,7 +84,7 @@ class PhpCodeSniffer extends Tool
 
     /**
      * Config uses a private static property $overriddenDefaults
-     * which does't allow us to update the config between runs
+     * which doesn't allow us to update the config between runs
      * we need to reset it so we can also lint in the fix command.
      */
     private function resetConfig(string $tool): void
