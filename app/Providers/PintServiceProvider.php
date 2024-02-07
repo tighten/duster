@@ -73,10 +73,8 @@ class PintServiceProvider extends ServiceProvider
             return new PintConfigurationJsonRepository($config, null, $dusterConfig['exclude']);
         });
 
-        $this->app->singleton(PathsRepository::class, function () {
-            return new GitPathsRepository(
-                Project::path(),
-            );
-        });
+        $this->app->singleton(PathsRepository::class, fn () => new GitPathsRepository(
+            Project::path(),
+        ));
     }
 }
