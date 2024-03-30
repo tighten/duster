@@ -116,7 +116,7 @@ class PhpCsFixer extends Tool
         return $finder;
     }
 
-    private function includeConfig(): Config
+    private function includeConfig(): ConfigInterface
     {
         $config = include $this->getConfigFilePath();
 
