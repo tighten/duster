@@ -259,16 +259,14 @@ class Example
             $i = $tokens->getNextTokenOfKind($i, ['{']);
             $elements = $this->getElements($tokens, $i);
 
-            if (count($elements) === 0) {
+            if ($elements === []) {
                 continue;
             }
 
             $sorted = $this->sortElements($elements);
             $endIndex = $elements[count($elements) - 1]['end'];
 
-            if ($sorted !== $elements) {
-                $this->sortTokens($tokens, $i, $endIndex, $sorted);
-            }
+            $this->sortTokens($tokens, $i, $endIndex, $sorted);
 
             $i = $endIndex;
         }
@@ -472,8 +470,9 @@ class Example
             $index = $tokens->findBlockEnd(Tokens::BLOCK_TYPE_CURLY_BRACE, $index);
         }
 
-        for (++$index; $tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment(); $index++);
-
+        do {
+            $index++;
+        } while ($tokens[$index]->isWhitespace(" \t") || $tokens[$index]->isComment());
         $index--;
 
         return $tokens[$index]->isWhitespace() ? $index - 1 : $index;

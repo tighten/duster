@@ -30,7 +30,7 @@ class DusterConfig
     }
 
     /**
-     * @return  array<string, mixed>
+     * @return array<string, mixed>
      */
     public static function loadLocal(): array
     {
@@ -47,7 +47,7 @@ class DusterConfig
 
     /**
      * @param  array<string, array<int, string>|string>  $config
-     * @return  array<string, array<int, string>|string>
+     * @return array<string, array<int, string>|string>
      */
     public static function scopeConfigPaths(array $config): array
     {
@@ -73,7 +73,7 @@ class DusterConfig
 
     /**
      * @param  array<int, string>  $paths
-     * @return  array<int, string>
+     * @return array<int, string>
      */
     public static function expandWildcards(array $paths): array
     {
@@ -81,7 +81,7 @@ class DusterConfig
     }
 
     /**
-     * @return  array<int, string>
+     * @return array<int, string>
      */
     public static function globPath(string $path): array
     {

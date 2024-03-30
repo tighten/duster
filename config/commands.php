@@ -66,9 +66,9 @@ return [
         Illuminate\Foundation\Console\VendorPublishCommand::class,
         LaravelZero\Framework\Commands\StubPublishCommand::class,
 
-        class_exists('Pest\Laravel\Commands\PestDatasetCommand') ? Pest\Laravel\Commands\PestDatasetCommand::class : null,
-        class_exists('Pest\Laravel\Commands\PestInstallCommand') ? Pest\Laravel\Commands\PestInstallCommand::class : null,
-        class_exists('Pest\Laravel\Commands\PestTestCommand') ? Pest\Laravel\Commands\PestTestCommand::class : null,
+        class_exists(\Pest\Laravel\Commands\PestDatasetCommand::class) ? Pest\Laravel\Commands\PestDatasetCommand::class : null,
+        class_exists(\Pest\Laravel\Commands\PestInstallCommand::class) ? Pest\Laravel\Commands\PestInstallCommand::class : null,
+        class_exists(\Pest\Laravel\Commands\PestTestCommand::class) ? Pest\Laravel\Commands\PestTestCommand::class : null,
 
         LaravelZero\Framework\Commands\MakeCommand::class,
         LaravelZero\Framework\Commands\TestMakeCommand::class,

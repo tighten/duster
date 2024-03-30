@@ -1,8 +1,10 @@
 <?php
 
+use Tests\TestCase;
+
 it('fixes controller class order', function ($input, $expected) {
-    $config = __DIR__ . self::DS . '.php-cs-fixer.php';
-    $file = self::STUBS_DIR . self::DS . md5($input) . '.php';
+    $config = __DIR__ . TestCase::DS . '.php-cs-fixer.php';
+    $file = TestCase::STUBS_DIR . TestCase::DS . md5((string) $input) . '.php';
     file_put_contents($file, $input);
 
     if (str_starts_with(strtoupper(PHP_OS), 'WIN')) {

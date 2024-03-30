@@ -46,7 +46,7 @@ class PhpCsFixer extends Tool
     {
         $output = app()->get(OutputInterface::class);
 
-        $resolver = new ConfigurationResolver(
+        $configurationResolver = new ConfigurationResolver(
             $this->getConfig(),
             [
                 'config' => $this->getConfigFilePath(),
@@ -65,19 +65,19 @@ class PhpCsFixer extends Tool
 
         $changes = (new Runner(
             $this->getConfig()->getFinder(),
-            $resolver->getFixers(),
-            $resolver->getDiffer(),
+            $configurationResolver->getFixers(),
+            $configurationResolver->getDiffer(),
             app()->get(EventDispatcher::class),
             app()->get(ErrorsManager::class),
-            $resolver->getLinter(),
-            $resolver->isDryRun(),
-            $resolver->getCacheManager(),
-            $resolver->getDirectory(),
-            $resolver->shouldStopOnViolation()
+            $configurationResolver->getLinter(),
+            $configurationResolver->isDryRun(),
+            $configurationResolver->getCacheManager(),
+            $configurationResolver->getDirectory(),
+            $configurationResolver->shouldStopOnViolation()
         ))->fix();
 
         $totalFiles = count(new ArrayIterator(iterator_to_array(
-            $resolver->getFinder(),
+            $configurationResolver->getFinder(),
         )));
 
         return app()->get(ElaborateSummary::class)->execute($totalFiles, $changes);
@@ -86,10 +86,6 @@ class PhpCsFixer extends Tool
     private function getConfig(): ConfigInterface
     {
         $config = $this->includeConfig();
-
-        if (! $config instanceof ConfigInterface) {
-            throw new InvalidConfigurationException("The PHP CS Fixer config file does not return a 'PhpCsFixer\ConfigInterface' instance.");
-        }
 
         return $config->setFinder($this->updateFinder($config->getFinder()));
     }
@@ -120,9 +116,15 @@ class PhpCsFixer extends Tool
         return $finder;
     }
 
-    private function includeConfig(): Config
+    private function includeConfig(): ConfigInterface
     {
-        return include $this->getConfigFilePath();
+        $config = include $this->getConfigFilePath();
+
+        if (! $config instanceof ConfigInterface) {
+            throw new InvalidConfigurationException("The PHP CS Fixer config file does not return a 'PhpCsFixer\ConfigInterface' instance.");
+        }
+
+        return $config;
     }
 
     private function getConfigFilePath(): string

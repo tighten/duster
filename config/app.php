@@ -1,5 +1,8 @@
 <?php
 
+use App\Providers\DusterServiceProvider;
+use App\Providers\PintServiceProvider;
+
 return [
 
     /*
@@ -26,7 +29,7 @@ return [
     |
     */
 
-    'version' => '2.7.3',
+    'version' => '2.7.4',
 
     /*
     |--------------------------------------------------------------------------
@@ -67,8 +70,8 @@ return [
     */
 
     'providers' => [
-        App\Providers\DusterServiceProvider::class,
-        App\Providers\PintServiceProvider::class,
+        DusterServiceProvider::class,
+        PintServiceProvider::class,
     ],
 
 ];

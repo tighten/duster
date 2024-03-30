@@ -46,7 +46,7 @@ class PintConfigurationJsonRepository extends ConfigurationJsonRepository
 
     /**
      * @param  array<string, array<int, string>|string>  $config
-     * @return  array<string, array<int, string>|string>
+     * @return array<string, array<int, string>|string>
      */
     protected function addPathToConfig(string $path, array $config): array
     {
