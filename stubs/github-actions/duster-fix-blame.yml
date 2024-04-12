@@ -16,7 +16,7 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
 
@@ -25,7 +25,7 @@ jobs:
         with:
           args: fix
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         id: auto_commit_action
         with:
           commit_message: Dusting
@@ -36,7 +36,7 @@ jobs:
         if: steps.auto_commit_action.outputs.changes_detected == 'true'
         run: echo ${{ steps.auto_commit_action.outputs.commit_hash }} >> .git-blame-ignore-revs
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Ignore Dusting commit in git blame
           commit_user_name: GitHub Action
