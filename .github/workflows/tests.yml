@@ -39,7 +39,7 @@ jobs:
         run: composer install
 
       - name: Add dev dependencies
-        run: composer require --dev nunomaduro/larastan pestphp/pest
+        run: composer require --dev larastan/larastan pestphp/pest
 
       - name: Run Duster
         run: ./builds/duster lint --using="tlint,phpcodesniffer,phpcsfixer,pint"
