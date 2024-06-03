@@ -2,7 +2,7 @@ name: tests
 
 on:
     push:
-        branches: [ 2.x ]
+        branches: [ 3.x ]
     pull_request:
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
       fail-fast: true
       matrix:
         os: [ubuntu-22.04, windows-2019]
-        php: [8.1, 8.2, 8.3]
+        php: [8.2, 8.3]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.os }}
 
@@ -46,7 +46,7 @@ jobs:
 
       - name: Run PHPStan
         run: vendor/bin/phpstan
-        if: matrix.php == '8.2'
+        if: matrix.php == '8.3'
 
       - name: Run Pest
         run: vendor/bin/pest
