@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: "Duster Fix"
-        uses: tighten/duster-action@v2
+        uses: tighten/duster-action@v3
         with:
           args: fix
 
