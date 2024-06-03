@@ -12,6 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: "Duster Lint"
-        uses: tighten/duster-action@v2
+        uses: tighten/duster-action@v3
         with:
           args: lint
