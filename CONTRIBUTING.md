@@ -35,3 +35,13 @@ When working locally you will need to install the dev dependencies.
 ```bash
 COMPOSER=composer-dev.json composer install
 ```
+
+To update dependencies to latest:
+
+```bash
+# Production
+composer require friendsofphp/php-cs-fixer laravel/pint squizlabs/php_codesniffer tightenco/tlint --dev
+
+# Development
+COMPOSER=composer-dev.json composer require friendsofphp/php-cs-fixer laravel/pint squizlabs/php_codesniffer tightenco/tlint  --dev
+```
