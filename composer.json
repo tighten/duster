@@ -33,7 +33,7 @@
         "php": "^8.2.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.54",
+        "friendsofphp/php-cs-fixer": "^3.59",
         "laravel-zero/framework": "^11.0",
         "laravel/pint": "^1.15",
         "nunomaduro/termwind": "^2.0",

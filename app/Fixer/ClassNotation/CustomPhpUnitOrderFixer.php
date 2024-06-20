@@ -15,9 +15,19 @@ class CustomPhpUnitOrderFixer extends CustomOrderedClassElementsFixer
         return 'Tighten/custom_phpunit_order';
     }
 
-    public function configure(array $configuration): void
+    /**
+     * {@inheritdoc}
+     *
+     * Must run after CustomOrderedClassElementsFixer.
+     */
+    public function getPriority(): int
     {
-        $configuration['order'] = [
+        return 64;
+    }
+
+    protected function configurePreNormalisation(array &$configuration): void
+    {
+        $configuration['order'] = $configuration['order'] ?? [
             'use_trait',
             'property_public_static',
             'property_protected_static',
@@ -39,18 +49,6 @@ class CustomPhpUnitOrderFixer extends CustomOrderedClassElementsFixer
             'method_private',
             'magic',
         ];
-
-        parent::configure($configuration);
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * Must run after CustomOrderedClassElementsFixer.
-     */
-    public function getPriority(): int
-    {
-        return 64;
     }
 
     protected function applyFix(SplFileInfo $file, Tokens $tokens): void
