@@ -248,7 +248,7 @@ Custom values:
     }
 
     /**
-     * @param array<string, mixed> $configuration
+     * @param  array<string, mixed>  $configuration
      */
     protected function configurePreNormalisation(array &$configuration): void
     {

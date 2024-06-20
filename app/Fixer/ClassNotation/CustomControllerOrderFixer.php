@@ -70,7 +70,7 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
     }
 
     /**
-     * @param array<string, mixed> $configuration
+     * @param  array<string, mixed>  $configuration
      */
     protected function configurePreNormalisation(array &$configuration): void
     {
