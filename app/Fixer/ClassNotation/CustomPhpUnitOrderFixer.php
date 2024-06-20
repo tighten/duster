@@ -25,6 +25,9 @@ class CustomPhpUnitOrderFixer extends CustomOrderedClassElementsFixer
         return 64;
     }
 
+    /**
+     * @param array<string, mixed> $configuration
+     */
     protected function configurePreNormalisation(array &$configuration): void
     {
         $configuration['order'] = $configuration['order'] ?? [

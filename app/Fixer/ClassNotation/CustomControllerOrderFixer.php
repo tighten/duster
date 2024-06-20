@@ -69,6 +69,9 @@ class CustomControllerOrderFixer extends CustomOrderedClassElementsFixer
         return false;
     }
 
+    /**
+     * @param array<string, mixed> $configuration
+     */
     protected function configurePreNormalisation(array &$configuration): void
     {
         $configuration['order'] = $configuration['order'] ?? [

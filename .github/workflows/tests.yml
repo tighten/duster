@@ -36,7 +36,7 @@ jobs:
           coverage: none
 
       - name: Install dev dependencies
-        run: COMPOSER=composer-dev.json composer install
+        run: export COMPOSER=composer-dev.json && composer install
 
       - name: Run Duster
         run: ./builds/duster lint --using="tlint,phpcodesniffer,phpcsfixer,pint"

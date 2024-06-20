@@ -248,9 +248,7 @@ Custom values:
     }
 
     /**
-     * One can override me.
-     *
-     * @param  TFixerInputConfig  $configuration
+     * @param array<string, mixed> $configuration
      */
     protected function configurePreNormalisation(array &$configuration): void
     {
