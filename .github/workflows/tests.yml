@@ -37,6 +37,11 @@ jobs:
 
       - name: Install dev dependencies
         run: export COMPOSER=composer-dev.json && composer install
+        if: matrix.os == 'ubuntu-22.04'
+
+      - name: Install dev dependencies
+        run: set COMPOSER=composer-dev.json && composer install
+        if: matrix.os == 'windows-2019'
 
       - name: Run Duster
         run: ./builds/duster lint --using="tlint,phpcodesniffer,phpcsfixer,pint"
