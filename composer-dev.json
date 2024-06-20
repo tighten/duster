@@ -3,17 +3,17 @@
         "php": "^8.1.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.49",
+        "friendsofphp/php-cs-fixer": "^3.59",
         "larastan/larastan": "^2.7",
         "laravel-zero/framework": "^10.3",
-        "laravel/pint": "^1.13",
+        "laravel/pint": "^1.16",
         "nunomaduro/termwind": "^1.15",
         "pestphp/pest": "^1.23",
         "rector/rector": "^1.0",
         "spatie/invade": "^1.1",
         "spatie/laravel-ray": "^1.33",
-        "squizlabs/php_codesniffer": "^3.8",
-        "tightenco/tlint": "^9.2"
+        "squizlabs/php_codesniffer": "^3.10",
+        "tightenco/tlint": "^9.3"
     },
     "autoload": {
         "psr-4": {

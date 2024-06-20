@@ -35,11 +35,9 @@ jobs:
           tools: composer:v2
           coverage: none
 
-      - name: Install dependencies
-        run: composer install
-
-      - name: Add dev dependencies
-        run: composer require --dev nunomaduro/larastan pestphp/pest
+      - name: Install dev dependencies
+        shell: bash
+        run: export COMPOSER=composer-dev.json && composer install
 
       - name: Run Duster
         run: ./builds/duster lint --using="tlint,phpcodesniffer,phpcsfixer,pint"
