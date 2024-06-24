@@ -10,9 +10,7 @@ class PintConfigurationJsonRepository extends ConfigurationJsonRepository
     public function __construct(
         protected $path,
         protected $preset,
-        protected array $exclude)
-    {
-    }
+        protected array $exclude) {}
 
     /**
      * @return array<string, array<int, string>|string>
