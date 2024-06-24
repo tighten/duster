@@ -13,8 +13,7 @@ class Clean
     public function __construct(
         protected string $mode,
         protected array $tools,
-    ) {
-    }
+    ) {}
 
     public function execute(): int
     {

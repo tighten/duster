@@ -15,8 +15,7 @@ class UserScript extends Tool
         protected string $name,
         protected array $command,
         protected DusterConfig $dusterConfig,
-    ) {
-    }
+    ) {}
 
     public function lint(): int
     {
