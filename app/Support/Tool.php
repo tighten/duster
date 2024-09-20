@@ -21,11 +21,11 @@ abstract class Tool
 
     public function success(string $message): void
     {
-        render('<div class="text-green-900 bg-green-300 px-1 font-bold">>> ' . $message . '</div>');
+        render('<div class="text-green-900 bg-green-300 px-1 font-bold">>> success: ' . $message . '</div>');
     }
 
     public function failure(string $message): void
     {
-        render('<div class="text-red-900 bg-red-300 px-1 font-bold">!! ' . $message . '</div>');
+        render('<div class="text-red-900 bg-red-300 px-1 font-bold">!! error: ' . $message . '</div>');
     }
 }
