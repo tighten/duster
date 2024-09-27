@@ -16,30 +16,16 @@ abstract class Tool
 
     public function heading(string $heading): void
     {
-        render('<div class="px-1 bg-green-300 text-black w-full text-center font-bold">' . $heading . '</div>');
+        render('<div class="font-bold bg-yellow-800 px-1">=> ' . $heading . '</div>');
     }
 
     public function success(string $message): void
     {
-        render(<<<HTML
-            <div class="py-1 ml-2">
-                <div class="px-1 bg-green-300 text-black">Success</div>
-                <em class="ml-1">
-                {$message}
-                </em>
-            </div>
-        HTML);
+        render('<div class="text-green-900 bg-green-300 px-1 font-bold">>> success: ' . $message . '</div>');
     }
 
     public function failure(string $message): void
     {
-        render(<<<HTML
-            <div class="py-1 ml-2">
-                <div class="px-1 bg-red-300 text-black">Error</div>
-                <em class="ml-1">
-                {$message}
-                </em>
-            </div>
-        HTML);
+        render('<div class="text-red-900 bg-red-300 px-1 font-bold">!! error: ' . $message . '</div>');
     }
 }
