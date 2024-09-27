@@ -5,7 +5,7 @@ namespace App\Commands;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
-use function Termwind\{render};
+use function Termwind\render;
 
 class GitHubActionsCommand extends Command
 {

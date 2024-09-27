@@ -6,7 +6,7 @@ use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
-use function Termwind\{render};
+use function Termwind\render;
 
 class HuskyHooksCommand extends Command
 {

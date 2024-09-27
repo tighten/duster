@@ -2,7 +2,7 @@
 
 namespace App\Support;
 
-use function Termwind\{render};
+use function Termwind\render;
 
 abstract class Tool
 {
