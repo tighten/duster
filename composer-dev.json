@@ -3,10 +3,10 @@
         "php": "^8.2.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.59",
+        "friendsofphp/php-cs-fixer": "^3.64",
         "larastan/larastan": "^2.7",
         "laravel-zero/framework": "^11.0",
-        "laravel/pint": "^1.16",
+        "laravel/pint": "^1.18",
         "nunomaduro/termwind": "^2.0",
         "pestphp/pest": "^2.0",
         "phpstan/phpstan": "^1.11",
@@ -18,9 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
@@ -29,7 +27,8 @@
         },
         "files": [
             "./vendor/squizlabs/php_codesniffer/autoload.php"
-        ]
+        ],
+        "exclude-from-classmap": ["/tests/Fixtures/"]
     },
     "scripts": {
         "lint": "./duster lint",

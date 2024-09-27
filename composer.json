@@ -33,9 +33,9 @@
         "php": "^8.2.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.59",
+        "friendsofphp/php-cs-fixer": "^3.64",
         "laravel-zero/framework": "^11.0",
-        "laravel/pint": "^1.16",
+        "laravel/pint": "^1.18",
         "nunomaduro/termwind": "^2.0",
         "spatie/invade": "^1.1",
         "squizlabs/php_codesniffer": "^3.10",
@@ -43,24 +43,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        },
         "files": [
             "./vendor/squizlabs/php_codesniffer/autoload.php"
         ]
-    },
-    "scripts": {
-        "lint": "./duster lint",
-        "fix": "./duster fix",
-        "rector-dry-run": "vendor/bin/rector process --dry-run --ansi",
-        "rector": "vendor/bin/rector process --ansi"
     },
     "config": {
         "preferred-install": {
