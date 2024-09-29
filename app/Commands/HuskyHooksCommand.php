@@ -2,24 +2,23 @@
 
 namespace App\Commands;
 
+use App\Concerns\CommandHelpers;
 use LaravelZero\Framework\Commands\Command;
 use RuntimeException;
 use Symfony\Component\Process\Process;
 
-use function Termwind\render;
-
 class HuskyHooksCommand extends Command
 {
+    use CommandHelpers;
+
     protected $signature = 'husky-hooks';
 
     protected $description = 'Publish Husky Hooks';
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): int
     {
         $choices = [
             'Lint only' => 'lint',
@@ -57,6 +56,8 @@ class HuskyHooksCommand extends Command
         $this->runCommands(["npx husky add ./.husky/pre-commit 'npx --no-install lint-staged'"]);
 
         $this->success('Husky Pre-Commit Git Hook added');
+
+        return Command::SUCCESS;
     }
 
     /**
@@ -79,17 +80,5 @@ class HuskyHooksCommand extends Command
         $process->run(function ($type, $line) {
             $this->output->write('    ' . $line);
         });
-    }
-
-    private function success(string $message): void
-    {
-        render(<<<HTML
-            <div class="py-1 ml-2">
-                <div class="px-1 bg-green-300 text-black">Success</div>
-                <em class="ml-1">
-                {$message}
-                </em>
-            </div>
-        HTML);
     }
 }

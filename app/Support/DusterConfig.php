@@ -6,6 +6,7 @@ use App\Project;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use JsonException;
 use Symfony\Component\Finder\Finder;
 
 class DusterConfig
@@ -27,22 +28,6 @@ class DusterConfig
         protected array $config = []
     ) {
         $this->config = static::scopeConfigPaths($this->config);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public static function loadLocal(): array
-    {
-        if (file_exists(Project::path() . '/duster.json')) {
-            return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true, 512, JSON_THROW_ON_ERROR), function ($configuration) {
-                if (! is_array($configuration)) {
-                    abort(1, 'The configuration file duster.json is not valid JSON.');
-                }
-            });
-        }
-
-        return [];
     }
 
     /**
@@ -123,6 +108,24 @@ class DusterConfig
                 ->filter(fn ($path) => file_exists($path))
                 ->all();
         }
+    }
+
+    /**
+     * @return array<string, mixed>
+     *
+     * @throws JsonException
+     */
+    public static function loadLocal(): array
+    {
+        if (file_exists(Project::path() . '/duster.json')) {
+            return tap(json_decode(file_get_contents(Project::path() . '/duster.json'), true, 512, JSON_THROW_ON_ERROR), function ($configuration) {
+                if (! is_array($configuration)) {
+                    abort(1, 'The configuration file duster.json is not valid JSON.');
+                }
+            });
+        }
+
+        return [];
     }
 
     public function get(string $key, mixed $default = null): mixed

@@ -2,6 +2,10 @@
 
 namespace App\Support;
 
+use Illuminate\Console\Command;
+use JsonException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use Symfony\Component\Process\Process;
@@ -15,7 +19,9 @@ class UserScript extends Tool
         protected string $name,
         protected array $command,
         protected DusterConfig $dusterConfig,
-    ) {}
+    ) {
+        parent::__construct($dusterConfig);
+    }
 
     public function lint(): int
     {
@@ -24,6 +30,11 @@ class UserScript extends Tool
         return $this->process();
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws JsonException
+     */
     public function fix(): int
     {
         $this->heading('Fixing using ' . $this->name);
@@ -31,6 +42,11 @@ class UserScript extends Tool
         return $this->process();
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws JsonException
+     */
     private function process(): int
     {
         $dusterConfig = DusterConfig::loadLocal();
@@ -46,7 +62,7 @@ class UserScript extends Tool
         } catch (ProcessTimedOutException $e) {
             $this->failure($e->getMessage() . '<br />You can overwrite this timeout with the processTimeout key in your duster.json file.');
 
-            return 1;
+            return Command::FAILURE;
         }
     }
 }

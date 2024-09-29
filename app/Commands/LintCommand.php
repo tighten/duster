@@ -30,7 +30,7 @@ class LintCommand extends Command
         } catch (Exception $exception) {
             $this->error($exception->getMessage());
 
-            return 1;
+            return Command::FAILURE;
         }
     }
 }

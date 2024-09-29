@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class DusterServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(DusterConfig::class, function () {
             $input = $this->app->get(InputInterface::class);

@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use JsonException;
+
 class PintConfigurationJsonRepository extends ConfigurationJsonRepository
 {
     /**
@@ -10,10 +12,15 @@ class PintConfigurationJsonRepository extends ConfigurationJsonRepository
     public function __construct(
         protected $path,
         protected $preset,
-        protected array $exclude) {}
+        protected array $exclude)
+    {
+        parent::__construct($path, $preset);
+    }
 
     /**
      * @return array<string, array<int, string>|string>
+     *
+     * @throws JsonException
      */
     protected function get(): array
     {
@@ -28,6 +35,8 @@ class PintConfigurationJsonRepository extends ConfigurationJsonRepository
 
     /**
      * @return array<string, array<int, string>|string>
+     *
+     * @throws JsonException
      */
     protected function getPintConfig(): array
     {
