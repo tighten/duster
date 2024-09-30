@@ -2,13 +2,14 @@
 
 namespace App\Commands;
 
+use App\Concerns\CommandHelpers;
 use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
-use function Termwind\render;
-
 class GitHubActionsCommand extends Command
 {
+    use CommandHelpers;
+
     protected $signature = 'github-actions';
 
     protected $description = 'Publish GitHub Actions';
@@ -46,17 +47,5 @@ class GitHubActionsCommand extends Command
         $this->success('GitHub Actions added');
 
         return Command::SUCCESS;
-    }
-
-    private function success(string $message): void
-    {
-        render(<<<HTML
-            <div class="py-1 ml-2">
-                <div class="px-1 bg-green-300 text-black">Success</div>
-                <em class="ml-1">
-                {$message}
-                </em>
-            </div>
-        HTML);
     }
 }

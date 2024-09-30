@@ -23,7 +23,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class PintServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(ErrorsManager::class, fn () => new ErrorsManager);
 

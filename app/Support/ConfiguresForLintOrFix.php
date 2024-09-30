@@ -17,8 +17,8 @@ trait ConfiguresForLintOrFix
                     new InputArgument(
                         name: 'path',
                         mode: InputArgument::IS_ARRAY,
-                        default: [(string) getcwd()],
                         description: 'The path to lint/fix',
+                        default: [(string) getcwd()],
                     ),
                     new InputOption(
                         name: 'using',
