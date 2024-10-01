@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Contracts\Tool;
 use App\Project;
 use PHP_CodeSniffer\Config;
 use PHP_CodeSniffer\Runner;

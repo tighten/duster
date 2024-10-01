@@ -5,6 +5,7 @@ namespace App\Support;
 use App\Actions\ElaborateSummary;
 use App\Actions\FixCode;
 use App\Commands\DefaultCommand;
+use App\Contracts\Tool;
 
 class Pint extends Tool
 {

@@ -2,7 +2,7 @@
 
 namespace App\Actions;
 
-use App\Support\Tool;
+use App\Contracts\Tool;
 use Illuminate\Console\Command;
 
 class Clean

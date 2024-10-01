@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Support;
+namespace App\Contracts;
 
 use App\Concerns\CommandHelpers;
+use App\Support\DusterConfig;
 
 abstract class Tool
 {
