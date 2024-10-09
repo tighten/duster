@@ -3,9 +3,9 @@
 namespace App\Support;
 
 use App\Actions\ElaborateSummary;
+use App\Contracts\Tool;
 use App\Project;
 use ArrayIterator;
-use PhpCsFixer\Config;
 use PhpCsFixer\ConfigInterface;
 use PhpCsFixer\ConfigurationException\InvalidConfigurationException;
 use PhpCsFixer\Console\ConfigurationResolver;

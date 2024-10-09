@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Contracts\Tool;
 use Illuminate\Console\Command;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;

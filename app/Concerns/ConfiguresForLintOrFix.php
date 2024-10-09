@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support;
+namespace App\Concerns;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
