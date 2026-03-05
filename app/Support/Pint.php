@@ -5,7 +5,9 @@ namespace App\Support;
 use App\Actions\ElaborateSummary;
 use App\Actions\FixCode;
 use App\Commands\DefaultCommand;
+use App\Contracts\PintInputInterface;
 use App\Contracts\Tool;
+use ReflectionProperty;
 
 class Pint extends Tool
 {
@@ -26,6 +28,9 @@ class Pint extends Tool
     private function process(): int
     {
         $defaultCommand = new DefaultCommand;
+
+        $property = new ReflectionProperty($defaultCommand, 'input');
+        $property->setValue($defaultCommand, resolve(PintInputInterface::class));
 
         return $defaultCommand->handle(resolve(FixCode::class), resolve(ElaborateSummary::class));
     }
