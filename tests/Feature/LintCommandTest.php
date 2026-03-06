@@ -141,6 +141,18 @@ it('only lints with both TLint and Pint', function () {
         ->not->toContain('Linting using PHP CS Fixer');
 });
 
+it('excludes paths passed via --exclude option', function () {
+    [$statusCode, $output] = run('lint', [
+        'path' => base_path('tests'),
+        '--exclude' => 'Fixtures/PintFixableIssues',
+        '--using' => 'pint',
+    ]);
+
+    expect($output)
+        ->toContain('Linting using Pint')
+        ->not->toContain('PintFixableIssues');
+});
+
 it('lints multiple provided files', function () {
     [$statusCode, $output] = run('lint', [
         'path' => [
