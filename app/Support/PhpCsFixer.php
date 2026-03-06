@@ -15,6 +15,8 @@ use PhpCsFixer\Runner\Runner;
 use PhpCsFixer\ToolInfo;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Process;
 
 class PhpCsFixer extends Tool
 {
@@ -44,6 +46,10 @@ class PhpCsFixer extends Tool
 
     private function process(): int
     {
+        if ($this->hasProjectBinary() && $this->hasProjectConfig()) {
+            return $this->processViaProjectBinary();
+        }
+
         $output = app()->get(OutputInterface::class);
 
         $resolver = new ConfigurationResolver(
@@ -81,6 +87,69 @@ class PhpCsFixer extends Tool
         )));
 
         return app()->get(ElaborateSummary::class)->execute($totalFiles, $changes);
+    }
+
+    private function hasProjectBinary(): bool
+    {
+        return file_exists(Project::path() . '/vendor/bin/php-cs-fixer');
+    }
+
+    private function hasProjectConfig(): bool
+    {
+        $configPath = $this->getConfigFilePath();
+
+        return str_starts_with($configPath, Project::path())
+            && ! str_contains($configPath, 'standards/');
+    }
+
+    private function processViaProjectBinary(): int
+    {
+        $output = app()->get(OutputInterface::class);
+
+        $command = [
+            Project::path() . '/vendor/bin/php-cs-fixer',
+            'fix',
+            '--config=' . $this->getConfigFilePath(),
+            '--allow-risky=yes',
+            '--show-progress=dots',
+            '--path-mode=override',
+        ];
+
+        if ($this->dusterConfig->get('mode') === 'lint') {
+            $command[] = '--dry-run';
+        }
+
+        if ($output->isVerbose()) {
+            $command[] = '--diff';
+        }
+
+        if ($output->isDebug()) {
+            $command[] = '-vvv';
+        } elseif ($output->isVeryVerbose()) {
+            $command[] = '-vv';
+        } elseif ($output->isVerbose()) {
+            $command[] = '-v';
+        } elseif ($output->isQuiet()) {
+            $command[] = '--quiet';
+        }
+
+        foreach ($this->dusterConfig->get('paths', []) as $path) {
+            $command[] = $path;
+        }
+
+        $dusterConfig = DusterConfig::loadLocal();
+        $process = new Process($command, Project::path());
+        $process->setTimeout($dusterConfig['processTimeout'] ?? 60);
+
+        try {
+            $process->run(fn ($type, $buffer) => $output->write($buffer));
+
+            return $process->getExitCode();
+        } catch (ProcessTimedOutException $e) {
+            $this->failure($e->getMessage() . '<br />You can overwrite this timeout with the processTimeout key in your duster.json file.');
+
+            return 1;
+        }
     }
 
     private function getConfig(): ConfigInterface
