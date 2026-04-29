@@ -49,11 +49,11 @@ it('merges provided exclude with default exclude config values', function () {
         '_ide_helper_models.php',
         '_ide_helper.php',
         '.phpstorm.meta.php',
-        'bootstrap/cache',
-        'build',
-        'node_modules',
-        'storage',
+        'bootstrap/cache/',
+        'build/',
+        'node_modules/',
+        'storage/',
         'tests/Pest.php',
-        'vendor',
+        'vendor/',
     ]);
 });
