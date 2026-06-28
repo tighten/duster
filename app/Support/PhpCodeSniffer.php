@@ -14,25 +14,23 @@ class PhpCodeSniffer extends Tool
     {
         $this->heading('Linting using PHP_CodeSniffer');
 
-        if (! $this->hasCustomConfig()) {
-            if (empty($paths = $this->getPaths())) {
-                return 0;
-            }
+        $paths = $this->resolvePaths();
+
+        if ($paths === null) {
+            return 0;
         }
 
-        return $this->process('runPHPCS', $paths ?? []);
+        return $this->process('runPHPCS', $paths);
     }
 
     public function fix(): int
     {
         $this->heading('Fixing using PHP_CodeSniffer');
 
-        if ($this->hasCustomConfig()) {
-            $paths = [];
-        } else {
-            if (empty($paths = $this->getPaths())) {
-                return 0;
-            }
+        $paths = $this->resolvePaths();
+
+        if ($paths === null) {
+            return 0;
         }
 
         $fix = $this->process('runPHPCBF', $paths);
@@ -88,13 +86,45 @@ class PhpCodeSniffer extends Tool
     }
 
     /**
+     * Resolve the paths to hand to PHP_CodeSniffer.
+     *
+     * Returns:
+     *   - `null`           when PHPCS should be skipped entirely (e.g. only Blade
+     *                      files were passed explicitly, or there is nothing to lint).
+     *   - An empty array   when PHPCS should fall back to the project's custom
+     *                      ruleset (custom config present and no explicit paths).
+     *   - A list of paths  otherwise.
+     *
+     * @return array<int, string>|null
+     */
+    private function resolvePaths(): ?array
+    {
+        if ($this->hasExplicitPaths()) {
+            $paths = $this->filterBladeFiles($this->dusterConfig->get('paths'));
+
+            return empty($paths) ? null : $paths;
+        }
+
+        if ($this->hasCustomConfig()) {
+            return [];
+        }
+
+        $paths = $this->filterBladeFiles($this->getDefaultDirectories());
+
+        return empty($paths) ? null : $paths;
+    }
+
+    private function hasExplicitPaths(): bool
+    {
+        return $this->dusterConfig->get('paths') !== [Project::path()];
+    }
+
+    /**
+     * @param  array<int, string>  $paths
      * @return array<int, string>
      */
-    private function getPaths(): array
+    private function filterBladeFiles(array $paths): array
     {
-        $paths = $this->dusterConfig->get('paths') === [Project::path()]
-            ? $this->getDefaultDirectories() : $this->dusterConfig->get('paths');
-
         return array_values(array_filter($paths, function ($path) {
             if (is_dir($path)) {
                 return true;
