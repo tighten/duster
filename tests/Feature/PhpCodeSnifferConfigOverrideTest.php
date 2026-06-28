@@ -27,9 +27,12 @@ it('lints only the explicit paths when project has a custom phpcs config', funct
         ->not->toContain('Comment refers to a TODO task');
 });
 
-it('falls back to ruleset file directives when no explicit paths are provided', function () {
+it('falls back to ruleset file directives when the explicit path is the project root', function () {
     chdir(__DIR__ . '/../Fixtures/PhpCodeSnifferProjectConfigWithExplicitFile');
 
+    // The `path` argument resolves to the same absolute path as the project root
+    // (getcwd()), so PhpCodeSniffer treats this as the default invocation and
+    // defers to the ruleset's <file> directives.
     [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCodeSnifferProjectConfigWithExplicitFile'),
         '--using' => 'phpcs',
