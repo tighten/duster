@@ -64,6 +64,7 @@
     <!-- Use config() over env() -->
     <rule ref="Tighten.PHP.UseConfigOverEnv">
         <exclude-pattern>/config/*</exclude-pattern>
+        <exclude-pattern>/tests/*</exclude-pattern>
     </rule>
 
     <!-- Class name should match the file name -->
