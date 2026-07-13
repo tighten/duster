@@ -4,8 +4,13 @@ namespace App\Actions;
 
 use App\Output\SummaryOutput;
 use Illuminate\Console\Command;
-use PhpCsFixer\Console\Report\FixReport;
+use PhpCsFixer\Console\Report\FixReport\CheckstyleReporter;
+use PhpCsFixer\Console\Report\FixReport\GitlabReporter;
+use PhpCsFixer\Console\Report\FixReport\JsonReporter;
+use PhpCsFixer\Console\Report\FixReport\JunitReporter;
 use PhpCsFixer\Console\Report\FixReport\ReportSummary;
+use PhpCsFixer\Console\Report\FixReport\TextReporter;
+use PhpCsFixer\Console\Report\FixReport\XmlReporter;
 use PhpCsFixer\Error\ErrorsManager;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -62,12 +67,12 @@ class ElaborateSummary
     protected function displayUsingFormatter(ReportSummary $summary, string $format, ?string $outputPath = null): void
     {
         $reporter = match ($format) {
-            'checkstyle' => new FixReport\CheckstyleReporter,
-            'gitlab' => new FixReport\GitlabReporter,
-            'json' => new FixReport\JsonReporter,
-            'junit' => new FixReport\JunitReporter,
-            'txt' => new FixReport\TextReporter,
-            'xml' => new FixReport\XmlReporter,
+            'checkstyle' => new CheckstyleReporter,
+            'gitlab' => new GitlabReporter,
+            'json' => new JsonReporter,
+            'junit' => new JunitReporter,
+            'txt' => new TextReporter,
+            'xml' => new XmlReporter,
             default => abort(1, sprintf('Format [%s] is not supported.', $format)),
         };
 
