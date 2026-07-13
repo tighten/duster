@@ -44,10 +44,10 @@ To update dependencies to latest:
 
 ```bash
 # Production
-composer require friendsofphp/php-cs-fixer laravel-zero/framework laravel/pint nunomaduro/termwind shipfastlabs/agent-detector squizlabs/php_codesniffer tightenco/tlint --dev
+composer require friendsofphp/php-cs-fixer laravel-zero/framework laravel/pint laravel/agent-detector nunomaduro/termwind squizlabs/php_codesniffer tightenco/tlint --dev
 
 # Development
-COMPOSER=composer-dev.json composer require friendsofphp/php-cs-fixer larastan/larastan laravel-zero/framework laravel/pint nunomaduro/termwind pestphp/pest phpstan/phpstan rector/rector shipfastlabs/agent-detector spatie/laravel-ray squizlabs/php_codesniffer tightenco/tlint  --dev
+COMPOSER=composer-dev.json composer require friendsofphp/php-cs-fixer larastan/larastan laravel-zero/framework laravel/pint laravel/agent-detector nunomaduro/termwind pestphp/pest phpstan/phpstan rector/rector spatie/laravel-ray squizlabs/php_codesniffer tightenco/tlint  --dev
 ```
 
 ## PHPStan

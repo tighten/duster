@@ -11,7 +11,7 @@
         "pestphp/pest": "^3.8",
         "phpstan/phpstan": "^2.1",
         "rector/rector": "^2.4",
-        "shipfastlabs/agent-detector": "^1.1",
+        "laravel/agent-detector": "^2.0",
         "spatie/invade": "^1.1",
         "spatie/laravel-ray": "^1.43",
         "squizlabs/php_codesniffer": "^4.0",
