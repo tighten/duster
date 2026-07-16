@@ -3,12 +3,13 @@
     <description>Tighten PHP CS rules for Laravel</description>
 
     <!-- Ignore normal Laravel files and folders -->
+    <!-- Dots are escaped because PHPCS converts these patterns to regex by replacing only `*` with `.*`, leaving `.` as the any-char metachar -->
     <exclude-pattern>*/cache/*</exclude-pattern>
-    <exclude-pattern>*/*.js</exclude-pattern>
-    <exclude-pattern>*/*.css</exclude-pattern>
-    <exclude-pattern>*/*.xml</exclude-pattern>
-    <exclude-pattern>*/*.blade.php</exclude-pattern>
-    <exclude-pattern>*/autoload.php</exclude-pattern>
+    <exclude-pattern>*/*\.js</exclude-pattern>
+    <exclude-pattern>*/*\.css</exclude-pattern>
+    <exclude-pattern>*/*\.xml</exclude-pattern>
+    <exclude-pattern>*/*\.blade\.php</exclude-pattern>
+    <exclude-pattern>*/autoload\.php</exclude-pattern>
     <exclude-pattern>*/storage/*</exclude-pattern>
     <exclude-pattern>*/docs/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
@@ -21,7 +22,7 @@
     <!-- PSR1 2.3 Side Effects -->
     <rule ref="PSR1.Files.SideEffects">
         <!-- Disable side effects for index file and tests -->
-        <exclude-pattern>/public/index.php</exclude-pattern>
+        <exclude-pattern>/public/index\.php</exclude-pattern>
         <exclude-pattern>*/tests/*</exclude-pattern>
     </rule>
 

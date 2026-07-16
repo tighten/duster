@@ -82,6 +82,22 @@ it('lints with PHP_CodeSniffer skipping blade files passed individually', functi
     expect($statusCode)->toBe(0);
 });
 
+it('lints with PHP_CodeSniffer respecting ruleset exclude-patterns', function () {
+    [$statusCode, $output] = run('lint', [
+        'path' => base_path('tests/Fixtures/PhpCodeSnifferRulesetExclusions'),
+        '--using' => 'phpcs',
+    ]);
+
+    expect($statusCode)->toBe(1)
+        ->and($output)
+        ->toContain('Linting using PHP_CodeSniffer')
+        ->toContain('Filename doesn\'t match class name')
+        ->toContain('WrongName')
+        ->toContain('NarrowingFileMustBeLinted')
+        ->not->toContain('AutoloadShouldNotBeLinted')
+        ->not->toContain('BladeShouldNotBeLinted');
+});
+
 it('lints with PHP CS Fixer', function () {
     [$statusCode, $output] = run('lint', [
         'path' => base_path('tests/Fixtures/PhpCsFixerFixableIssues'),
