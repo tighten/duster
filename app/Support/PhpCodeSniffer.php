@@ -56,7 +56,8 @@ class PhpCodeSniffer extends Tool
         }
 
         $ignore = $this->dusterConfig->get('exclude')
-            ? ['--ignore=' . implode(',', $this->dusterConfig->get('exclude'))]
+            ? ['--ignore=' . implode(',',
+                array_map(fn($path) => str_contains($path, getcwd()) ? $path : getcwd().'/*'.$path, $this->dusterConfig->get('exclude')))]
             : [];
 
         $_SERVER['argv'] = [
