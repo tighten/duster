@@ -55,9 +55,11 @@ class PhpCodeSniffer extends Tool
             define('PHP_CODESNIFFER_CBF', $tool === 'runPHPCBF');
         }
 
+        $cwd = str_replace('\\', '/', getcwd());
+
         $ignore = $this->dusterConfig->get('exclude')
             ? ['--ignore=' . implode(',',
-                array_map(fn ($path) => str_contains($path, getcwd()) ? $path : getcwd() . DIRECTORY_SEPARATOR . '*' . $path, $this->dusterConfig->get('exclude')))]
+                array_map(fn ($path) => str_contains($path, $cwd) ? $path : $cwd . '/*' . $path, $this->dusterConfig->get('exclude')))]
             : [];
 
         $_SERVER['argv'] = [
