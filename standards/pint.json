@@ -37,6 +37,7 @@
                 "function"
             ]
         },
+        "php_unit_attributes": true,
         "php_unit_test_annotation": {
             "style": "annotation"
         },
