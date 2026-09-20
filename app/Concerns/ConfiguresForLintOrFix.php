@@ -36,6 +36,11 @@ trait ConfiguresForLintOrFix
                         mode: InputOption::VALUE_REQUIRED,
                         description: 'Only fix files that have changed since branching off from the given branch',
                     ),
+                    new InputOption(
+                        name: 'exclude',
+                        mode: InputOption::VALUE_REQUIRED,
+                        description: 'Exclude paths (comma separated)',
+                    ),
                 ]
             );
     }

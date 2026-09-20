@@ -21,13 +21,14 @@ class DusterServiceProvider extends ServiceProvider
             };
 
             $dusterConfig = DusterConfig::loadLocal();
+            $excludeFromCli = array_filter(explode(',', (string) $input->getOption('exclude')));
 
             return new DusterConfig([
                 'paths' => Project::paths($input),
                 'using' => $input->getOption('using'),
                 'mode' => $mode,
                 'include' => $dusterConfig['include'] ?? [],
-                'exclude' => $dusterConfig['exclude'] ?? [],
+                'exclude' => array_merge($dusterConfig['exclude'] ?? [], $excludeFromCli),
                 'scripts' => $dusterConfig['scripts'] ?? [],
             ]);
         });
