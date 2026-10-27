@@ -16,17 +16,25 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-      - name: "Duster Fix"
-        uses: tighten/duster-action@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          args: fix
+          php-version: '8.5'
+          tools: composer:v2
+          coverage: none
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Duster Fix
+        run: ./vendor/bin/duster fix
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: Dusting
           commit_user_name: GitHub Action
