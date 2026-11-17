@@ -14,6 +14,7 @@ use App\Repositories\ConfigurationJsonRepository;
 use App\Repositories\GitPathsRepository;
 use App\Repositories\PintConfigurationJsonRepository;
 use App\Support\DusterConfig;
+use App\Support\Prettier;
 use Illuminate\Support\ServiceProvider;
 use PhpCsFixer\Error\ErrorsManager;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -28,6 +29,10 @@ class PintServiceProvider extends ServiceProvider
         $this->app->singleton(ErrorsManager::class, fn () => new ErrorsManager);
 
         $this->app->singleton(EventDispatcher::class, fn () => new EventDispatcher);
+
+        $this->app->singleton(Prettier::class, fn () => new Prettier(Project::path()));
+
+        $this->app->terminating(fn () => $this->app->make(Prettier::class)->ensureTerminated());
 
         $this->app->singleton(PintInputInterface::class, function () {
             $input = $this->app->get(InputInterface::class);

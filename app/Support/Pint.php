@@ -3,6 +3,7 @@
 namespace App\Support;
 
 use App\Actions\ElaborateSummary;
+use App\Actions\EnsurePrettierIsConfigured;
 use App\Actions\FixCode;
 use App\Commands\DefaultCommand;
 use App\Contracts\Tool;
@@ -32,6 +33,6 @@ class Pint extends Tool
         $input->bind($defaultCommand->getDefinition());
         $defaultCommand->setInput($input);
 
-        return $defaultCommand->handle(resolve(FixCode::class), resolve(ElaborateSummary::class));
+        return $defaultCommand->handle(resolve(FixCode::class), resolve(ElaborateSummary::class), resolve(EnsurePrettierIsConfigured::class));
     }
 }
