@@ -164,7 +164,7 @@ Create a `pint.json` file in your project root, you can use [Duster's `pint.json
 
 ## GitHub Action
 
-There's a [GitHub Action](https://github.com/tighten/duster-action) you use to clean-up your workflows.
+Run `./vendor/bin/duster github-actions` to publish a workflow to `.github/workflows`. The workflow installs your Composer dependencies and runs the Duster version from your project.
 
 >**Warning** Heads Up! Workflows that commit to your repo will stop any currently running workflows and not trigger another workflow run.
 
